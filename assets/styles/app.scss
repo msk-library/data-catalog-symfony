@@ -1,0 +1,41 @@
+body {
+    background-color: lightgray;
+}
+
+.page-wrapper {
+    min-height: 100%;
+  }
+  
+  #dataset_save {
+    display:block;
+    margin-bottom: 175px;
+  
+  }
+  /* Overriding this so the footer is responsive, with a fixed height, mobile breaks the content*/
+  footer, .push {
+    height: auto; /* '.push' must be the same height as 'footer' */
+    clear:both;
+  }
+  
+  #footer {
+    position: absolute;
+  }
+  div.footer-wrapper {
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    padding: 2px 0 2px 0;
+    height: auto; /* Another override to make footer content fully display on mobile devices */
+  }
+  
+  div.footer-wrapper a {
+    color: white;
+    line-height: 30px;
+    text-align: center;
+  }
+  
+  #msk-social-footer img {
+    width: 30px;
+    margin-top: -3px;
+    padding-left: 4px;
+  } 
