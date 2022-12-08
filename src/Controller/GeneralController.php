@@ -52,12 +52,12 @@ class GeneralController extends Controller
 
 
   /**
-   * Performs searches and produces results pages
+   * Home page, performs searches and produces results pages
    *
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *   * @Route("/", name="homepage")
+   * @Route("/", name="homepage")
    * @Route("/search", name="user_search_results")
    */
   public function indexAction(Request $request) {
@@ -294,7 +294,7 @@ class GeneralController extends Controller
 				'dataset' => $dataset,
 			));
 		} else {
-			return $this->render('default/view_dataset_external.html.twig', array(
+			return $this->render('view_dataset_external.html.twig', array(
 				'dataset' => $dataset,
 			));
 		}
