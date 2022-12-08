@@ -1,41 +1,209 @@
-body {
-    background-color: lightgray;
+html {
+  -ms-overflow-style: scrollbar;
+}
+.page-wrapper {
+  min-height: 100%;
+  margin: 0 auto;
 }
 
-.page-wrapper {
-    min-height: 100%;
-  }
+.container-fluid {
+padding: 0;
+}
+
+body {
+  font-family: 'Lato', 'Helvetica', 'Arial', 'Verdana', 'sans-serif';
+}
+
+/* Header */
+#page-header {
+  color: white;
+  background-color: #1c75cd;
+  height: 100%;
+}
+
+#logo-container {
+  height: 70px;
+}
+
+#logo {
+  height: 5em;
+  margin-top: 1em;
+}
+
+#msk-logo {
+  height: 4em;
+  margin-top: 1em;
+  margin-right: 1em;
+}
+
+
+.pagetitlelink {
+  color: white;
+}
+
+.nav-links {
+  top: 0;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+.nav-tabs>li:not(.active) {
+  background: #1c75cd;
+}
+
+.logo-right {
+  float: right;
+  margin-top: 30px;
+}
+
+/* Search Header */
+#search-header {
+  background: #03AEDF;
+  padding: 2px;
+}
+
+/* Search Box */
+form.input-group {
+  width: 100%;
+}
+
+/* Search Tips */
+.search-tips-link {
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal-body {
+  text-align: left;
+}
+
+/*Feedback */
+.btn-warning {
+  margin-right: 30px;
+  background-image: -webkit-linear-gradient(top,#ff8c00 0,#e67e00 100%);
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#ff8c00),to(#e67e00));
+  background-image: linear-gradient(to bottom, #e67e00 0, #ff8c00 100% );
+}
+
+/* Footer */
+
+/* the submit button */
+#dataset_save {
+  display:block;
+  margin-bottom: 175px;
   
-  #dataset_save {
-    display:block;
-    margin-bottom: 175px;
-  
-  }
-  /* Overriding this so the footer is responsive, with a fixed height, mobile breaks the content*/
-  footer, .push {
-    height: auto; /* '.push' must be the same height as 'footer' */
-    clear:both;
-  }
-  
-  #footer {
-    position: absolute;
-  }
-  div.footer-wrapper {
-    color: white;
-    line-height: 30px;
-    text-align: center;
-    padding: 2px 0 2px 0;
-    height: auto; /* Another override to make footer content fully display on mobile devices */
-  }
-  
-  div.footer-wrapper a {
-    color: white;
-    line-height: 30px;
-    text-align: center;
-  }
-  
-  #msk-social-footer img {
-    width: 30px;
-    margin-top: -3px;
-    padding-left: 4px;
-  } 
+}
+
+/* Overriding this so the footer is responsive, with a fixed height, mobile breaks the content*/
+footer, .push {
+  height: auto; /* '.push' must be the same height as 'footer' */
+  clear:both;
+}
+
+#footer {
+  position: absolute;
+  margin-top: 0px;
+}
+div.footer-wrapper {
+  color: white;
+  line-height: 30px;
+  text-align: center;
+  padding: 2px 0 2px 0;
+  height: auto; /* Another override to make footer content fully display on mobile devices */
+}
+
+div.footer-wrapper a {
+  color: white;
+  line-height: 30px;
+  text-align: center;
+}
+
+#msk-social-footer img {
+  width: 30px;
+  margin-top: -3px;
+  padding-left: 4px;
+}
+
+/* Detailed Record View */
+.msk-author {
+}
+.msk-author-note {
+  font-size:.75em;
+  display:block;
+}
+
+.msk-author-note {
+  font-size:.75em;
+  display:block;
+}
+
+.internal-dataset-badge {
+  background: rgb(255,64,13);
+  color: #ffffff;
+}
+
+.publishers-list {
+  color: gray;
+}
+
+.core_facilities-list {
+  color: gray;
+}
+
+/* Facets */
+.facet-header {
+  color:black;
+}
+.show_more {
+  font-weight: 700;
+  cursor: pointer;
+  color: gray;
+}
+
+.show_less {
+  font-weight: 700;
+  cursor: pointer;
+  color:gray;
+}
+
+/* About Page */
+
+.about-page-column {
+  padding-top:2em;
+  height: 1700px;
+}
+.about-page-section {
+  margin-bottom: 7em;
+}
+
+.team-bio-section {
+  margin-bottom: 5em;
+  overflow: hidden;
+}
+
+.team-bio-picture {
+  width: 300px;
+  float: left;
+  margin-right: 2em;
+}
+
+#about-page-nav {
+  padding: .25em;
+  margin-top: 1em;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+.about-anchor-link {
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: bold;
+  font-size: .9em;
+  text-transform: uppercase;
+  color: #717171;
+  padding: 1em;
+  border-left: 3px solid rgb(255,64,13);
+  letter-spacing: 0.5px;
+}
