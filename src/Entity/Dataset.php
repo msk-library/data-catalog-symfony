@@ -1865,7 +1865,7 @@ class Dataset implements JsonSerializable {
        $formats = $awards = $restrictions = $stds = $genders = $sexes = $ages = $equipment = $software = $subject_of_study = [];
        $areas = $projects = $area_details = $domains = $publications = $keywords = $publishers = [];
        $authors = $data_type_array = $types_of_study = $corresponding_authors = $experts = $data_locations = $akas = $related_datasets = [];
-       $other_resource_names = $other_resource_descriptions = $related_pubs = $data_location_contents = [];
+       $other_resource_names = $other_resource_descriptions = $related_pubs = $data_location_contents = $data_location_urls = [];
        $accession_numbers = $access_instructions = [];
        foreach ($this->dataset_formats as $format) { $formats[]=$format->getDisplayName(); }
        foreach ($this->awards as $award) { $awards[]=$award->getDisplayName(); }
@@ -1896,9 +1896,10 @@ class Dataset implements JsonSerializable {
          $other_resource_descriptions[]=$resource->getResourceDescription(); 
        }
        foreach ($this->data_locations as $loc) { 
-         $data_locations[]=$loc->getDataAccessUrl(); 
-         $data_location_contents[]=$loc->getLocationContent(); 
-         $accession_numbers[]=$loc->getAccessionNumber(); 
+        $data_locations[]=$loc->getDisplayName(); 
+        $data_location_contents[]=$loc->getLocationContent();
+        $data_location_urls[]=$loc->getDataAccessUrl(); 
+        $accession_numbers[]=$loc->getAccessionNumber();
        }
        foreach ($this->publications as $pub) { $publications[]=$pub->getDisplayName(); }
        return array(
@@ -1932,6 +1933,7 @@ class Dataset implements JsonSerializable {
          'other_resource_names'       => $other_resource_names,
          'other_resource_descriptions'=> $other_resource_descriptions,
          'data_locations'             => $data_locations,
+         'data_location_urls'    => $data_location_urls,
          'data_location_contents'     => $data_location_contents,
          'accession_numbers'          => $accession_numbers,
          'publications'               => $publications,
