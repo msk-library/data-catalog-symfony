@@ -61,6 +61,15 @@
        {% block results_JSONLD_output %}
        {% endblock %}
 
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+                <!--
+        <script src="{{ asset('js/respond.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/scripts.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/searching.js') }}" type="text/javascript"></script>
+        -->
+    {% endblock %}
     </head>
 <body>
   <div class="container-fluid">
@@ -202,15 +211,7 @@
       {% endif %}
 
       {% block content %}{% endblock %}
-      {% block javascripts %}
-        <script src="/build/app.js" type="text/javascript"></script>
 
-        <!--
-        <script src="{{ asset('js/respond.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('js/scripts.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('js/searching.js') }}" type="text/javascript"></script>
-        -->
-      {% endblock %}
       {# placeholder block for page-specific scripts #}
       {% block page_scripts %}
       {% endblock %}
