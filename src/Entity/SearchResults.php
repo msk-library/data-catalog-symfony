@@ -38,16 +38,32 @@ class SearchResults {
    * Maps Solr facet names to user-friendly facet names
    */
   public $facetMappings = array(
-    'Subject Domain' => 'subject_domain_fq',
+    'Subject' => 'subject_domain_fq',
     'Origin' => 'origin_fq',
+    'subject_domain_fq' => 'Subject',
+    'origin_fq' => 'Origin',
+    'publishers' => 'Publisher',
+    'Publisher' => 'publishers',
+    'OncoTree Cancer Tag' => 'subject_keywords',
+    'subject_keywords' => 'OncoTree Cancer Tag',
+    'Author' => 'authors',
+    'authors' => 'Author',
+    'Subject of Study' => 'subject_of_study',
+    'subject_of_study' => 'Subject of Study',
+    'Analytical/Collection Software' => 'related_software',
+    'related_software' => 'Analytical/Collection Software',
+    'Data Tools' => 'collection_standards',
+    'collection_standards' => 'Data Tools',
+    'Repository' => 'data_locations',
+    'data_locations' => 'Repository',
+    /* Unused facets
     'Timeframe' => 'dataset_years',
     'Geographic Coverage' => 'subject_geographic_area_fq',
     'Access Restrictions' => 'access_restrictions_fq',
-    'subject_domain_fq' => 'Subject Domain',
-    'origin_fq' => 'Origin',
     'dataset_years' => 'Dataset Timeframes',
     'subject_geographic_area_fq' => 'Geographic Coverage',
     'access_restrictions_fq' => 'Access Restrictions',
+    */
   );
 
 
@@ -99,6 +115,7 @@ class SearchResults {
         );
       }
     }
+    /*
     $timeframes = $translatedFacets['Timeframe'];
     
     $begin  = substr($timeframes[1]['facetItem'], 0, 4);
@@ -110,7 +127,7 @@ class SearchResults {
     $translatedFacets['Timeframe'][2]['facetItem'] = $second . ' - ' . ($third-1);
     $translatedFacets['Timeframe'][3]['facetItem'] = $third . ' - ' . ($fourth-1);
     $translatedFacets['Timeframe'][4]['facetItem'] = $fourth . ' - Present';
-     
+    */ 
     return $translatedFacets;
   }
 
