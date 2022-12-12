@@ -48,32 +48,19 @@ class GeneralController extends Controller
   }
 
 
-  /**
-   * Display splash page, checking if we have an institution-specific version first
-   *
-   * @return Response A Response instance
-   * @Route("/", name="homepage")
-   */
-  public function indexAction(Request $request) {
-    if ($this->get('twig')->getLoader()->exists('institution/index.html.twig')) {
-      return $this->render('institution/index.html.twig',array()); 
-    }
-    else {
-      return $this->render('index.html.twig', array());
-    }
-  }
+
 
 
   /**
-   * Performs searches and produces results pages
+   * Home page, performs searches and produces results pages
    *
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
+   * @Route("/", name="homepage")
    * @Route("/search", name="user_search_results")
    */
-  public function searchAction(Request $request) {
+  public function indexAction(Request $request) {
     
     $currentSearch = new SearchState($request);
 
@@ -307,7 +294,7 @@ class GeneralController extends Controller
 				'dataset' => $dataset,
 			));
 		} else {
-			return $this->render('default/view_dataset_external.html.twig', array(
+			return $this->render('view_dataset_external.html.twig', array(
 				'dataset' => $dataset,
 			));
 		}
