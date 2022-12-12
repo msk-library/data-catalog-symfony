@@ -7,7 +7,7 @@
         {% block page_title %}
         <title>{{ site_name }}</title>
         {% endblock %}
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}" />
         <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
@@ -116,20 +116,22 @@
                 </span>
               <!-- Trigger the modal with a link -->
               <span class="search-tips-link">
-            	  <a data-toggle="modal" href="#myModal" style="color: white"><span class="glyphicon glyphicon-info-sign"></span> Search Tips</a>
+            	  <a data-toggle="modal"role="button" href="#searchTips" style="color: white"><i class="fas fa-info-circle"></i>Search Tips</a>
               </span>
             </form>
 
             
             <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal fade" id="searchTips" role="dialog" tabindex="-1" aria-labelledby="searchTipsLabel" aria-hidden="true">
                 <div class="modal-dialog">
     
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Search Tips</h4>
+                      <h4 class="modal-title">Search Tips</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
                     <div class="modal-body">
                         <p>
@@ -201,12 +203,13 @@
 
       {% block content %}{% endblock %}
       {% block javascripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="build/app.js" type="text/javascript"></script>
+        <script src="/build/app.js" type="text/javascript"></script>
+
+        <!--
         <script src="{{ asset('js/respond.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/scripts.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/searching.js') }}" type="text/javascript"></script>
+        -->
       {% endblock %}
       {# placeholder block for page-specific scripts #}
       {% block page_scripts %}
