@@ -9,4 +9,8 @@
 import './styles/app.scss';
 
 // start the Stimulus application
-import './bootstrap';
+//import './bootstrap';
+
+// jQuery is required by BS4
+const $ = require('jquery');
+require('bootstrap');
