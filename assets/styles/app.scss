@@ -1,5 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 
+$nav-link-color: white;
+$nav-tabs-link-active-bg: white;
+
 html {
   -ms-overflow-style: scrollbar;
 }
@@ -21,6 +24,7 @@ body {
   color: white;
   background-color: #1c75cd;
   height: 100%;
+  padding: 1rem;
 }
 
 #logo-container {
@@ -47,15 +51,20 @@ body {
   top: 0;
   padding-top: 5px;
   padding-right: 5px;
+  margin-right: 15px;
 }
 
 .nav-tabs>li:not(.active) {
   background: #1c75cd;
 }
 
+.nav-tabs {
+  border-bottom: none;
+}
+
 .logo-right {
   float: right;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 /* Search Header */

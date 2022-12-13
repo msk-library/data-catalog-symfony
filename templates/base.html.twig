@@ -79,26 +79,20 @@
       <div class="row">
         <div class="col-lg-8 col-md-7 col-sm-6 logo-container">
         {# tell us where your site's logo lives in 'institution/logo.html.twig' #}
-        {% include ['institution/logo.html.twig','logo.html.twig'] ignore missing %}
+        {% include ['institution/applogo.html.twig','logo.html.twig'] ignore missing %}
         </div>
-        
-        <!--
-        <span class="pagetitle">
-          <h2><a class="pagetitlelink" href="/">{{ site_name }}</a></h2>
-        </span>
-        -->
         <div class="col-lg-4 col-md-5 col-sm-6">
         <div class="row">
         <nav class="nav-links">
           <ul class="nav nav-tabs">
-            <li class="home-nav-link {% if app.request.get('_route') == 'default_search_results'%}active{% endif %} "><a href="/">Home</a></li>
-            <li class="about-nav-link {% if app.request.get('_route') == 'about' %}active{% endif %}"><a href="{{ path('about') }}">About</a></li>
-            <li class="contact-page-link {% if app.request.get('_route') == 'contact' %}active{% endif %}"><a href="{{ path('contact') }}">Contact Us</a></li>
+            <li class="nav-item home-nav-link"><a class="nav-link {% if app.request.get('_route') == 'default_search_results'%}active{% endif %}" href="/">Home</a></li>
+            <li class="nav-item about-nav-link"><a class="nav-link {% if app.request.get('_route') == 'about' %}active{% endif %}" href="{{ path('about') }}">About</a></li>
+            <li class="nav-item contact-page-link"><a class="nav-link {% if app.request.get('_route') == 'contact' %}active{% endif %}" href="{{ path('contact') }}">Contact Us</a></li>
             {% if is_granted('ROLE_USER') %}
-              <li class="privileged-nav-link admin-page-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}"><a href="{{ path('admin_panel') }}">Admin</a></li>
+              <li class="nav-item privileged-nav-link admin-page-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('admin_panel') }}">Admin</a></li>
             {% endif %}
             {% if is_granted('ROLE_USER') %}
-              <li class="privileged-nav-link"><a href="{{ path('app_logout') }}">Logout</a></li>
+              <li class="nav-item privileged-nav-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('app_logout') }}">Logout</a></li>
             {% endif %}
 
           </ul>
@@ -112,6 +106,16 @@
         </div>
         </div>
       </header> 
+
+
+
+
+
+
+
+
+
+      
       <div id="search-header">
         <div class="row">
           <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-4 col-sm-8 col-sm-offset-2 text-center">
