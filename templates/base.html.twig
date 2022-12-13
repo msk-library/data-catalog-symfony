@@ -1,3 +1,4 @@
+{% set route_name = app.request.attributes.get('_route') %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -85,9 +86,9 @@
         <div class="row">
         <nav class="nav-links">
           <ul class="nav nav-tabs">
-            <li class="nav-item home-nav-link"><a class="nav-link {% if app.request.get('_route') == 'default_search_results'%}active{% endif %}" href="/">Home</a></li>
-            <li class="nav-item about-nav-link"><a class="nav-link {% if app.request.get('_route') == 'about' %}active{% endif %}" href="{{ path('about') }}">About</a></li>
-            <li class="nav-item contact-page-link"><a class="nav-link {% if app.request.get('_route') == 'contact' %}active{% endif %}" href="{{ path('contact') }}">Contact Us</a></li>
+            <li class="nav-item home-nav-link"><a class="nav-link {{ (route_name == 'homepage') ? 'active' }}" href="/">Home</a></li>
+            <li class="nav-item about-nav-link"><a class="nav-link {{ (route_name == 'about') ? 'active'}}" href="{{ path('about') }}">About</a></li>
+            <li class="nav-item contact-page-link"><a class="nav-link {{ (route_name == 'contact') ? 'active'}}" href="{{ path('contact') }}">Contact Us</a></li>
             {% if is_granted('ROLE_USER') %}
               <li class="nav-item privileged-nav-link admin-page-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('admin_panel') }}">Admin</a></li>
             {% endif %}
