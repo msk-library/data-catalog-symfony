@@ -83,7 +83,7 @@
         {% include ['institution/applogo.html.twig','logo.html.twig'] ignore missing %}
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column-reverse flex-sm-column">
             <div class="global-links-flex-1">
               <nav class="nav-links navbar navbar-expand-sm navbar-dark bg-primary float-right">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbarXs">
@@ -110,25 +110,15 @@
           </div><!-- closesomething 2 -->
         </div><!--End flex columns -->
         </div>
-      </header> 
-
-
-
-
-
-
-
-
-
-      
+      </header>  
       <div id="search-header">
         <div class="row">
-          {# <div class="col-xl-4 col-xl-offset-4 col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-4 col-sm-8 col-sm-offset-2"> #}
-          <div class="mx-auto">
+          <div class="col-xl-6 offset-xl-4 col-lg-6 offset-lg-4 col-md-6 offset-md-4 col-sm-8 offset-sm-2">
+          {# <div class="mx-auto"> #}
 
             <form id="keyword-search-form" class="input-group">
                 <label for="keyword-search-input">search terms</label>
-                <input type="text" class="form-control" placeholder="Find datasets used in research at MSK" id="keyword-search-input">
+                <input type="text" id="searchbox" class="form-control" placeholder="Find datasets used in research at MSK" id="keyword-search-input">
                 <span class="input-group-btn">
                   <button id="keyword-search-submit" class="btn btn-default" type="submit">Go!</button>
                 </span>
@@ -175,7 +165,7 @@
             </div>
             </div>
           </div>
-          <div class="float-right">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 float-right">
               <button id="feedback" class="btn btn-warning" onclick="window.open('https://www.surveymonkey.com/r/dataset_feedback','popup','width=600,height=600','centerscreen'); return false;"type="button">Feedback</button>
           </div>
         </div><!-- /.row -->

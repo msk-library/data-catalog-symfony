@@ -103,7 +103,10 @@ body {
   background: #03AEDF;
   padding: 2px;
 }
-
+#searchbox {
+  max-width: 500px;
+  min-width: 280px;
+}
 /* Search Box */
 form.input-group {
   width: 100%;
