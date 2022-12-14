@@ -114,9 +114,10 @@ form.input-group {
 
 /* Search Tips */
 .search-tips-link {
-  float: left;
+  // float: left;
   margin-left: 10px;
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
+  margin-top: .5em;
   font-weight: bold;
 }
 
@@ -130,6 +131,12 @@ form.input-group {
   background-image: -webkit-linear-gradient(top,#ff8c00 0,#e67e00 100%);
   background-image: -webkit-gradient(linear,left top,left bottom,from(#ff8c00),to(#e67e00));
   background-image: linear-gradient(to bottom, #e67e00 0, #ff8c00 100% );
+  color: white;
+}
+.btn-warning:focus, .btn-warning:hover {
+  background-color: #eb9316;
+  background-position: 0 -15px;
+  color:white;
 }
 
 /* Footer */
