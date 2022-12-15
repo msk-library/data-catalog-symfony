@@ -24,6 +24,11 @@ const $ = require('jquery');
 */
 require('jquery-ui');
 require('bootstrap');
+require('./dataset_details');
+require('./scripts.js');
+require('./searching.js');
+require('./tak.js');
+//require('./respond.js');
 
 $(document).ready(function() {
   $('[data-toggle="popover"]').popover();
