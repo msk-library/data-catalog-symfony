@@ -9,4 +9,22 @@
 import './styles/app.scss';
 
 // start the Stimulus application
-import './bootstrap';
+//import './bootstrap';
+
+// require jQuery normally - needed by Bootstrap 4
+const $ = require('jquery');
+
+/* create global $ and jQuery variables - enable if you have js not handled by WebPack (in templates).
+  global.$ = global.jQuery = $;
+*/
+/*
+ Also set below for js not handled by Webpack in config/webpack_encore.yaml:     
+  script_attributes:
+    defer: true
+*/
+
+require('bootstrap');
+
+$(document).ready(function() {
+  $('[data-toggle="popover"]').popover();
+});
