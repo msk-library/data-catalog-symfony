@@ -17,8 +17,8 @@
 #
 #### ignore institution specific stuff ###
 /public/css/institution/
-/public/img/institution/
-/templates/institution/
+# /public/img/institution/
+# /templates/institution/
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
