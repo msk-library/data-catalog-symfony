@@ -26,22 +26,15 @@
 {% block content %}
 <div class="container-fluid">
 <div class="row">
-<div class="col-3" id="facets-pane">
-<h4 class="facet-pane-header">Filter by</h4>
 
-  <div class="checkbox facet-section" id="internal-only-filter-container">
-    <label>
-      <input 
-        class="" 
-        {% if "origin_fq:Internal" in currentSearch.facets %}
-          checked="checked"
-        {% endif %}
-        type="checkbox" 
-        id="internal-only-filter"
-      >
-        {{ institution_name_short }} Datasets Only 
-    </label>
-  </div>
+<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" id="facets-pane">
+<h4 class="facet-pane-header">Filter by</h4>
+<nav class="navbar navbar-expand-sm">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#facetToggle">
+      <span class="navbar-toggler-icon bg-dark"></span>
+  </button>
+  <div class="navbar-collapse collapse" id="facetToggle">
+
   {% for category,facets in results.facets if category != 'Origin' %}
     {% set facetSection = [] %}
     {% for facet in facets %} 
@@ -51,7 +44,7 @@
      {% endif %}
     {% endfor %}
     {% if facetSection|length > 0 %}
-     <div class="facet-section">
+     <div class="facet-section w-100">
       <h5 class="facet-header">{{ category }}</h5>
         <ul class="facets-list list-unstyled">
       {% for facet in facetSection %}
@@ -70,8 +63,11 @@
        </div>
      {% endif %}
    {% endfor %}
+   </div><!-- end facetToggle -->
+   </nav><!-- end nav container for collapsible -->
 </div>
-<div class="col-sm-9 right-pane clearfix">
+
+<div class="col-12 col-sm-6 col-md-8 col-lg-8 col-xl-9 right-pane clearfix">
 <div class="row">
 <div class="col-sm-8" id="facet-breadcrumbs">
  {% if currentSearch.keyword %}
