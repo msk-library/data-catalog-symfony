@@ -22,7 +22,7 @@ const $ = require('jquery');
   script_attributes:
     defer: true
 */
-
+require('jquery-ui');
 require('bootstrap');
 
 $(document).ready(function() {
