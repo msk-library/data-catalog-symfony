@@ -61,6 +61,10 @@ class Dataset implements JsonSerializable {
    */
   protected $slug;
 
+  /**
+   * @ORM\Column(type="string", length=128, nullable=true)
+   */
+  protected $doi;
 
   /**
    * @Assert\NotBlank()
@@ -1818,6 +1822,7 @@ class Dataset implements JsonSerializable {
         'origin'                    => $this->origin,
         'description'               => $this->description,
         'access_instructions'       => $this->access_instructions,
+        'doi'                       => $this->doi,
         'pubmed_search'             => $this->pubmed_search,
         'dataset_size'              => $this->dataset_size,
         'subject_start_date'        => $this->subject_start_date,
@@ -1987,6 +1992,7 @@ class Dataset implements JsonSerializable {
         'origin'                    => $this->origin,
         'description'               => $this->description,
         'access_instructions'       => $this->access_instructions,
+        'doi'                       => $this->doi,
         'pubmed_search'             => $this->pubmed_search,
         'dataset_size'              => $this->dataset_size,
         'subject_start_date'        => $this->subject_start_date,
@@ -2220,6 +2226,32 @@ class Dataset implements JsonSerializable {
     {
         return $this->dataset_edits;
     }
+
+
+    /**
+     * Set doi
+     *
+     * @param string $doi
+     *
+     * @return Dataset
+     */
+    public function setDoi($doi)
+    {
+        $this->doi = $doi;
+
+        return $this;
+    }
+
+    /**
+     * Get doi
+     *
+     * @return string
+     */
+    public function getDoi()
+    {
+        return $this->doi;
+    }
+
 
 
     /**
