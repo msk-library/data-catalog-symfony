@@ -281,6 +281,10 @@
          </div>
         </div>
       </div> 
+      {% if (dataset.doi is not empty) %}
+      <dt>DOI</dt>
+       <dd><a href="https://doi.org/{{dataset.doi}}" target="_blank">{{ dataset.doi }}</a></dd>
+      {% endif %}
       {% if (dataset.publications.count > 0) %}
        <dt>Associated Publications</dt>
        <dd>
