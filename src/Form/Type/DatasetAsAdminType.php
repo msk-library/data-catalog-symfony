@@ -120,6 +120,18 @@ class DatasetAsAdminType extends AbstractType {
       'by_reference'=>false,
       'label'     => 'Publishers',
     ));
+    $builder->add('core_facilities', EntityType::class, array(
+      'class'   => 'App:CoreFacility',
+      'choice_label'=> 'core_facility_name',
+      'required' => false,
+      'query_builder'=> function(EntityRepository $er) {
+          return $er->createQueryBuilder('u')->orderBy('u.core_facility_name','ASC');
+      },
+      'attr'=>array('style'=>'width:100%'),
+      'multiple' => true,
+      'by_reference'=>false,
+      'label'     => 'Core Facilities',
+    ));
     $builder->add('access_restrictions', EntityType::class, array(
       'class'    => 'App:AccessRestriction',
       'choice_label' => 'restriction',
