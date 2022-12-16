@@ -290,7 +290,8 @@ class GeneralController extends Controller
 		}
 
 		if ($dataset->getOrigin() == 'Internal') {
-			return $this->render('default/view_dataset_internal.html.twig', array(
+			// return $this->render('default/view_dataset_internal.html.twig', array(
+			   return $this->render('view_dataset_external.html.twig', array(
 				'dataset' => $dataset,
 			));
 		} else {
