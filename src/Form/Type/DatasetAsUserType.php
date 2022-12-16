@@ -46,6 +46,10 @@ class DatasetAsUserType extends AbstractType {
     $builder->add('title', 'text', array(
       'required' => true,
       'label'    => 'Dataset Title'));
+    $builder->add('doi', 'text', array(
+      'required' => false,
+      'attr'=>array('rows'=>'7','placeholder'=>'ex. 10.1158/2159-8290.CD-12-0095'),
+      'label'    => 'DOI'));
     $builder->add('description', 'textarea', array(
       'required' => true,
       'attr'=>array('rows'=>'7','placeholder'=>'Please provide a brief description of the dataset'),
