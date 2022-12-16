@@ -148,9 +148,6 @@
   <ul id="results-list" class="list-unstyled">
    {% for item in results.resultItems %}
     <li class="dataset-summary"> 
-      {% if item.origin == "Internal" %}
-        <div class="internal-dataset-badge">{{ internal_dataset_text }}</div>
-      {% endif %}
     <h4 class="dataset-title"><a class="dataset-title-link" href="{{ path("view_dataset", {"uid":item.id}) }}">{{ item.dataset_title }}</a>
     </h4>
             <dl class="row">
