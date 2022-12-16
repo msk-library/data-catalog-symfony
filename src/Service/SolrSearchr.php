@@ -168,7 +168,9 @@ class SolrSearchr {
           $quoted_keyword_query_string = $keyword_query_string;
         }
         // search all fields, and then search the title field separately to improve relevancy
-        $final_query_string = $keyword_query_string . " OR dataset_title:" . $quoted_keyword_query_string;
+        //$final_query_string = $keyword_query_string . " OR dataset_title:" . $quoted_keyword_query_string;
+        // MSK is removing the additional OR for the title search as it breaks default AND searching
+        $final_query_string = $keyword_query_string;
       } else {
         // if we're limiting to one field i.e., we've clicked on a certain "Subject Domain" from a dataset record
         // Solr requires you to use double quotes around the search terms when searching a specific field
