@@ -60,7 +60,7 @@ class DatasetType extends AbstractType {
       'allow_delete' => true,
       'allow_add' => true
     ));
-    $builder->add('doi', 'text', array(
+    $builder->add('doi', TextType::class, array(
       'required' => false,
       'attr'=>array('rows'=>'7','placeholder'=>'ex. 10.1158/2159-8290.CD-12-0095'),
       'label'    => 'DOI'));
