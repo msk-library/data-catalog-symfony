@@ -56,13 +56,16 @@ class SearchResults {
     'collection_standards' => 'Data Tools',
     'Repository' => 'data_locations',
     'data_locations' => 'Repository',
+    'Synapse ID' => 'synapseids_fq',
+    'synapseids_fq' => 'Synapse ID',
+
     /* Unused facets
     'Timeframe' => 'dataset_years',
     'Geographic Coverage' => 'subject_geographic_area_fq',
     'Access Restrictions' => 'access_restrictions_fq',
     'dataset_years' => 'Dataset Timeframes',
     'subject_geographic_area_fq' => 'Geographic Coverage',
-    'access_restrictions_fq' => 'Access Restrictions',
+    'access_restrictions_fq' => 'Access Restrictions'
     */
   );
 
