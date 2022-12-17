@@ -410,6 +410,19 @@ class DatasetAsAdminType extends AbstractType {
       'by_reference'=>false,
       'label'     => 'Subject Keywords',
     ));
+
+    $builder->add('onco_trees', EntityType::class, array(
+      'class'   => 'App:OncoTree',
+      'choice_label'=> 'onco_tree_code',
+      'required' => false,
+      'query_builder'=> function(EntityRepository $er) {
+          return $er->createQueryBuilder('u')->orderBy('u.onco_tree_code','ASC');
+      },
+      'attr'=>array('style'=>'width:100%'),
+      'multiple' => true,
+      'by_reference'=>false,
+      'label'     => 'OncoTree Codes',
+    ));
      
     $builder->add('erd_url', TextType::class, array(
       'required' => false,

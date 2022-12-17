@@ -39,16 +39,19 @@ jQuery(function($) {
   function makeAddNewLink() {
     sel = $(this);
     if (sel.attr('multiple') !== undefined) {
-      var thisField = sel.attr('id').replace('dataset_as_admin_','');
+      var thisField = sel.attr('id').replace('dataset_','');
       thisField = toTitleCase(thisField.replace(/_/g,' ')).replace(/ /g,'');
       if (thisField.charAt(thisField.length - 1) == 's') {
         thisField = thisField.substr(0, thisField.length - 1);
       }
       if (thisField == 'CoreFacilitie') {
         thisField = 'CoreFacility';
+      } 
+      // Don't show Add New link for OncoTree Codes
+      if (thisField != 'OncoTree') {
+        var addNewLink = "<a href='/add/"+thisField+"?modal=true' class='addNewEntity'>Add new</a>";
+        sel.parent('div').append(addNewLink);
       }
-      var addNewLink = "<a href='/add/"+thisField+"?modal=true' class='addNewEntity'>Add new</a>";
-      sel.parent('div').append(addNewLink);
     }
   }
 
