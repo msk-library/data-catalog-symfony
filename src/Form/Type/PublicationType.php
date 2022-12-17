@@ -40,6 +40,9 @@ class PublicationType extends AbstractType {
     $builder->add('citation', TextareaType::class, array(
       'attr' => array('rows'=>'7')
     ));
+    $builder->add('synapseid', TextareaType::class, array(
+      'label'=>'Synapse ID',
+      'required'=>false));
     $builder->add('url', TextType::class, array(
       'label'=>'URL',
       'required'=>false));

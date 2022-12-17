@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -39,16 +40,41 @@ class Publication {
   protected $id;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Citation cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=512)
    */
   protected $citation;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="URL cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=1028, nullable=true)
    */
   protected $url;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Synapse ID cannot contain HTML or script tags"
+   * )
+   * @ORM\Column(type="string",length=128, nullable=true)
+   */
+  protected $synapseid;
+
+  /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="DOI cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=128, nullable=true)
    */
   protected $doi;
@@ -135,6 +161,30 @@ class Publication {
     }
 
     /**
+     * Set synapseid
+     *
+     * @param string $synapseid
+     * @return Publication
+     */
+    public function setSynapseid($synapseid)
+    {
+        $this->synapseid = $synapseid;
+
+        return $this;
+    }
+
+    /**
+     * Get synapseid
+     *
+     * @return string 
+     */
+    public function getSynapseid()
+    {
+        return $this->synapseid;
+    }
+
+
+    /**
      * Set doi
      *
      * @param string $doi
@@ -180,6 +230,18 @@ class Publication {
         return $this->slug;
     }
 
+    /* Return a string concatenating the citation and synapse id for searching on the admin form */
+    public function __toString()
+    {
+        if ($this->synapseid) {
+            $combined = $this->citation." (SynapseID: ".$this->synapseid.")";
+            return (string) $combined;
+        }
+        else {
+            return (string) $this->citation;
+        }
+    }
+
     /**
      * Add datasets
      *
@@ -222,7 +284,8 @@ class Publication {
       return array(
         'citation'=>$this->citation,
         'url'=>$this->url,
-        'doi'=>$this->doi
+        'doi'=>$this->doi,
+        'synapseid'=>$this->synapseid
       );
     }
 }
