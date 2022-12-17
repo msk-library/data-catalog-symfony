@@ -142,7 +142,25 @@
        {% endfor %}
         </dd>
       {% endif %}
-     
+           </span>
+      <p></p>
+     {% if dataset.getCoreFacilities is not empty %}
+     <span class="core_facilities-list">Core Facilities:
+        {% for coreFacility in dataset.getCoreFacilities %}
+          {% if (coreFacility.coreFacilityUrl and coreFacility.coreFacilityEmail) %}
+            {% set popoverContent = "<p><a href='#{ coreFacility.coreFacilityUrl }' target='_blank'>View Core Facility website</a></p><p><a href='mailto:#{ coreFacility.coreFacilityEmail }' target='_blank'>Email Core Facility</a></p><p><a href='/search?keyword=core_facilities:#{ coreFacility.coreFacilityName }' target='_blank'>View other datasets</a></p>" %}
+          {% elseif coreFacility.coreFacilityUrl %}
+            {% set popoverContent = "<p><a href='#{ coreFacility.coreFacilityUrl }' target='_blank'>View Core Facility website</a></p><p><a href='/search?keyword=core_facilities:#{ coreFacility.coreFacilityName }' target='_blank'>View other datasets</a></p>" %}
+          {% elseif coreFacility.coreFacilityEmail %}
+            {% set popoverContent = "<p><a href='mailto:#{ coreFacility.coreFacilityEmail }' target='_blank'>Email Core Facility</a></p><p><a href='/search?keyword=core_facilities:#{ coreFacility.coreFacilityName }' target='_blank'>View other datasets</a></p>" %}
+          {% else %}
+            {% set popoverContent = "<p><a href='/search?keyword=core_facilities:#{ coreFacility.coreFacilityName }' target='_blank'>View other datasets</a></p>" %}
+          {% endif %}
+            {% if popoverContent %}<a tabindex="0" class="publisher-link" role="button" data-toggle="popover" title="{{ coreFacility.coreFacilityName }}" data-content="{{ popoverContent }}"> {% endif %}{{ coreFacility.coreFacilityName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </span>
+      {% endif %} 
+
       {% if dataset.subjectStartDate is not empty and dataset.subjectStartDate == dataset.subjectEndDate %}
       <dt>Timeframe</dt>
        <dd>{{ dataset.subjectStartDate }}</dd>

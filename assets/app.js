@@ -28,6 +28,7 @@ require('./dataset_details');
 require('./scripts.js');
 require('./searching.js');
 require('./tak.js');
+require('./msk.js');
 //require('./respond.js');
 
 $(document).ready(function() {
