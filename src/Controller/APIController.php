@@ -271,6 +271,12 @@ class APIController extends Controller
       $entities = $qb->select('e')
                      ->from($entity, 'e')
                      ->getQuery()->getResult();
+    } else if ($entityName == 'Publication') {
+      $entities = $qb->select('e')
+                    ->from($entity, 'e')
+                    ->where('e.synapseid = :synapseid')
+                    ->setParameter('synapseid', $slug)
+                    ->getQuery()->getResult();
     } else {
       $entities = $qb->select('e')
                      ->from($entity, 'e')
