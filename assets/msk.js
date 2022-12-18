@@ -47,7 +47,7 @@ $('.core_facilities-list [data-toggle="popover"]').popover({
   $('ul.facets-list').each(function(){
     var max = 4;
     if ($(this).find('li').length > max+1) {
-        $(this).find('li:gt('+max+')').hide().end().append('<li class="more_facets"><i class="fas fa-chevron-down"></i> More</li>');
+        $(this).find('li:gt('+max+')').hide().end().append('<li class="more_facets">More <i class="fas fa-chevron-down"></i></li>');
     };
   });
 
@@ -55,9 +55,9 @@ $('.core_facilities-list [data-toggle="popover"]').popover({
     var max = 4;
     $(this).siblings(':gt('+max+')').toggle();
     if ( $(this).is(':contains("More") ')) {
-        $(this).html('<i class="fas fa-chevron-up"></i> Less');
+        $(this).html('Less <i class="fas fa-chevron-up"></i>');
     } else {
-        $(this).html('<i class="fas fa-chevron-down"></i> More');
+        $(this).html('More <i class="fas fa-chevron-down"></i>');
     };
 });
 
