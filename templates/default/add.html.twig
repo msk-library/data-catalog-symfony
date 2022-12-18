@@ -8,12 +8,14 @@
 {% endblock %}
 
 {% block page_stylesheets %}
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/css/select2.min.css" />
+{# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/css/select2.min.css" /> #}
 {% endblock %}
 
 
 {% block page_scripts %}
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
+{# <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script> #}
+{{ encore_entry_script_tags('select2') }}
+{{ encore_entry_script_tags('add_form') }}
 {% endblock %}
 
 
