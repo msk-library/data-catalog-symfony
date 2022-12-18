@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -39,6 +40,11 @@ class DatasetFormat {
 
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Format cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=128, unique=true)
    */
   protected $format;

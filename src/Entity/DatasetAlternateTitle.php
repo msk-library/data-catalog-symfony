@@ -75,7 +75,7 @@ class DatasetAlternateTitle {
      */
     public function setAltTitle($altTitle)
     {
-        $this->alt_title = $altTitle;
+        $this->alt_title = strip_tags($altTitle);
 
         return $this;
     }

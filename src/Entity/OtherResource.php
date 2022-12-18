@@ -108,7 +108,7 @@ class OtherResource {
      */
     public function setResourceName($resourceName)
     {
-        $this->resource_name = $resourceName;
+        $this->resource_name = strip_tags($resourceName);
 
         return $this;
     }
@@ -131,7 +131,7 @@ class OtherResource {
      */
     public function setResourceDescription($resourceDescription)
     {
-        $this->resource_description = $resourceDescription;
+        $this->resource_description = strip_tags($resourceDescription);
 
         return $this;
     }
@@ -154,7 +154,7 @@ class OtherResource {
      */
     public function setResourceUrl($resourceUrl)
     {
-        $this->resource_url = $resourceUrl;
+        $this->resource_url = strip_tags($resourceUrl);
 
         return $this;
     }

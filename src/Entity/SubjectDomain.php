@@ -90,7 +90,7 @@ class SubjectDomain {
      */
     public function setSubjectDomain($subjectDomain)
     {
-        $this->subject_domain = $subjectDomain;
+        $this->subject_domain = strip_tags($subjectDomain);
 
         return $this;
     }
@@ -113,7 +113,7 @@ class SubjectDomain {
      */
     public function setMeshCode($meshCode)
     {
-        $this->mesh_code = $meshCode;
+        $this->mesh_code = strip_tags($meshCode);
 
         return $this;
     }

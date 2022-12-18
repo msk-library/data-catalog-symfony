@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -39,11 +40,21 @@ class SubjectOfStudy {
   protected $id;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Field cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=255, unique=true)
    */
   protected $subject_of_study;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Field cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=255, nullable=true)
    */
   protected $species;

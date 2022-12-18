@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -39,6 +40,11 @@ class Publisher {
   protected $id;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Name cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=255, unique=true)
    */
   protected $publisher_name;
@@ -49,6 +55,11 @@ class Publisher {
   protected $slug;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="URL cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=1028, nullable=true)
    */
   protected $publisher_url;

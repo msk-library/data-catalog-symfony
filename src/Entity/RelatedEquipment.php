@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -39,16 +40,31 @@ class RelatedEquipment {
   protected $id;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Name cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=255, unique=true)
    */
   protected $related_equipment;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Description cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=1028, unique=false, nullable=true)
    */
   protected $equipment_description;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="URL field cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=1028, unique=false, nullable=true)
    */
   protected $equipment_url;

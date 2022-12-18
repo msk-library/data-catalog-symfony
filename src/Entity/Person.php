@@ -30,7 +30,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="person")
  * @UniqueEntity("kid")
- * @UniqueEntity("slug")
+ * @UniqueEntity("full_name")
  */
 class Person {
   /**
@@ -41,12 +41,12 @@ class Person {
   protected $id;
 
   /**
-   * @ORM\Column(type="string",length=128)
+   * @ORM\Column(type="string",length=128, unique=true)
    */
   protected $full_name;
 
   /**
-   * @ORM\Column(type="string",length=128, unique=true)
+   * @ORM\Column(type="string",length=128)
    */
   protected $slug;
 
@@ -85,11 +85,17 @@ class Person {
    */
   protected $email;
 
-  
+
+  /**
+   * @ORM\Column(type="boolean", options={"default"=false}, nullable=true)
+   */
+  protected $works_here;
+
+
   /**
    * @ORM\OneToMany(targetEntity="PersonAssociation", mappedBy="person")
    */
-  protected $dataset_associations;
+  protected $datasetAssociations;
 
 
   /**
@@ -127,7 +133,7 @@ class Person {
      */
     public function setFullName($fullName)
     {
-        $this->full_name = $fullName;
+        $this->full_name = strip_tags($fullName);
 
         return $this;
     }
@@ -150,7 +156,7 @@ class Person {
      */
     public function setLastName($lastName)
     {
-        $this->last_name = $lastName;
+        $this->last_name = strip_tags($lastName);
 
         return $this;
     }
@@ -173,7 +179,7 @@ class Person {
      */
     public function setFirstName($firstName)
     {
-        $this->first_name = $firstName;
+        $this->first_name = strip_tags($firstName);
 
         return $this;
     }
@@ -219,7 +225,7 @@ class Person {
      */
     public function setBioUrl($bioUrl)
     {
-        $this->bio_url = $bioUrl;
+        $this->bio_url = strip_tags($bioUrl);
 
         return $this;
     }
@@ -243,7 +249,7 @@ class Person {
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->email = strip_tags($email);
 
         return $this;
     }
@@ -305,6 +311,32 @@ class Person {
         return $this->orcid_id;
     }
 
+
+    /**
+     * Set works_here
+     *
+     * @param string $worksHere
+     * @return Person
+     */
+    public function setWorksHere($worksHere)
+    {
+        $this->works_here = $worksHere;
+
+        return $this;
+    }
+
+
+    /**
+     * Get works_here
+     *
+     * @return string 
+     */
+    public function getWorksHere()
+    {
+        return $this->works_here;
+    }
+
+
     public function getDatasetAssociations()
     {
       return $this->datasetAssociations->toArray();
@@ -349,7 +381,8 @@ class Person {
         'first_name'=>$this->first_name,
         'orcid_id'=>$this->orcid_id,
         'bio_url'=>$this->bio_url,
-        'email'=>$this->email
+        'email'=>$this->email,
+        'works_here'=>$this->works_here
       );
     }
 }

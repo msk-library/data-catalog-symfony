@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -39,6 +40,11 @@ class SubjectKeyword {
   protected $id;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Keywords cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=255, unique=true)
    */
   protected $keyword;
@@ -68,6 +74,7 @@ class SubjectKeyword {
   public function getDisplayName() {
     return $this->keyword;
   }
+
 
     /**
      * Get id
@@ -123,6 +130,31 @@ class SubjectKeyword {
     public function getMeshCode()
     {
         return $this->mesh_code;
+    }
+
+
+    /**
+     * get OncoTree Metadata
+     *
+     * @return string
+     */
+    public function getOncoTreeMetadata() {
+        $ocode = $this->keyword;
+        $api_url = "http://oncotree.mskcc.org/api/tumorTypes/search/code/{$ocode}";
+        // Read JSON file
+        if (@file_get_contents($api_url) === false) {
+            return;   
+        } else {
+            $json_data = @file_get_contents($api_url);
+            $onco_data = json_decode($json_data);
+            $returnhtml =  "<p><strong>Name:</strong> {$onco_data[0]->name}</p>";
+            $returnhtml .= "<p><strong>Main Type:</strong> {$onco_data[0]->mainType}</p>";
+            $returnhtml .= "<p><strong>Tissue:</strong> {$onco_data[0]->tissue}</p>";
+            $returnhtml .= "<p><strong>Parent:</strong> {$onco_data[0]->parent}</p>";
+            $returnhtml .= "<p><a href='http://oncotree.mskcc.org' target='_blank'>More at OncoTree</a></p>";
+            return $returnhtml;
+    
+        }
     }
 
 

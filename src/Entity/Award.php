@@ -40,6 +40,11 @@ class Award {
 
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Field cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=255, unique=true)
    */
   protected $award;
@@ -50,12 +55,22 @@ class Award {
   protected $slug;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Field cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=512, nullable=true)
    */
   protected $award_funder;
 
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="URL cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=1028, nullable=true)
    */
   protected $award_url;
