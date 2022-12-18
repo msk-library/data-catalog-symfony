@@ -99,6 +99,26 @@ body {
   right: 0;
 }
 
+/* LibChat */ 
+#libchat_3076b2dec6dcb63e8f19fa62ee5d1115 button.libchat_online:hover {
+  transition-duration: 0.4s;
+  background-color:#03AEDF;
+  color: white;
+}
+
+#libchat_3076b2dec6dcb63e8f19fa62ee5d1115 button.libchat_offline:hover {
+  transition-duration: 0.4s;
+  background-color:#03aedf;
+  color: white;
+}
+#libchat_3076b2dec6dcb63e8f19fa62ee5d1115 button.libchat_online {
+  padding: 6px 6px;
+}
+
+#libchat_3076b2dec6dcb63e8f19fa62ee5d1115 button.libchat_offline {
+  padding: 6px 6px;
+}
+
 /* Search Header */
 #search-header {
   background: #03AEDF;
