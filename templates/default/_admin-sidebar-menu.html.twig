@@ -8,9 +8,7 @@
           {{ render(controller('App\\Controller\\QueueController:queueLengthAction')) }}
         </a>
          </li>
-        <li class="nav-item {% if 'update/ArchivedDatasets' in app.request.requestUri %}active{% endif %}" role="presentation">
-          <a class="nav-link" href="{{ path('update_entity', {'entityName':'ArchivedDatasets'}) }}">View Archived Datasets</a>
-        </li>
+
         <div class="spacer25"></div>
         {% endif %}
         <li class="nav-item {% if app.request.get('_route') == 'add_dataset' or app.request.get('_route') =='ingest_dataset' %}active{% endif %}" role="presentation">
@@ -28,6 +26,9 @@
           <a class="nav-link" href="{{ path('admin_users') }}">Manage Website Users</a>
          </li>
          <div class="spacer25"></div>
+        <li class="nav-item {% if 'update/ArchivedDatasets' in app.request.requestUri %}active{% endif %}" role="presentation">
+          <a class="nav-link" href="{{ path('update_entity', {'entityName':'ArchivedDatasets'}) }}">View Archived Datasets</a>
+        </li>
          <li class="nav-item {% if 'remove/Dataset' in app.request.requestUri %}active{% endif %}" role="presentation">
           <a class="nav-link" href="{{ path('remove_entity', {'entityName':'Dataset'}) }}">Remove a Dataset</a>
          </li>
