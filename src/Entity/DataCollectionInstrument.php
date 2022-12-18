@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -48,16 +49,31 @@ class DataCollectionInstrument {
   protected $data_collection_instrument_name;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Field cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string",length=256)
    */
   protected $slug;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="URL cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string", length=256, nullable=true)
    */
   protected $url;
 
   /**
+   * @Assert\Regex(
+   *     pattern="/<[a-z][\s\S]*>/i",
+   *     match=false,
+   *     message="Notes cannot contain HTML or script tags"
+   * )
    * @ORM\Column(type="string", length=1026, nullable=true)
    */
   protected $notes;
