@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
-
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -100,6 +100,21 @@ class DatasetAsAdminType extends AbstractType {
       'attr'=>array('rows'=>'7','placeholder'=>'Please provide a brief description of the dataset'),
       'label'    => 'Description'
     ));
+    //strip out most HTML tags, allow <a>, <b>, <strong>, <br>, <br />, <p>
+    $builder->get('description')
+    ->addModelTransformer(new CallbackTransformer(
+                      // transform <br/> to \n so the textarea reads easier
+        function ($originalDescription) {
+          return preg_replace('#<br\s*/?>#i', "\n", $originalDescription);
+        },
+        function ($submittedDescription) {
+          // remove most HTML tags (keep br,a,b,strong,ol,ul,li)
+          $cleaned = strip_tags($submittedDescription, '<br><br/><a><b><strong><ol><ul><li><p>');
+
+          // transform any \n to real <br/>
+          return str_replace("\n", '<br/>', $cleaned);
+        }
+    ));
     $builder->add('published', ChoiceType::class, array(
       'required' => false,
       'expanded' => true,
@@ -147,6 +162,21 @@ class DatasetAsAdminType extends AbstractType {
     $builder->add('access_instructions',  TextareaType::class, array(
       'attr'=>array('rows'=>'7', 'placeholder'=>'Provide any information on restrictions or conditions for gaining access to data'),
       'label'    => 'Access Instructions'));
+        //strip out most HTML tags, allow <br><br/><a><b><strong><ol><ul><li><p>
+    $builder->get('access_instructions')
+    ->addModelTransformer(new CallbackTransformer(
+                      // transform <br/> to \n so the textarea reads easier
+        function ($originalInstructions) {
+          return preg_replace('#<br\s*/?>#i', "\n", $originalInstructions);
+        },
+        function ($submittedInstructions) {
+          // remove most HTML tags (keep br,a,b,strong,ol,ul,li)
+          $cleaned = strip_tags($submittedInstructions, '<br><br/><a><b><strong><ol><ul><li><p>');
+
+          // transform any \n to real <br/>
+          return str_replace("\n", '<br/>', $cleaned);
+        }
+    ));
     //accession information
     $builder->add('data_locations', CollectionType::class, array(
       'entry_type'      => DataLocationType::class,
