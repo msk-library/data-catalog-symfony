@@ -29,7 +29,7 @@ var trackOutboundLink = function(url, label) {
 
 {% block content %}
 <div id="dataset-full-view-container" class="container">
-<div class="row">
+<div class="row p-1 p-md-0">
   <div class="" id="dataset-detail-titlebox">
   {% if is_granted('ROLE_ADMIN') %}
   <div class="update-dataset-link">
@@ -237,14 +237,14 @@ var trackOutboundLink = function(url, label) {
      </dl>
     </div>
     <div class="col-sm-4 col-sm-push-0" id="dataset-detail-sidebar">
-      <div id="dataset-detail-accesspanel" class="row">
+      <div id="dataset-detail-accesspanel" class="row p-2 p-md-0">
        <dl>
          
           <dd>
            {% for location in dataset.dataLocations %}
               <div class="multiple-item-list">
                 {% if location.getDataAccessUrl is not null %}
-                  <a class="btn btn-primary"  href="{{ location.getDataAccessUrl }}" onclick="trackOutboundLink('{{ location.getDataAccessUrl }}', '{{ dataset.title }} (via {{ location.getDataLocation }})');">Access via {{ location.getDataLocation }}</a>
+                  <a class="btn btn-secondary"  href="{{ location.getDataAccessUrl }}" onclick="trackOutboundLink('{{ location.getDataAccessUrl }}', '{{ dataset.title }} (via {{ location.getDataLocation }})');">Access via {{ location.getDataLocation }}</a>
                 {% endif %}
                 <p class="data-location-description"><span class="data-location-title"></span> <span class="data-location-content">{{ location.getLocationContent }}</span>
                {% if location.getAccessionNumber %}
@@ -365,7 +365,7 @@ var trackOutboundLink = function(url, label) {
     
     </dl>
    </div>
-   <div class="row" id="dataset-detail-relatedpanel">
+   <div class="row p-2 p-md-0" id="dataset-detail-relatedpanel">
      <dl>
        {% if dataset.pubmedSearch is not empty %}
        <dt>PubMed Search</dt>
@@ -393,7 +393,7 @@ var trackOutboundLink = function(url, label) {
     </div>
   </div>
 </div>
-<div class="row" id="suggest-dataset-link">Do you have or know of a dataset that should be added to the catalog? <a href="{{ path('contact') }}">Let us know</a>!</div>
+<div class="row p-2 p-md-0" id="suggest-dataset-link">Do you have or know of a dataset that should be added to the catalog? &nbsp;<a href="{{ path('contact') }}">Let us know</a>!</div>
 </div>
 
 
