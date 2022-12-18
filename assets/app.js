@@ -29,8 +29,12 @@ require('./scripts.js');
 require('./searching.js');
 require('./tak.js');
 require('./msk.js');
+//Including select js directly on form pages instead of adding it to app.js on all app pages
+//require('select2');
+//require('./add_form.js'); // select2 has to be loaded before this
 //require('./respond.js');
 
+//Initialize boostrap popovers on all pages
 $(document).ready(function() {
   $('[data-toggle="popover"]').popover();
 });
