@@ -42,6 +42,7 @@ class PublicationType extends AbstractType {
     ));
     $builder->add('synapseid', TextType::class, array(
       'label'=>'Synapse ID',
+      'attr'=>array('placeholder'=>'Enter id, press spacebar to autofill Synapse metadata'),
       'required'=>false));
     $builder->add('url', TextType::class, array(
       'label'=>'URL',
