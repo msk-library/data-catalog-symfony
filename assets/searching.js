@@ -22,7 +22,6 @@
 /**
  * Helpers and behaviors for dealing with searching and search results
  */
-jQuery(function($) {
 
   /**
    * Interactivity with breadcrumbs
@@ -304,7 +303,7 @@ jQuery(function($) {
     }
   }
 
-});
+
 
 
 
