@@ -28,12 +28,13 @@
 <div class="row">
 
 <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" id="facets-pane">
-<h4 class="facet-pane-header">Filter by</h4>
-<nav class="navbar navbar-expand-sm navbar-dark bg-light">
+{# <h4 class="facet-pane-header">Filter by</h4> #}
+<nav class="navbar navbar-expand-sm navbar-light flex-column align-items-start">
+<h4 class="navbar-brand facet-pane-header">Filter by</h4>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#facetToggle">
-      <span class="navbar-toggler-icon bg-secondary"></span>
+      <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="navbar-collapse collapse" id="facetToggle">
+  <div class="navbar-collapse collapse flex-column" id="facetToggle">
 
   {% for category,facets in results.facets if category != 'Origin' %}
     {% set facetSection = [] %}
@@ -44,7 +45,7 @@
      {% endif %}
     {% endfor %}
     {% if facetSection|length > 0 %}
-     <div class="facet-section w-100">
+     <div class="facet-section w-100 d-block">
       <h5 class="facet-header">{{ category }}</h5>
         <ul class="facets-list list-unstyled">
       {% for facet in facetSection %}
