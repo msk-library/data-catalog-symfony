@@ -43,6 +43,25 @@ $('.core_facilities-list [data-toggle="popover"]').popover({
    });
 
 
+  // Only show first n number (max+ 1) of results for each facet on results page
+  $('ul.facets-list').each(function(){
+    var max = 4;
+    if ($(this).find('li').length > max+1) {
+        $(this).find('li:gt('+max+')').hide().end().append('<li class="more_facets"><i class="fas fa-chevron-down"></i> More</li>');
+    };
+  });
+
+  $('.more_facets').click( function(){
+    var max = 4;
+    $(this).siblings(':gt('+max+')').toggle();
+    if ( $(this).is(':contains("More") ')) {
+        $(this).html('<i class="fas fa-chevron-up"></i> Less');
+    } else {
+        $(this).html('<i class="fas fa-chevron-down"></i> More');
+    };
+});
+
+
   // Publication Input Javascript
 $('#publication_synapseid').on('keypress', function (e) {
   //if user presses spacebar within the synapseid textbox
