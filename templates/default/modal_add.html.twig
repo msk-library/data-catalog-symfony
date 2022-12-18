@@ -1,5 +1,8 @@
 {% form_theme form with ['bootstrap_4_layout.html.twig'] %}
 
+{% block page_scripts %}
+{{ encore_entry_script_tags('app') }}
+{% endblock %}
 <div class="modal-header">
   <h4 class="modal-title" id="add_entity_modal_title">Add New {{ displayName }}</h4>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -20,7 +23,3 @@
 <div class="modal-footer">
 </div>
 
-<script>
-
-
-</script>
