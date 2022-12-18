@@ -89,6 +89,7 @@
                     <li class="nav-item home-nav-link"><a class="nav-link {{ (route_name == 'homepage') ? 'active' }}" href="/">Home</a></li>
                     <li class="nav-item about-nav-link"><a class="nav-link {{ (route_name == 'about') ? 'active'}}" href="{{ path('about') }}">About</a></li>
                     <li class="nav-item contact-page-link"><a class="nav-link {{ (route_name == 'contact') ? 'active'}}" href="{{ path('contact') }}">Contact Us</a></li>
+                    {% if not is_granted('ROLE_USER') %}<li class="chat-link" id="libchat_3076b2dec6dcb63e8f19fa62ee5d1115"></li>{% endif %}
                     {% if is_granted('ROLE_USER') %}
                       <li class="nav-item privileged-nav-link admin-page-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('admin_panel') }}">Admin</a></li>
                     {% endif %}
