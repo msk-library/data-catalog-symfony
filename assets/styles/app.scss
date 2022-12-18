@@ -203,13 +203,22 @@ div.footer-wrapper a {
   display:block;
 }
 
+.dataset-detail-authors, .dataset-detail-id {
+  color: black;
+  font-size:inherit;
+}
+
+#dataset-detail-accesspanel {
+  border: none;
+}
+
 .internal-dataset-badge {
   background: rgb(255,64,13);
   color: #ffffff;
 }
 
 .publishers-list {
-  color: gray;
+  color: black;
 }
 
 .core_facilities-list {
