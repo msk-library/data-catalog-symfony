@@ -33,3 +33,6 @@ Gemfile.lock
 config/deploy.rb
 config/deploy/
 log
+
+## Apache Directives ##
+public/.htaccess
