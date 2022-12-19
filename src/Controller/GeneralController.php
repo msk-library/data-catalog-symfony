@@ -13,6 +13,9 @@ use App\Entity\Dataset;
 use App\Service\SolrSearchr;
 use App\Form\Type\DatasetType;
 use App\Form\Type\ContactFormEmailType;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Utils\Slugger;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -160,7 +163,7 @@ class GeneralController extends Controller
    *
    * @Route("/contact-us", name="contact")
    */
-  public function contactAction(Request $request) {
+  public function contactAction(Request $request, MailerInterface $mailer) {
     $contactFormEmail = new \App\Entity\ContactFormEmail();
 
     // Get email addresses and institution list from parameters.yml
@@ -183,18 +186,12 @@ class GeneralController extends Controller
       $em->persist($email);
       $em->flush();
 
-      $mailer = $this->get('mailer');
-      $message = $mailer->createMessage()
-        ->setSubject('New Feedback about Data Catalog')
-        ->setFrom($emailFrom)
-        ->setTo($emailTo)
-        ->setBody(
-          $this->renderView(
-            'default/feedback_email.html.twig',
-            array('msg' => $email)
-          ),
-          'text/html'
-        );
+      $message = (new TemplatedEmail())
+        ->subject('New Feedback about Data Catalog')
+        ->from($emailFrom)
+        ->to($emailTo)
+        ->htmlTemplate('default/feedback_email.html.twig')
+        ->context(['msg' => $email]);
       $mailer->send($message);
 
       return $this->render('default/contact_email_send_success.html.twig', array(
