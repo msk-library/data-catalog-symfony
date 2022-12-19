@@ -49,34 +49,39 @@ class ContactFormEmailType extends AbstractType {
    * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('employee_id', TextType::class, array(
-      'label'=> 'Employee ID',
+    $builder->add('first_name', TextType::class, array(
+      'label'=> 'First Name',
+      'label_attr'=>array(),
+    ));
+     $builder->add('last_name', TextType::class, array(
+      'label'=> 'Last Name',
+      'label_attr'=>array(),
+    ));
+    $builder->add('affiliation', TextType::class, array(
+      'label'=>'Affiliation',
+      'label_attr'=>array(),
+    ));
+    $builder->add('department', TextType::class, array(
+      'label'=> 'Department',
       'label_attr'=>array('class'=>'no-asterisk'),
     ));
-    $builder->add('full_name', TextType::class, array(
-      'label_attr'=>array('class'=>'no-asterisk')));
     $builder->add('email_address', EmailType::class, array(
-      'label_attr'=>array('class'=>'no-asterisk')));
-    $builder->add('affiliation', ChoiceType::class, array(
-      'label'=>'Institutional Affiliation',
-      'label_attr'=>array('class'=>'no-asterisk'),
-      'choices' => $options['affiliationOptions'],
+      'label'=> 'E-mail',
+      'label_attr'=>array(),
     ));
        
     $builder->add('reason', ChoiceType::class, array(
-      'expanded'=>true,
-      'label_attr'=>array('class'=>'no-asterisk'),
+      'label_attr'=>array(),
       'choices' =>array(
-        'Volunteer as a local expert' => 'Volunteer as a local expert',
-        'Suggest a new dataset' => 'Suggest a new dataset',
-        'Request uploading of dataset' => 'Request uploading of your dataset(s)',
+        'Suggest a dataset record for inclusion' => 'Suggest a dataset record for inclusion',
+        'Request a correction to a dataset record' => 'Request a correction to a dataset record',
+        'Request a presentation' => 'Request a presentation',
         'General inquiry'    => 'General inquiry or comments',
-      ),
-      'multiple'=>false)
-    );
+      )
+    ));
     $builder->add('message_body', TextareaType::class, array(
       'attr' => array('rows'=>'5'),
-      'label_attr'=>array('class'=>'no-asterisk'),
+      'label_attr'=>array(),
       'label'=>'Please provide some details about your question/comment',
     ));
     $builder->add('checker', TextType::class, array(
@@ -84,6 +89,7 @@ class ContactFormEmailType extends AbstractType {
       'attr'=>array('class'=>'checker'),
       'label_attr'=>array('class'=>'no-asterisk checker')));
     $builder->add('save',SubmitType::class,array('label'=>'Send'));
+
   }
 
 

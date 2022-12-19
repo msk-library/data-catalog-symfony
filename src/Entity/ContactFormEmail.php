@@ -35,30 +35,34 @@ class ContactFormEmail {
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
-
+ 
   /**
-   * @ORM\Column(type="string",length=18)
+   * @ORM\Column(type="string",length=128)
    */
-  protected $employee_id;
+  protected $first_name;
   
   /**
    * @ORM\Column(type="string",length=128)
    */
-  protected $full_name;
+  protected $last_name;
+
+  /**
+   * @ORM\Column(type="string",length=128)
+   */
+  protected $affiliation;
+
+  /**
+   * @ORM\Column(type="string",length=128,nullable=true)
+   */
+  protected $department;
 
   /**
    * @ORM\Column(type="string",length=128)
    */
   protected $email_address;
 
-
   /**
-   * @ORM\Column(type="string",length=128,nullable=true)
-   */
-  protected $affiliation;
-
-  /**
-   * @ORM\Column(type="string",length=128,nullable=true)
+   * @ORM\Column(type="string",length=128)
    */
   protected $reason;
 
@@ -71,7 +75,7 @@ class ContactFormEmail {
 
 
   /**
-   * @ORM\Column(type="string",length=1028, nullable=true)
+   * @ORM\Column(type="string",length=1028)
    */
   protected $message_body;
 
@@ -82,7 +86,7 @@ class ContactFormEmail {
    * @return string
    */
   public function getDisplayName() {
-    return $this->full_name;
+    return $this->first_name;
   }
 
 
@@ -96,75 +100,64 @@ class ContactFormEmail {
         return $this->id;
     }
 
+   
+
     /**
-     * Set employee_id
+     * Set first_name
      *
-     * @param string $employeeId
+     * @param string $firstName
      * @return ContactFormEmail
      */
-    public function setEmployeeId($employeeId)
+    public function setFirstName($firstName)
     {
-        $this->employee_id = $employeeId;
+        $this->first_name = $firstName;
 
         return $this;
     }
 
     /**
-     * Get employee_id
+     * Get first_name
      *
      * @return string 
      */
-    public function getEmployeeId()
+    public function getFirstName()
     {
-        return $this->employee_id;
+        return $this->first_name;
     }
 
     /**
-     * Set full_name
+     * Set last_name
      *
-     * @param string $fullName
+     * @param string $lastName
      * @return ContactFormEmail
      */
-    public function setFullName($fullName)
+    public function setLastName($lastName)
     {
-        $this->full_name = $fullName;
+        $this->last_name = $lastName;
 
         return $this;
     }
 
     /**
-     * Get full_name
+     * Get last_name
      *
      * @return string 
      */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+  
+
+    /** Get full_name
+    *
+    *  @return string
+    */
     public function getFullName()
     {
-        return $this->full_name;
+        return ($this->first_name . " " . $this->last_name);
     }
-
-    /**
-     * Set email_address
-     *
-     * @param string $emailAddress
-     * @return ContactFormEmail
-     */
-    public function setEmailAddress($emailAddress)
-    {
-        $this->email_address = $emailAddress;
-
-        return $this;
-    }
-
-    /**
-     * Get email_address
-     *
-     * @return string 
-     */
-    public function getEmailAddress()
-    {
-        return $this->email_address;
-    }
-
+   
     /**
      * Set affiliation
      *
@@ -186,6 +179,53 @@ class ContactFormEmail {
     public function getAffiliation()
     {
         return $this->affiliation;
+    }
+
+    /**
+     * Set department
+     *
+     * @param string $department
+     * @return ContactFormEmail
+     */
+    public function setDepartment($department)
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get department
+     *
+     * @return string 
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }
+
+  
+   /**
+     * Set email_address
+     *
+     * @param string $emailAddress
+     * @return ContactFormEmail
+     */
+    public function setEmailAddress($emailAddress)
+    {
+        $this->email_address = $emailAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get email_address
+     *
+     * @return string 
+     */
+    public function getEmailAddress()
+    {
+        return $this->email_address;
     }
 
     /**
