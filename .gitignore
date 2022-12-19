@@ -22,5 +22,14 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
+### Mac OS ###
 .DS_Store
 /public/.DS_Store
+
+### Capistrano ###
+Capfile
+Gemfile
+Gemfile.lock
+config/deploy.rb
+config/deploy/
+log
