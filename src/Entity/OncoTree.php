@@ -122,7 +122,7 @@ class OncoTree {
     /**
      * Add datasets
      *
-     * @param \AppBundle\Entity\Dataset $datasets
+     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -135,7 +135,7 @@ class OncoTree {
     /**
      * Remove datasets
      *
-     * @param \AppBundle\Entity\Dataset $datasets
+     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
