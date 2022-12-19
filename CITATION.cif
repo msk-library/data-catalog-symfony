@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use the MSK Data Catalog fork of the NYUHSL Data Catalog software, please cite it as below."
+authors:
+- family-names: "Willoughby"
+  given-names: "Eric"
+  affiliation: "Memorial Sloan Kettering Cancer Center Library"
+  orcid: "https://orcid.org/0000-0003-4242-3282"
+- family-names: "Dellureficio"
+  given-names: "Anthony"
+  affiliation: "Memorial Sloan Kettering Cancer Center Library"
+  orcid: "http://orcid.org/0000-0001-8339-4989"
+- family-names: "Lamb"
+  given-names: "Ian"
+  affiliation: "NYU Health Sciences Library"
+title: "MSK Data Ccatalog"
+institution: "Memorial Sloan Kettering Cancer Center Library"
+version: msk-library fork
+date-released: 2020-03-30
+url: "https://github.com/msk-library/data-catalog"
