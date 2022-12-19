@@ -78,10 +78,10 @@ class CoreFacility {
     /**
      * Add datasets
      *
-     * @param \AppBundle\Entity\Dataset $datasets
+     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
-    public function addDataset(\AppBundle\Entity\Dataset $datasets)
+    public function addDataset(\App\Entity\Dataset $datasets)
     {
         $this->datasets[] = $datasets;
 
@@ -91,9 +91,9 @@ class CoreFacility {
     /**
      * Remove datasets
      *
-     * @param \AppBundle\Entity\Dataset $datasets
+     * @param \App\Entity\Dataset $datasets
      */
-    public function removeDataset(\AppBundle\Entity\Dataset $datasets)
+    public function removeDataset(\App\Entity\Dataset $datasets)
     {
         $this->datasets->removeElement($datasets);
     }
