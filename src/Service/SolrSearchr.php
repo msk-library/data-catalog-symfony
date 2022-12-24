@@ -28,7 +28,7 @@ use App\Entity\SearchState;
 class SolrSearchr {
 
   // App-level defaults are set in parameters.yml
-  protected $solrBaseURL;
+  protected $solrServer;
   protected $solrFormat;
   protected $solrFacets;
   protected $solrDisplayFields;
@@ -62,7 +62,7 @@ class SolrSearchr {
                               $solrDisplayFields,
                               $solrSearchFields) {
 
-    $this->solrBaseURL  = $solrServer;
+    $this->solrServer  = $solrServer;
     $this->solrFormat   = $solrFormat;
     $this->solrFacets   = $solrFacets;
     $this->solrDisplayFields   = $solrDisplayFields;
@@ -125,7 +125,7 @@ class SolrSearchr {
 
     $method = 'select';
 
-    $URL = $this->solrBaseURL
+    $URL = $this->solrServer
            . $method
            . '?'
            . $keywordQuery
