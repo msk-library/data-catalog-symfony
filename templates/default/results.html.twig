@@ -36,33 +36,35 @@
   </button>
   <div class="navbar-collapse collapse flex-column" id="facetToggle">
 
-  {% for category,facets in results.facets if category != 'Origin' %}
-    {% set facetSection = [] %}
-    {% for facet in facets %} 
-     {% set fullFacet = results.facetMappings[category] ~ ':"' ~ facet.facetItem ~ '"' %}
-     {% if fullFacet not in currentSearch.facets %}
-       {% set facetSection = facetSection|merge([facet]) %}
-     {% endif %}
-    {% endfor %}
-    {% if facetSection|length > 0 %}
-     <div class="facet-section w-100 d-block">
-      <h5 class="facet-header">{{ category }}</h5>
-        <ul class="facets-list list-unstyled">
-      {% for facet in facetSection %}
-        {% if facet.facetItem != '' and facet.facetCount is defined and facet.facetCount > 0 %}
-          <li class="facet-item">
-            <span class="facet-name">
-              <a href="#" data-solrfacetcategory="{{ results.facetMappings[category] }}" data-solrfacetvalue="{{ facet.facetItem }}">{{ facet.facetItem }}</a>
-             </span>
-            <span class="facet-numresults">
-              {{ facet.facetCount }}
-            </span>
-          </li>
-          {% endif %}
+  {% for category,facets in results.facets %}
+    {% if category != 'Origin' %}
+      {% set facetSection = [] %}
+      {% for facet in facets %} 
+      {% set fullFacet = results.facetMappings[category] ~ ':"' ~ facet.facetItem ~ '"' %}
+      {% if fullFacet not in currentSearch.facets %}
+        {% set facetSection = facetSection|merge([facet]) %}
+      {% endif %}
       {% endfor %}
-        </ul>
-       </div>
-     {% endif %}
+      {% if facetSection|length > 0 %}
+      <div class="facet-section w-100 d-block">
+        <h5 class="facet-header">{{ category }}</h5>
+          <ul class="facets-list list-unstyled">
+        {% for facet in facetSection %}
+          {% if facet.facetItem != '' and facet.facetCount is defined and facet.facetCount > 0 %}
+            <li class="facet-item">
+              <span class="facet-name">
+                <a href="#" data-solrfacetcategory="{{ results.facetMappings[category] }}" data-solrfacetvalue="{{ facet.facetItem }}">{{ facet.facetItem }}</a>
+              </span>
+              <span class="facet-numresults">
+                {{ facet.facetCount }}
+              </span>
+            </li>
+            {% endif %}
+        {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      {% endif %}
    {% endfor %}
    </div><!-- end facetToggle -->
    </nav><!-- end nav container for collapsible -->

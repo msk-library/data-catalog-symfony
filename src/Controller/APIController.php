@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Type\DatasetViaApiType;
 use App\Entity\Dataset;
@@ -34,7 +33,7 @@ use App\Utils\Slugger;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class APIController extends Controller
+class APIController extends AbstractController
 {
 
   private $security;
@@ -63,10 +62,9 @@ class APIController extends Controller
    * @return Response A Response instance
    *
    * @Route(
-   *   "/api/Dataset/{uid}.{_format}", name="json_output_datasets",
-   *   defaults={"uid": "all", "_format":"json"},
+   *   path="/api/Dataset/{uid}.{_format}", name="json_output_datasets",
+   *   defaults={"uid": "all", "_format":"json"}, methods={"GET"}
    * ) 
-   * @Method("GET")
    */ 
   public function APIDatasetGetAction($uid, $_format, Request $request) {
 
@@ -133,8 +131,7 @@ class APIController extends Controller
    *
    * @return Response A Response instance
    *
-   * @Route("/api/Dataset")
-   * @Method("POST")
+   * @Route(path="/api/Dataset", methods={"POST"})
    */
   public function APIDatasetPostAction(Request $request) {
     $submittedData = json_decode($request->getContent(), true);
@@ -186,8 +183,7 @@ class APIController extends Controller
    *
    * @return Response A Response instance
    *
-   * @Route("/api/{entityName}")
-   * @Method("POST")
+   * @Route(path="/api/{entityName}", methods={"POST"})
    */
   public function APIEntityPostAction($entityName, Request $request) {
     $submittedData = json_decode($request->getContent(), true);
@@ -249,10 +245,9 @@ class APIController extends Controller
    * @return Response A Response instance
    *
    * @Route(
-   *   "/api/{entityName}/{slug}.{_format}", name="json_output_related",
-   *   defaults={"slug": "all", "_format":"json"},
+   *   path="/api/{entityName}/{slug}.{_format}", name="json_output_related",
+   *   defaults={"slug": "all", "_format":"json"}, methods={"GET"}
    * ) 
-   * @Method("GET")
    */ 
   public function APIEntityGetAction($entityName, $slug, $_format, Request $request) {
     if ($entityName == 'User') {

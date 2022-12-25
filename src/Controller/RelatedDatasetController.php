@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Dataset;
 
@@ -30,7 +30,7 @@ use App\Entity\Dataset;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class RelatedDatasetController extends Controller
+class RelatedDatasetController extends AbstractController
 {
   /**
    * Given a list of related datasets, fetch ones that are publicly-visible,

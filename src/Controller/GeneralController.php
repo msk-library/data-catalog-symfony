@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\SearchResults;
@@ -42,7 +42,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
   *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   *
   */
-class GeneralController extends Controller
+class GeneralController extends AbstractController
 {
   private $security;
 
@@ -63,13 +63,13 @@ class GeneralController extends Controller
    * @Route("/", name="homepage")
    * @Route("/search", name="user_search_results")
    */
-  public function indexAction(Request $request) {
+  public function indexAction(Request $request, SolrSearchr $solrsearchr ) {
     
     $currentSearch = new SearchState($request);
 
-    $solr = $this->get('SolrSearchr');
-    $solr->setUserSearch($currentSearch);
-    $resultsFromSolr = $solr->fetchFromSolr();
+    //$solr = $this->get('SolrSearchr');
+    $solrsearchr->setUserSearch($currentSearch);
+    $resultsFromSolr = $solrsearchr->fetchFromSolr();
 
     $results = new SearchResults($resultsFromSolr);
 
