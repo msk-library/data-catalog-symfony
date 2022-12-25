@@ -101,15 +101,14 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    SolrSearchr:
-        class:  App\Service\SolrSearchr
+    App\Service\SolrSearchr:
         public: true
-        arguments:  
-          - "%solrsearchr_server%"
-          - "%solrsearchr_format%"
-          - "%solrsearchr_facets%"
-          - "%solrsearchr_fields_to_display%"
-          - "%solrsearchr_fields_to_search%"
+        arguments:
+            $solrServer: "%solrsearchr_server%"
+            $solrFormat: "%solrsearchr_format%"
+            $solrFacets: "%solrsearchr_facets%"
+            $solrDisplayFields: "%solrsearchr_fields_to_display%"
+            $solrSearchFields: "%solrsearchr_fields_to_search%"
 
     app.ldap:
         class: Symfony\Component\Ldap\LdapClient
