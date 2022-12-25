@@ -16,6 +16,7 @@ use App\Form\Type\ContactFormEmailType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Utils\Slugger;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -46,8 +47,9 @@ class GeneralController extends AbstractController
 {
   private $security;
 
-  public function __construct(Security $security) {
+  public function __construct(Security $security, ParameterBagInterface $params) {
     $this->security = $security;
+    $this->params = $params;
   }
 
 
@@ -167,9 +169,9 @@ class GeneralController extends AbstractController
     $contactFormEmail = new \App\Entity\ContactFormEmail();
 
     // Get email addresses and institution list from parameters.yml
-    $emailTo = $this->container->getParameter('contact_email_to');
-    $emailFrom = $this->container->getParameter('contact_email_from');
-    $affiliations = $this->container->getParameter('institutional_affiliation_options');
+    $emailTo = $this->params->get('contact_email_to');
+    $emailFrom = $this->params->get('contact_email_from');
+    $affiliations = $this->params->get('institutional_affiliation_options');
     $affiliationOptions = [];
     foreach ($affiliations as $key=>$value) {
       $affiliationOptions[$value] = $value;
