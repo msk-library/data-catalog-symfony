@@ -28,7 +28,7 @@ use JsonSerializable;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity(repositoryClass="App\Entity\DatasetRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DatasetRepository")
  * @ORM\Table(name="datasets")
  * @UniqueEntity("title")
  */
