@@ -19,9 +19,8 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Utils\Slugger;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
+use Doctrine\ORM\EntityManagerInterface;
 /**
   *  A controller handling the main search functionality, contact and About pages,
   *  dataset views, etc.
@@ -218,9 +217,8 @@ class GeneralController extends AbstractController
    *
    * @Route("/dataset/{uid}", name="view_dataset")
    */
-  public function viewAction($uid, Request $request) {
-    $dataset = $this->getDoctrine()
-      ->getRepository('App:Dataset')
+  public function viewAction($uid, EntityManagerInterface $em, Request $request) {
+    $dataset = $em->getRepository(Dataset::Class)
       ->findOneBy(array('dataset_uid'=>$uid));
 
     // dataset not found
