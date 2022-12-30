@@ -26,6 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="dataset_relationships")
+ * @ORM\Entity(repositoryClass="App\Repository\DatasetRelationshipRepository")
  */
 class DatasetRelationship {
   /**

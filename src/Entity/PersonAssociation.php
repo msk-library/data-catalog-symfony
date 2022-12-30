@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="person_associations")
+ * @ORM\Entity(repositoryClass="App\Repository\PersonAssociationRepository")
  */
 class PersonAssociation {
   /** 

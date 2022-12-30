@@ -30,6 +30,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="data_types")
  * @UniqueEntity("data_type")
+ * @ORM\Entity(repositoryClass="App\Repository\DataTypeRepository")
  */
 class DataType {
   /**

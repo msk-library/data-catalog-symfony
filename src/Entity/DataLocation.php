@@ -27,6 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @ORM\Table(name="data_locations")
+ * @ORM\Entity(repositoryClass="App\Repository\DataLocationRepository")
  */
 class DataLocation {
   /**

@@ -30,6 +30,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="subject_geographic_area_details")
  * @UniqueEntity("geographic_area_detail_name")
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectGeographicAreaDetailRepository")
  */
 class SubjectGeographicAreaDetail {
   /**

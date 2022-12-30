@@ -31,6 +31,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="person")
  * @UniqueEntity("kid")
  * @UniqueEntity("full_name")
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
 class Person {
   /**

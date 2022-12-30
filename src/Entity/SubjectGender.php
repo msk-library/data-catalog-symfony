@@ -26,6 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="subject_genders")
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectGenderRepository")
  */
 class SubjectGender {
   /**

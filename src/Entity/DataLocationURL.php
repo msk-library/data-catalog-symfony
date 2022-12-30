@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="data_location_urls")
+ * @ORM\Entity(repositoryClass="App\Repository\DataLocationURLRepository")
  */
 class DataLocationURL {
   /**

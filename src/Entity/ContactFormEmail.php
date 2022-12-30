@@ -27,6 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @ORM\Table(name="contact_form_emails")
+ * @ORM\Entity(repositoryClass="App\Repository\ContactFormEmailRepository")
  */
 class ContactFormEmail {
   /**

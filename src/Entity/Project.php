@@ -28,6 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity
  * @ORM\Table(name="project")
+ * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
  */
 class Project {
   /**

@@ -29,6 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="study_types")
  * @UniqueEntity("study_type")
+ * @ORM\Entity(repositoryClass="App\Repository\StudyTypeRepository")
  */
 class StudyType {
   /**

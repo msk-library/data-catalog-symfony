@@ -30,6 +30,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="subject_of_study")
  * @UniqueEntity("subject_of_study")
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectOfStudyRepository")
  */
 class SubjectOfStudy {
   /**

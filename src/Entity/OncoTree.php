@@ -30,6 +30,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="onco_trees")
  * @UniqueEntity("onco_tree_code")
+ * @ORM\Entity(repositoryClass="App\Repository\OncoTreeRepository")
  */
 class OncoTree {
 /**

@@ -29,6 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="subject_population_ages")
  * @UniqueEntity("age_group")
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectPopulationAgeRepository")
  */
 class SubjectPopulationAge {
   /**

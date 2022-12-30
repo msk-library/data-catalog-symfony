@@ -29,6 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="subject_domains")
  * @UniqueEntity("subject_domain")
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectDomainRepository")
  */
 class SubjectDomain {
   /**

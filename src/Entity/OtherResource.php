@@ -26,6 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="other_resources")
+ * @ORM\Entity(repositoryClass="App\Repository\OtherResourceRepository")
  */
 class OtherResource {
   /**

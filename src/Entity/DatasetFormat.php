@@ -29,6 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="dataset_formats")
  * @UniqueEntity("format")
+ * @ORM\Entity(repositoryClass="App\Repository\DatasetFormatRepository")
  */
 class DatasetFormat {
   /**

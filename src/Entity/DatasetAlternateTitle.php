@@ -26,6 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="dataset_alternate_titles")
+ * @ORM\Entity(repositoryClass="App\Repository\DatasetAlternateTitleRepository")
  */
 class DatasetAlternateTitle {
   /**

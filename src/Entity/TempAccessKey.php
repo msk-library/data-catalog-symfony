@@ -29,6 +29,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Entity
  * @ORM\Table(name="temp_access_keys")
+ * @ORM\Entity(repositoryClass="App\Repository\TempAccessKeyRepository")
  */
 class TempAccessKey {
   /**
