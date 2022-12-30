@@ -8,9 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Dataset;
+use App\Repository\DatasetRepository;
 use App\Form\Type\DatasetAsAdminType;
 use App\Form\Type\DatasetAsUserType;
 use App\Utils\Slugger;
+use Doctrine\ORM\EntityManagerInterface;
 
 /*
  * A controller to handle the addition of new datasets and other entities
@@ -36,8 +38,9 @@ class AddController extends AbstractController {
 
   private $security;
 
-  public function __construct(Security $security) {
+  public function __construct(Security $security, EntityManagerInterface $em) {
     $this->security = $security;
+    $this->em = $em;
   }
 
   /**
@@ -62,8 +65,7 @@ class AddController extends AbstractController {
   public function addAction(Request $request) {
     $dataset = new Dataset();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
-    $em = $this->getDoctrine()->getManager();
-    $datasetUid = $em->getRepository('App:Dataset')
+    $datasetUid = $this->em->getRepository(Dataset::Class)
                      ->getNewDatasetId();
     $dataset->setDatasetUid($datasetUid);
 
@@ -102,10 +104,9 @@ class AddController extends AbstractController {
    */
   public function ingestDataset(Request $request) {
     $dataset = new Dataset();
-    $em = $this->getDoctrine()->getManager();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
 
-    $datasetUid = $em->getRepository('App:Dataset')
+    $datasetUid = $this->em->getRepository(Dataset::Class)
                      ->getNewDatasetId();
     $dataset->setDatasetUid($datasetUid);
     
@@ -126,12 +127,12 @@ class AddController extends AbstractController {
       $slug = Slugger::slugify($addedEntityName);
       $dataset->setSlug($slug);
       
-      $em->persist($dataset);
+      $this->em->persist($dataset);
       foreach ($dataset->getAuthorships() as $authorship) {
         $authorship->setDataset($dataset);
-        $em->persist($authorship);
+        $this->em->persist($authorship);
       }
-      $em->flush();
+      $this->em->flush();
      
       return $this->render('default/add_success.html.twig', array(
         'adminPage'=>true,
@@ -194,7 +195,6 @@ class AddController extends AbstractController {
     }
     $newEntityFormType = 'App\Form\Type\\' . $entityName . "Type";
 
-    $em = $this->getDoctrine()->getManager();
     $form = $this->createForm($newEntityFormType, 
                               new $newEntity(),
                               array(
@@ -218,8 +218,8 @@ class AddController extends AbstractController {
         }
       }
       
-      $em->persist($entity);
-      $em->flush();
+      $this->em->persist($entity);
+      $this->em->flush();
       
       //
       // Added, 6/28/2017, Joel Marchewka

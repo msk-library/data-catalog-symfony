@@ -204,4 +204,9 @@ class PersonAssociation {
         'person'=>$this->person->getDisplayName(),
       );
     }
+
+    public function isIsCorrespondingAuthor(): ?bool
+    {
+        return $this->is_corresponding_author;
+    }
 }

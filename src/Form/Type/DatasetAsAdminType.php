@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 use App\Form\DataTransformer\SubjectKeywordToStringTransformer;
 use Doctrine\ORM\EntityManager;
 
@@ -124,7 +123,7 @@ class DatasetAsAdminType extends AbstractType {
       'choices'=> array('Yes' => true, 'Not yet'=>false),
     ));
     $builder->add('publishers', EntityType::class, array(
-      'class'   => 'App:Publisher',
+      'class'   => Publisher::Class,
       'choice_label'=> 'publisher_name',
       'required' => false,
       'query_builder'=> function(EntityRepository $er) {

@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -385,5 +386,10 @@ class Person {
         'email'=>$this->email,
         'works_here'=>$this->works_here
       );
+    }
+
+    public function isWorksHere(): ?bool
+    {
+        return $this->works_here;
     }
 }

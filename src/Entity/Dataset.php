@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -544,6 +546,10 @@ class Dataset implements JsonSerializable {
     $this->published = false;
     $this->archived  = false;
     $this->origin    = "Internal";
+    $this->study_types = new ArrayCollection();
+    $this->corresponding_authors = new ArrayCollection();
+    $this->local_experts = new ArrayCollection();
+    $this->data_location_urls = new ArrayCollection();
   }
 
   /**
@@ -2528,5 +2534,45 @@ class Dataset implements JsonSerializable {
     public function removeTempAccessKey(\App\Entity\TempAccessKey $tempAccessKey)
     {
         $this->temp_access_keys->removeElement($tempAccessKey);
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function isArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    /**
+     * @return Collection<int, DataLocationURL>
+     */
+    public function getDataLocationUrls(): Collection
+    {
+        return $this->data_location_urls;
+    }
+
+    public function addDataLocationUrl(DataLocationURL $dataLocationUrl): self
+    {
+        if (!$this->data_location_urls->contains($dataLocationUrl)) {
+            $this->data_location_urls[] = $dataLocationUrl;
+            $dataLocationUrl->setDatasetsDatasetUid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDataLocationUrl(DataLocationURL $dataLocationUrl): self
+    {
+        if ($this->data_location_urls->removeElement($dataLocationUrl)) {
+            // set the owning side to null (unless already changed)
+            if ($dataLocationUrl->getDatasetsDatasetUid() === $this) {
+                $dataLocationUrl->setDatasetsDatasetUid(null);
+            }
+        }
+
+        return $this;
     }
 }
