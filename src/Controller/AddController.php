@@ -9,8 +9,8 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Dataset;
 use App\Repository\DatasetRepository;
-use App\Form\Type\DatasetAsAdminType;
-use App\Form\Type\DatasetAsUserType;
+use App\Form\DatasetAsAdminType;
+use App\Form\DatasetAsUserType;
 use App\Utils\Slugger;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -193,7 +193,7 @@ class AddController extends AbstractController {
       $newEntity = 'App\Entity\\' . $entityName;
       
     }
-    $newEntityFormType = 'App\Form\Type\\' . $entityName . "Type";
+    $newEntityFormType = 'App\Form\\' . $entityName . "Type";
 
     $form = $this->createForm($newEntityFormType, 
                               new $newEntity(),

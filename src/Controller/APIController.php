@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\Type\DatasetViaApiType;
+use App\Form\DatasetViaApiType;
 use App\Entity\Dataset;
 use App\Utils\Slugger;
 
@@ -202,7 +202,7 @@ class APIController extends AbstractController
     } else {
       $newEntity = 'App\Entity\\' . $entityName;
     }
-    $newEntityFormType = 'App\Form\Type\\' . $entityName . "Type";
+    $newEntityFormType = 'App\Form\\' . $entityName . "Type";
 
     $em = $this->getDoctrine()->getManager();
     if ($userCanSubmit) {

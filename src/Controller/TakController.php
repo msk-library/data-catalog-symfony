@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\SearchResults;
 use App\Entity\SearchState;
 use App\Entity\Dataset;
-use App\Form\Type\DatasetType;
+use App\Form\DatasetType;
 use App\Utils\Slugger;
 use Symfony\Component\Validator\Constraints as Assert;
 

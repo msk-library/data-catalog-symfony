@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Dataset;
-use App\Form\Type\DatasetAsAdminType;
+use App\Form\DatasetAsAdminType;
 use App\Utils\Slugger;
 
 
@@ -112,7 +112,7 @@ class RemoveController extends AbstractController {
     } else {
       $removeEntity = 'App\Entity\\' . $entityName;
     }
-    $entityFormType = 'App\Form\Type\\' . $entityName . "Type";
+    $entityFormType = 'App\Form\\' . $entityName . "Type";
     $entityTypeDisplayName = trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $entityName));
 
     $em = $this->getDoctrine()->getManager();
