@@ -50,7 +50,7 @@ class PersonAssociation {
   protected $display_order;
 
   /**
-   * @ORM\ManyToOne(targetEntity="Person", inversedBy="dataset_associations")
+   * @ORM\ManyToOne(targetEntity="Person", inversedBy="datasetAssociations")
    * @ORM\JoinColumn(name="person_id",referencedColumnName="person_id", nullable=FALSE)
    */
   protected $person;
