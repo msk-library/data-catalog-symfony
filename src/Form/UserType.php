@@ -73,7 +73,7 @@ class UserType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'App\Entity\Security\User'
+      'data_class' => User::class,
     ));
   }
 

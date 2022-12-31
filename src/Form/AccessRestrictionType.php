@@ -1,11 +1,11 @@
 <?php
 namespace App\Form;
 
+use App\Entity\AccessRestriction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 
 /**
  * Form builder for the Access Restriction entity
@@ -47,7 +47,7 @@ class AccessRestrictionType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver
-      ->setDefaults(array('data_class' => 'App\Entity\AccessRestriction'));
+      ->setDefaults(array('data_class' => AccessRestriction::class,));
   }
 
   public function getName() {

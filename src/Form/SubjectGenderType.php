@@ -1,6 +1,7 @@
 <?php
 namespace App\Form;
 
+use App\Entity\SubjectGender;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,7 +47,7 @@ class SubjectGenderType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => 'App\Entity\SubjectGender'
+      'data_class' => SubjectGender::class,
     ));
   }
 

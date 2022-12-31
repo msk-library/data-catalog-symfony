@@ -1,6 +1,7 @@
 <?php
 namespace App\Form;
 
+use App\Entity\PersonAssociation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -83,7 +84,7 @@ class PersonAssociationType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class'  => 'App\Entity\PersonAssociation',
+      'data_class'  => PersonAssociation::class,
     ));
   }
 
