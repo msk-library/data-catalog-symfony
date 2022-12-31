@@ -122,18 +122,18 @@ class DatasetAsAdminType extends AbstractType {
       'label'    => 'Published to Data Catalog?',
       'choices'=> array('Yes' => true, 'Not yet'=>false),
     ));
-    $builder->add('publishers', EntityType::class, array(
-      'class'   => Publisher::Class,
+    $builder->add('publishers', EntityType::class, [
+      'class'   => Publisher::class,
       'choice_label'=> 'publisher_name',
       'required' => false,
-      'query_builder'=> function(EntityRepository $er) {
+      'query_builder'=> function (EntityRepository $er) {
           return $er->createQueryBuilder('u')->orderBy('u.publisher_name','ASC');
       },
       'attr'=>array('style'=>'width:100%'),
       'multiple' => true,
       'by_reference'=>false,
       'label'     => 'Publishers',
-    ));
+    ]);
     $builder->add('core_facilities', EntityType::class, array(
       'class'   => 'App:CoreFacility',
       'choice_label'=> 'core_facility_name',

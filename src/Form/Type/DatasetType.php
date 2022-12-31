@@ -89,8 +89,8 @@ class DatasetType extends AbstractType {
 
 
     if ($this->userIsAdmin) {
-      $builder->add('publishers', 'entity', array(
-        'class'   => 'App:Publisher',
+      $builder->add('publishers', EntityType::class, array(
+        'class'   => Publisher::class,
         'property'=> 'publisher_name',
         'required' => false,
         'query_builder'=> function(EntityRepository $er) {

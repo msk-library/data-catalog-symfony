@@ -106,7 +106,7 @@ class AddController extends AbstractController {
     $dataset = new Dataset();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
 
-    $datasetUid = $this->em->getRepository(Dataset::Class)
+    $datasetUid = $this->em->getRepository(Dataset::class)
                      ->getNewDatasetId();
     $dataset->setDatasetUid($datasetUid);
     

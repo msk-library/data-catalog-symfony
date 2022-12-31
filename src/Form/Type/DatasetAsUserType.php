@@ -54,7 +54,18 @@ class DatasetAsUserType extends AbstractType {
       'required' => true,
       'attr'=>array('rows'=>'7','placeholder'=>'Please provide a brief description of the dataset'),
       'label'    => 'Description'));
-
+    $builder->add('publishers', EntityType::class, [
+      'class'   => Publisher::class,
+      'choice_label'=> 'publisher_name',
+      'required' => false,
+      'query_builder'=> function (EntityRepository $er) {
+          return $er->createQueryBuilder('u')->orderBy('u.publisher_name','ASC');
+      },
+      'attr'=>array('style'=>'width:100%'),
+      'multiple' => true,
+      'by_reference'=>false,
+      'label'     => 'Publishers',
+    ]);
     $builder->add('access_instructions', 'textarea', array(
       'attr'=>array('rows'=>'7', 'placeholder'=>'Provide any information on restrictions or conditions for gaining access to data'),
       'label'    => 'Access Instructions'));
