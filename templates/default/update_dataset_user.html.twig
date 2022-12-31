@@ -71,7 +71,6 @@ col-sm-4
       {{ form_row(form.subject_start_date) }}
       {{ form_row(form.subject_end_date) }}
   </fieldset>
-  {{ form_widget(form._token) }}
   {{ form_widget(form.save) }}
     </form> 
 
@@ -97,7 +96,6 @@ col-sm-4
   {% endif %}
 
 {% endfor %}
-  {{ form_widget(form._token) }}
 #}
 
 </form>
