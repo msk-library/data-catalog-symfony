@@ -27,10 +27,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PublisherCategoryRepository")
  * @ORM\Table(name="publisher_categories")
  * @UniqueEntity("publisher_category")
- * @ORM\Entity(repositoryClass="App\Repository\PublisherCategoryRepository")
  */
 class PublisherCategory {
   /**

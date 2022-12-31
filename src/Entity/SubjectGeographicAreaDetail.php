@@ -29,10 +29,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectGeographicAreaDetailRepository")
  * @ORM\Table(name="subject_geographic_area_details")
  * @UniqueEntity("geographic_area_detail_name")
- * @ORM\Entity(repositoryClass="App\Repository\SubjectGeographicAreaDetailRepository")
  */
 class SubjectGeographicAreaDetail {
   /**

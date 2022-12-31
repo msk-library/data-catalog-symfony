@@ -25,9 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
- * @ORM\Table(name="contact_form_emails")
  * @ORM\Entity(repositoryClass="App\Repository\ContactFormEmailRepository")
+ * @ORM\Table(name="contact_form_emails")
  */
 class ContactFormEmail {
   /**

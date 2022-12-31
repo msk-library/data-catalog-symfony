@@ -29,10 +29,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectKeywordRepository")
  * @ORM\Table(name="subject_keywords")
  * @UniqueEntity("keyword")
- * @ORM\Entity(repositoryClass="App\Repository\SubjectKeywordRepository")
  */
 class SubjectKeyword {
   /**

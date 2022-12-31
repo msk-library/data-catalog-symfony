@@ -26,9 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
- * @ORM\Table(name="subject_sexes")
  * @ORM\Entity(repositoryClass="App\Repository\SubjectSexRepository")
+ * @ORM\Table(name="subject_sexes")
  */
 class SubjectSex {
   /**

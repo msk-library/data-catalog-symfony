@@ -193,7 +193,7 @@ class AddController extends AbstractController {
       $newEntity = 'App\Entity\\' . $entityName;
       
     }
-    $newEntityFormType = 'App\Form\\' . $entityName . "Type";
+    $newEntityFormType = 'App\Form\\' . $entityName . 'Type';
 
     $form = $this->createForm($newEntityFormType, 
                               new $newEntity(),

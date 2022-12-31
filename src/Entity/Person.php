@@ -28,11 +28,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  * @ORM\Table(name="person")
  * @UniqueEntity("kid")
  * @UniqueEntity("full_name")
- * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
 class Person {
   /**

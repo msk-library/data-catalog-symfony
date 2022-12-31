@@ -29,10 +29,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DataTypeRepository")
  * @ORM\Table(name="data_types")
  * @UniqueEntity("data_type")
- * @ORM\Entity(repositoryClass="App\Repository\DataTypeRepository")
  */
 class DataType {
   /**

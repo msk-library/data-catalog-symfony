@@ -28,10 +28,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectPopulationAgeRepository")
  * @ORM\Table(name="subject_population_ages")
  * @UniqueEntity("age_group")
- * @ORM\Entity(repositoryClass="App\Repository\SubjectPopulationAgeRepository")
  */
 class SubjectPopulationAge {
   /**

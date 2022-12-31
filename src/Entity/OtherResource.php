@@ -24,9 +24,8 @@ use Doctrine\ORM\Mapping as ORM;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
- * @ORM\Table(name="other_resources")
  * @ORM\Entity(repositoryClass="App\Repository\OtherResourceRepository")
+ * @ORM\Table(name="other_resources")
  */
 class OtherResource {
   /**

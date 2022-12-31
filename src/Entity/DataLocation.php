@@ -25,9 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
- * @ORM\Table(name="data_locations")
  * @ORM\Entity(repositoryClass="App\Repository\DataLocationRepository")
+ * @ORM\Table(name="data_locations")
  */
 class DataLocation {
   /**

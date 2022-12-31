@@ -29,9 +29,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
- * @ORM\Table(name="publishers")
  * @ORM\Entity(repositoryClass="App\Repository\PublisherRepository")
+ * @ORM\Table(name="publishers")
  * @UniqueEntity("publisher_name")
  */
 class Publisher {
