@@ -47,7 +47,7 @@ class PublisherType extends AbstractType {
    */
   public function configureOptions(OptionsResolver $resolver) {
     $resolver->setDefaults(array(
-      'data_class' => Publisher::class,
+      'data_class' => 'App\Entity\Publisher',
     ));
   }
 
