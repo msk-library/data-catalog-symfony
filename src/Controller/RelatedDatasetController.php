@@ -44,7 +44,7 @@ class RelatedDatasetController extends AbstractController
   public function relatedDatasetAction($relatedDatasets, EntityManagerInterface $em) {
 
     // $em = $this->getDoctrine()->getManager()->getRepository('App:Dataset');
-    $dataset = $em->getRepository(Dataset::Class);
+    $dataset = $em->getRepository(Dataset::class);
 
     $datasetsForDisplay = array();
     foreach ($relatedDatasets as $related) {

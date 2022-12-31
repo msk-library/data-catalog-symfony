@@ -199,7 +199,7 @@ class UpdateController extends AbstractController {
   public function updateEntityAction($entityName, $slug, Request $request) {
 
     $updateEntity   = 'App\Entity\\'.$entityName;
-    $entityFormType = 'App\Form\\' . $entityName . "Type";
+    $entityFormType = 'App\Form\\' . $entityName . 'Type';
     $entityTypeDisplayName = trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $entityName));
 
     $em = $this->getDoctrine()->getManager();
@@ -207,7 +207,7 @@ class UpdateController extends AbstractController {
 
     if ($slug == null) {
       if ($entityName == 'ArchivedDatasets') {
-          $allEntities = $em->getRepository('App:Dataset')->findAllArchived();
+          $allEntities = $em->getRepository('App\Entity\Dataset')->findAllArchived();
           $entityName = 'Dataset';
           $entityTypeDisplayName = 'Archived Dataset';
       } else {
