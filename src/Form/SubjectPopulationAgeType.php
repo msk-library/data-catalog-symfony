@@ -33,11 +33,10 @@ class SubjectPopulationAgeType extends AbstractType {
    * Build form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('age_group');
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -46,9 +45,7 @@ class SubjectPopulationAgeType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => SubjectPopulationAge::class,
-    ));
+    $resolver->setDefaults(['data_class' => SubjectPopulationAge::class]);
   }
 
   public function getName() {

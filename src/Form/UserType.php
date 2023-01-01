@@ -42,28 +42,15 @@ class UserType extends AbstractType {
    * Build form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('username');
     $builder->add('firstName');
     $builder->add('lastName');
-    $builder->add('roles', ChoiceType::class, array(
-      'choices' => array(
-        'ROLE_ADMIN' => array('Admin' => 'ROLE_ADMIN'),
-        'ROLE_USER' => array('User' => 'ROLE_USER'),
-        'ROLE_API_SUBMITTER' => array('API Submitter' => 'ROLE_API_SUBMITTER')
-      ),
-      'multiple'=>true,
-      'expanded'=>true,
-      'required'=>true
-    ));
-    $builder->add('apiKey', null, array(
-      'required' => false,
-      'attr' => array('readonly'=>true)
-    ));
+    $builder->add('roles', ChoiceType::class, ['choices' => ['ROLE_ADMIN' => ['Admin' => 'ROLE_ADMIN'], 'ROLE_USER' => ['User' => 'ROLE_USER'], 'ROLE_API_SUBMITTER' => ['API Submitter' => 'ROLE_API_SUBMITTER']], 'multiple'=>true, 'expanded'=>true, 'required'=>true]);
+    $builder->add('apiKey', null, ['required' => false, 'attr' => ['readonly'=>true]]);
 
-    $builder->add('save', SubmitType::class,array('label'=>'Submit'));
+    $builder->add('save', SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -72,9 +59,7 @@ class UserType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => User::class,
-    ));
+    $resolver->setDefaults(['data_class' => User::class]);
   }
 
   private function generateSecureRandomAPIKey() {

@@ -149,7 +149,6 @@ class DataLocation {
     /**
      * Set datasets_dataset_uid
      *
-     * @param \App\Entity\Dataset $datasetsDatasetUid
      * @return DataLocationURL
      */
     public function setDatasetsDatasetUid(\App\Entity\Dataset $datasetsDatasetUid = null)
@@ -221,11 +220,6 @@ class DataLocation {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'data_location'=>$this->data_location,
-        'location_content'=>$this->location_content,
-        'data_access_url'=>$this->data_access_url,
-        'accession_number'=>$this->accession_number
-      );
+      return ['data_location'=>$this->data_location, 'location_content'=>$this->location_content, 'data_access_url'=>$this->data_access_url, 'accession_number'=>$this->accession_number];
     }
 }

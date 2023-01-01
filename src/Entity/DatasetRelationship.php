@@ -139,7 +139,6 @@ class DatasetRelationship {
     /**
      * Set parent_dataset_uid
      *
-     * @param \App\Entity\Dataset $parentDatasetUid
      * @return DatasetRelationship
      */
     public function setParentDatasetUid(\App\Entity\Dataset $parentDatasetUid = null)
@@ -165,11 +164,6 @@ class DatasetRelationship {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'related_dataset_uid'=>$this->related_dataset_uid,
-            'relationship_attributes'=>$this->relationship_attributes,
-            'relationship_notes'=>$this->relationship_notes,
-            'parent_dataset_uid'=>$this->parent_dataset_uid
-        );
+        return ['related_dataset_uid'=>$this->related_dataset_uid, 'relationship_attributes'=>$this->relationship_attributes, 'relationship_notes'=>$this->relationship_notes, 'parent_dataset_uid'=>$this->parent_dataset_uid];
     }
 }

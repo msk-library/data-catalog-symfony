@@ -201,7 +201,6 @@ class RelatedSoftware {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return RelatedSoftware
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -213,8 +212,6 @@ class RelatedSoftware {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -237,11 +234,7 @@ class RelatedSoftware {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'software_name'=>$this->software_name,
-            'software_description'=>$this->software_description,
-            'software_url'=>$this->software_url
-        );
+        return ['software_name'=>$this->software_name, 'software_description'=>$this->software_description, 'software_url'=>$this->software_url];
     }
 
 }

@@ -30,18 +30,13 @@ class CorrespondingAuthorType extends AbstractType {
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('full_name');
     $builder->add('kid');
-    $builder->add('orcid_id', 'text', array(
-      'required' => false,
-      'label'    => 'ORCID ID',
-    ));
+    $builder->add('orcid_id', 'text', ['required' => false, 'label'    => 'ORCID ID']);
     $builder->add('bio_url');
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => Person::class,
-    ));
+    $resolver->setDefaults(['data_class' => Person::class]);
   }
 
   public function getName() {

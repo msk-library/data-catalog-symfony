@@ -169,7 +169,6 @@ class SubjectGeographicArea {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectGeographicArea
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -181,8 +180,6 @@ class SubjectGeographicArea {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -205,9 +202,6 @@ class SubjectGeographicArea {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'geographic_area_name'=>$this->geographic_area_name,
-            'geographic_area_authority'=>$this->geographic_area_authority
-        );
+        return ['geographic_area_name'=>$this->geographic_area_name, 'geographic_area_authority'=>$this->geographic_area_authority];
     }
 }

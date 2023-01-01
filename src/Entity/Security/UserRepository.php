@@ -85,6 +85,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
 
     public function loadUserByApiKey($apiKey)
     {
+      $username = null;
       // make a call to database to see if user exists, roles
       $q = $this->createQueryBuilder('u')
                 ->where('u.apiKey = :apiKey')
@@ -116,7 +117,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(
-                sprintf('Instances of "%s" are not supported.', get_class($user))
+                sprintf('Instances of "%s" are not supported.', $user::class)
             );
         }
 
@@ -131,8 +132,8 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
      *
      * @return bool
      */
-    public function supportsClass($class)
+    public function supportsClass(mixed $class)
     {
-        return $class === 'App\Entity\Security\User';
+        return $class === \App\Entity\Security\User::class;
     }
 }

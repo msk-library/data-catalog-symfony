@@ -23,7 +23,7 @@ class ApiUserProvider implements UserProviderInterface {
      */
     function loadUserByUsername($apiKey) {
         var_dump("using API provider");
-        $user = User::find(array('apiKey'=>$apiKey));
+        $user = User::find(['apiKey'=>$apiKey]);
         if(empty($user)){
             throw new UsernameNotFoundException('Could not find user. Sorry!');
         }
@@ -33,7 +33,6 @@ class ApiUserProvider implements UserProviderInterface {
 
     /**
      * @throws UnsupportedUserException if the account is not supported
-     * @param UserInterface $user
      *
      * @return UserInterface
      */
@@ -47,6 +46,6 @@ class ApiUserProvider implements UserProviderInterface {
      * @return Boolean
      */
     function supportsClass($class) {
-        return $class === 'App\Entity\Security\User';
+        return $class === \App\Entity\Security\User::class;
     }
 }

@@ -34,21 +34,12 @@ class RelatedSoftwareType extends AbstractType {
    * Build form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('software_name', TextType::class, array(
-      'label'=>'Software Name',
-    ));
-    $builder->add('software_description', TextType::class, array(
-      'label'=>'Software Description',
-      'required'=>false,
-    ));
-    $builder->add('software_url', TextType::class, array(
-      'label'=>'Software URL',
-      'required'=>false,
-    ));
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('software_name', TextType::class, ['label'=>'Software Name']);
+    $builder->add('software_description', TextType::class, ['label'=>'Software Description', 'required'=>false]);
+    $builder->add('software_url', TextType::class, ['label'=>'Software URL', 'required'=>false]);
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -57,9 +48,7 @@ class RelatedSoftwareType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => RelatedSoftware::class,
-    ));
+    $resolver->setDefaults(['data_class' => RelatedSoftware::class]);
   }
 
   public function getName() {

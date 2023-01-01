@@ -90,7 +90,6 @@ class TempAccessKey {
     /**
      * Set datasetAssociation
      *
-     * @param \App\Entity\Dataset $dataset_association
      * @return TempAccessKey
      */
     public function setDatasetAssociation(\App\Entity\Dataset $dataset_association)
@@ -183,7 +182,8 @@ class TempAccessKey {
      */
 		public function isValid() {
 		
-			$tak_ttl="PT72H";
+			$tak = null;
+   $tak_ttl="PT72H";
 			if ($this->container->hasParameter('tak_ttl')) {
 				$tak_ttl=$this->container->getParameter('tak_ttl');
 			}					

@@ -35,21 +35,12 @@ class DataCollectionInstrumentType extends AbstractType {
    * Build the form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('data_collection_instrument_name', TextType::class, array(
-      'label'=>'Instrument Name'
-    ));
-    $builder->add('url', TextType::class, array(
-      'label'=>'URL of Instrument Description',
-      'required'=>false
-    ));
-    $builder->add('notes', TextAreaType::class, array(
-      'label'=>'Notes',
-      'required'=>false
-    ));
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('data_collection_instrument_name', TextType::class, ['label'=>'Instrument Name']);
+    $builder->add('url', TextType::class, ['label'=>'URL of Instrument Description', 'required'=>false]);
+    $builder->add('notes', TextAreaType::class, ['label'=>'Notes', 'required'=>false]);
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -58,9 +49,7 @@ class DataCollectionInstrumentType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => DataCollectionInstrument::class,
-    ));
+    $resolver->setDefaults(['data_class' => DataCollectionInstrument::class]);
   }
 
   public function getName() {

@@ -38,37 +38,12 @@ class PersonAssociationType extends AbstractType {
    * Build the form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('person', EntityType::class, array(
-      'class'   => 'App\Entity\Person',
-      'choice_label'=> 'full_name',
-      'attr'=> array('style'=>'width:100%;', 'class'=>'author-add-form'),
-      'multiple'=> false,
-      'label'   => false,
-      'query_builder'=> function(EntityRepository $er) {
-          return $er->createQueryBuilder('u')->orderBy('u.full_name','ASC');
-      },
-    ));
-    $builder->add('display_order', NumberType::class, array(
-      'label' => false,
-      'attr'     => array(
-        'placeholder'=>'* Author Position #',
-        'style'=>'width:100%',
-
-    )));
-    $builder->add('is_corresponding_author', CheckboxType::class, array(
-      'label'     => 'Corresponding Author',
-      'required'=>false,
-      'attr'      => array(
-      )
-    ));
-    $builder->add('role', HiddenType::class, array(
-      'label' => false,
-      'required' => false,
-      'data'  => 'Author'
-    ));
+    $builder->add('person', EntityType::class, ['class'   => \App\Entity\Person::class, 'choice_label'=> 'full_name', 'attr'=> ['style'=>'width:100%;', 'class'=>'author-add-form'], 'multiple'=> false, 'label'   => false, 'query_builder'=> fn(EntityRepository $er) => $er->createQueryBuilder('u')->orderBy('u.full_name','ASC')]);
+    $builder->add('display_order', NumberType::class, ['label' => false, 'attr'     => ['placeholder'=>'* Author Position #', 'style'=>'width:100%']]);
+    $builder->add('is_corresponding_author', CheckboxType::class, ['label'     => 'Corresponding Author', 'required'=>false, 'attr'      => []]);
+    $builder->add('role', HiddenType::class, ['label' => false, 'required' => false, 'data'  => 'Author']);
 
 
   }
@@ -83,9 +58,7 @@ class PersonAssociationType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class'  => PersonAssociation::class,
-    ));
+    $resolver->setDefaults(['data_class'  => PersonAssociation::class]);
   }
 
 }

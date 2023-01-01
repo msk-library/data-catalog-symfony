@@ -30,11 +30,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class DatasetEditListener
 {
-    private $tokenStorage;
-
-    public function __construct(TokenStorageInterface $tokenStorage = null) 
+    public function __construct(private readonly ?\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage = null)
     {
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**

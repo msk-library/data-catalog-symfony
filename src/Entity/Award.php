@@ -229,7 +229,6 @@ class Award {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return Award
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -241,8 +240,6 @@ class Award {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -267,11 +264,6 @@ class Award {
      */
     public function getAllProperties()
     {
-        return array(
-            'award' => $this->award,
-            'award_funder' => $this->award_funder,
-            'award_url' => $this->award_url,
-            'funder_type'=> $this->funder_type
-        );
+        return ['award' => $this->award, 'award_funder' => $this->award_funder, 'award_url' => $this->award_url, 'funder_type'=> $this->funder_type];
     }
 }

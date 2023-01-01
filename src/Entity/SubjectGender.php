@@ -125,7 +125,6 @@ class SubjectGender {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectGender
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -137,8 +136,6 @@ class SubjectGender {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {

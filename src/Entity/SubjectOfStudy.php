@@ -168,7 +168,6 @@ class SubjectOfStudy {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectOfStudy
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -180,8 +179,6 @@ class SubjectOfStudy {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -204,9 +201,6 @@ class SubjectOfStudy {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'subject_of_study'=>$this->subject_of_study,
-            'species'=>$this->species
-        );
+        return ['subject_of_study'=>$this->subject_of_study, 'species'=>$this->species];
     }
 }

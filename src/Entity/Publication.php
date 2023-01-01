@@ -33,7 +33,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="publications")
  * @UniqueEntity("slug")
  */
-class Publication {
+class Publication implements \Stringable {
   /**
    * @ORM\Column(type="integer",name="publication_id")
    * @ORM\Id
@@ -233,7 +233,7 @@ class Publication {
     }
 
     /* Return a string concatenating the citation and synapse id for searching on the admin form */
-    public function __toString()
+    public function __toString(): string
     {
         if ($this->synapseid) {
             $combined = $this->citation." (SynapseID: ".$this->synapseid.")";
@@ -247,7 +247,6 @@ class Publication {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return Publication
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -259,8 +258,6 @@ class Publication {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -283,11 +280,6 @@ class Publication {
     * @return array
     */
     public function getAllProperties() {
-      return array(
-        'citation'=>$this->citation,
-        'url'=>$this->url,
-        'doi'=>$this->doi,
-        'synapseid'=>$this->synapseid
-      );
+      return ['citation'=>$this->citation, 'url'=>$this->url, 'doi'=>$this->doi, 'synapseid'=>$this->synapseid];
     }
 }

@@ -35,23 +35,13 @@ class PublicationType extends AbstractType {
    * Build form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('citation', TextareaType::class, array(
-      'attr' => array('rows'=>'7')
-    ));
-    $builder->add('synapseid', TextType::class, array(
-      'label'=>'Synapse ID',
-      'attr'=>array('placeholder'=>'Enter id, press spacebar to autofill Synapse metadata'),
-      'required'=>false));
-    $builder->add('url', TextType::class, array(
-      'label'=>'URL',
-      'required'=>false));
-    $builder->add('doi', TextType::class,array(
-     'required'=>false,
-     'label'   => 'DOI'));
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('citation', TextareaType::class, ['attr' => ['rows'=>'7']]);
+    $builder->add('synapseid', TextType::class, ['label'=>'Synapse ID', 'attr'=>['placeholder'=>'Enter id, press spacebar to autofill Synapse metadata'], 'required'=>false]);
+    $builder->add('url', TextType::class, ['label'=>'URL', 'required'=>false]);
+    $builder->add('doi', TextType::class,['required'=>false, 'label'   => 'DOI']);
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -60,9 +50,7 @@ class PublicationType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => Publication::class,
-    ));
+    $resolver->setDefaults(['data_class' => Publication::class]);
   }
 
   public function getName() {

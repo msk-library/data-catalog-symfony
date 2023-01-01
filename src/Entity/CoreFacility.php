@@ -80,7 +80,6 @@ class CoreFacility {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -92,8 +91,6 @@ class CoreFacility {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -239,10 +236,6 @@ class CoreFacility {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'core_facility_name'=>$this->core_facility_name,
-            'core_facility_url'=>$this->core_facility_url,
-            'core_facility_email'=>$this->core_facility_email
-        );
+        return ['core_facility_name'=>$this->core_facility_name, 'core_facility_url'=>$this->core_facility_url, 'core_facility_email'=>$this->core_facility_email];
     }
 }

@@ -77,7 +77,6 @@ class Publisher {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -89,8 +88,6 @@ class Publisher {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -213,9 +210,6 @@ class Publisher {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'publisher_name'=>$this->publisher_name,
-            'publisher_url'=>$this->publisher_url,
-        );
+        return ['publisher_name'=>$this->publisher_name, 'publisher_url'=>$this->publisher_url];
     }
 }

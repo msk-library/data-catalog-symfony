@@ -68,7 +68,6 @@ class PublisherCategory {
     /**
      * Add publisher
      *
-     * @param \App\Entity\Publisher $publisher
      * @return PublisherCategory
      */
     public function addPublisher(\App\Entity\Publisher $publisher)
@@ -80,8 +79,6 @@ class PublisherCategory {
 
     /**
      * Remove publisher
-     *
-     * @param \App\Entity\Publisher $publisher
      */
     public function removePublisher(\App\Entity\Publisher $publisher)
     {

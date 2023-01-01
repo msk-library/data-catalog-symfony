@@ -92,7 +92,6 @@ class Project {
     /**
      * Set datasets_dataset_uid
      *
-     * @param \App\Entity\Dataset $datasetsDatasetUid
      * @return Project
      */
     public function setDatasetsDatasetUid(\App\Entity\Dataset $datasetsDatasetUid = null)
@@ -186,7 +185,6 @@ class Project {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return Project
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -198,8 +196,6 @@ class Project {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -245,10 +241,6 @@ class Project {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'project_name'=>$this->project_name,
-        'project_description'=>$this->project_description,
-        'project_url'=>$this->project_url
-      );
+      return ['project_name'=>$this->project_name, 'project_description'=>$this->project_description, 'project_url'=>$this->project_url];
     }
 }

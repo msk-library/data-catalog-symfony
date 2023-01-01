@@ -148,7 +148,7 @@ class SubjectKeyword {
             return;   
         } else {
             $json_data = @file_get_contents($api_url);
-            $onco_data = json_decode($json_data);
+            $onco_data = json_decode($json_data, null, 512, JSON_THROW_ON_ERROR);
             $returnhtml =  "<p><strong>Name:</strong> {$onco_data[0]->name}</p>";
             $returnhtml .= "<p><strong>Main Type:</strong> {$onco_data[0]->mainType}</p>";
             $returnhtml .= "<p><strong>Tissue:</strong> {$onco_data[0]->tissue}</p>";
@@ -190,7 +190,6 @@ class SubjectKeyword {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectKeyword
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -202,8 +201,6 @@ class SubjectKeyword {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -226,10 +223,7 @@ class SubjectKeyword {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'keyword'=>$this->keyword,
-        'mesh_code'=>$this->mesh_code
-      );
+      return ['keyword'=>$this->keyword, 'mesh_code'=>$this->mesh_code];
     }
 
 }

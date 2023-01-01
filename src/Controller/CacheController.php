@@ -33,10 +33,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class CacheController extends AbstractController {
 
-  private $security;
-
-  public function __construct(Security $security) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security)
+  {
   }
 
   /**

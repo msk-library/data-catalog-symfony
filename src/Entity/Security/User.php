@@ -335,15 +335,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
       /*
        * Don't serialize Roles
        */
-        return \serialize(array(
-            $this->user_id,
-            $this->username,
-            $this->slug,
-            $this->password,
-            $this->roles,
-            $this->firstName,
-            $this->lastName
-        ));
+        return \serialize([$this->user_id, $this->username, $this->slug, $this->password, $this->roles, $this->firstName, $this->lastName]);
     }
 
     /**
@@ -351,15 +343,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     public function unserialize($serialized)
     {
-        list (
-            $this->user_id,
-            $this->username,
-            $this->slug,
-            $this->password,
-            $this->firstName,
-            $this->lastName,
-            $this->roles
-        ) = \unserialize($serialized);
+        [$this->user_id, $this->username, $this->slug, $this->password, $this->firstName, $this->lastName, $this->roles] = \unserialize($serialized);
     }
 
 }

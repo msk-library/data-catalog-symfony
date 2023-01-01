@@ -157,7 +157,6 @@ class SubjectDomain {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectDomain
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -169,8 +168,6 @@ class SubjectDomain {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -193,9 +190,6 @@ class SubjectDomain {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'subject_domain'=>$this->subject_domain,
-            'mesh_code'=>$this->mesh_code
-        );
+        return ['subject_domain'=>$this->subject_domain, 'mesh_code'=>$this->mesh_code];
     }
 }

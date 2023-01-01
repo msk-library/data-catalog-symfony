@@ -39,8 +39,8 @@ class SearchState {
 
     $this->facets = $request->query->get('facet');
     $this->keyword = $request->query->get('keyword');
-    $this->resultsPP = ($request->query->get('results')) ? $request->query->get('results') : '10';
-    $this->page = ($request->query->get('page')) ? $request->query->get('page') : '0';
+    $this->resultsPP = $request->query->get('results') ?: '10';
+    $this->page = $request->query->get('page') ?: '0';
     $this->sort = $request->query->get('sort');
     
     if ($this->keyword && !$this->sort) {

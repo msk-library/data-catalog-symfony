@@ -37,37 +37,7 @@ class SearchResults {
   /**
    * Maps Solr facet names to user-friendly facet names
    */
-  public $facetMappings = array(
-    'Subject' => 'subject_domain_fq',
-    'Origin' => 'origin_fq',
-    'subject_domain_fq' => 'Subject',
-    'origin_fq' => 'Origin',
-    'publishers' => 'Publisher',
-    'Publisher' => 'publishers',
-    'OncoTree Cancer Type' => 'onco_trees_fq',
-    'onco_trees_fq' => 'OncoTree Cancer Type',
-    'Author' => 'authors',
-    'authors' => 'Author',
-    'Subject of Study' => 'subject_of_study',
-    'subject_of_study' => 'Subject of Study',
-    'Analytical/Collection Software' => 'related_software',
-    'related_software' => 'Analytical/Collection Software',
-    'Data Tools' => 'collection_standards',
-    'collection_standards' => 'Data Tools',
-    'Repository' => 'data_locations',
-    'data_locations' => 'Repository',
-    'Synapse ID' => 'synapseids_fq',
-    'synapseids_fq' => 'Synapse ID',
-
-    /* Unused facets
-    'Timeframe' => 'dataset_years',
-    'Geographic Coverage' => 'subject_geographic_area_fq',
-    'Access Restrictions' => 'access_restrictions_fq',
-    'dataset_years' => 'Dataset Timeframes',
-    'subject_geographic_area_fq' => 'Geographic Coverage',
-    'access_restrictions_fq' => 'Access Restrictions'
-    */
-  );
+  public $facetMappings = ['Subject' => 'subject_domain_fq', 'Origin' => 'origin_fq', 'subject_domain_fq' => 'Subject', 'origin_fq' => 'Origin', 'publishers' => 'Publisher', 'Publisher' => 'publishers', 'OncoTree Cancer Type' => 'onco_trees_fq', 'onco_trees_fq' => 'OncoTree Cancer Type', 'Author' => 'authors', 'authors' => 'Author', 'Subject of Study' => 'subject_of_study', 'subject_of_study' => 'Subject of Study', 'Analytical/Collection Software' => 'related_software', 'related_software' => 'Analytical/Collection Software', 'Data Tools' => 'collection_standards', 'collection_standards' => 'Data Tools', 'Repository' => 'data_locations', 'data_locations' => 'Repository', 'Synapse ID' => 'synapseids_fq', 'synapseids_fq' => 'Synapse ID'];
 
 
   /**
@@ -77,7 +47,7 @@ class SearchResults {
    * @param string $solrResponse A JSON response from Solr
    */
   public function __construct($solrResponse) {
-    $this->solrResponse = json_decode($solrResponse);
+    $this->solrResponse = json_decode($solrResponse, null, 512, JSON_THROW_ON_ERROR);
     if (isset($this->solrResponse->facet_counts->facet_fields)) {
       $this->facets = (array) $this->solrResponse->facet_counts->facet_fields;
     } 
@@ -85,7 +55,7 @@ class SearchResults {
       throw new \RuntimeException('Solr server is reachable, but returns unexpected response. Check the full URL that is being requested');
     }
     $this->dateFacets   = (array) $this->solrResponse->facet_counts->facet_ranges->dataset_years->counts;
-    array_unshift($this->dateFacets, array('before',$this->solrResponse->facet_counts->facet_ranges->dataset_years->before));
+    array_unshift($this->dateFacets, ['before', $this->solrResponse->facet_counts->facet_ranges->dataset_years->before]);
     $this->facets['dataset_years'] = $this->dateFacets;
     $this->numResults   = $this->solrResponse->response->numFound;
     $this->resultItems  = (array) $this->solrResponse->response->docs;
@@ -107,15 +77,12 @@ class SearchResults {
    * @return array $translatedFacets A sane array of facet data for Twig
    */
   protected function translateFacets($rawFacets) {
-    $translatedFacets = array();
+    $translatedFacets = [];
     $rawFacets = (array) $rawFacets;
     foreach ($rawFacets as $key=>$value) {
       $newFacetName = array_search($key, $this->facetMappings);
       foreach ($value as $facetItem) {
-        $translatedFacets[$newFacetName][] = array(
-          'facetItem' => $facetItem[0],
-          'facetCount'=> $facetItem[1]
-        );
+        $translatedFacets[$newFacetName][] = ['facetItem' => $facetItem[0], 'facetCount'=> $facetItem[1]];
       }
     }
     /*

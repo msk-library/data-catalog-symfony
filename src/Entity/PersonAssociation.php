@@ -147,7 +147,6 @@ class PersonAssociation {
     /**
      * Set person
      *
-     * @param \App\Entity\Person $person
      * @return PersonAssociation
      */
     public function setPerson(\App\Entity\Person $person = null)
@@ -170,7 +169,6 @@ class PersonAssociation {
     /**
      * Set dataset
      *
-     * @param \App\Entity\Dataset $dataset
      * @return PersonAssociation
      */
     public function setDataset(\App\Entity\Dataset $dataset)
@@ -196,12 +194,7 @@ class PersonAssociation {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'role'=>$this->role,
-        'is_corresponding_author'=>$this->is_corresponding_author,
-        'display_order'=>$this->display_order,
-        'person'=>$this->person->getDisplayName(),
-      );
+      return ['role'=>$this->role, 'is_corresponding_author'=>$this->is_corresponding_author, 'display_order'=>$this->display_order, 'person'=>$this->person->getDisplayName()];
     }
 
     public function isIsCorrespondingAuthor(): ?bool

@@ -13,14 +13,14 @@ use App\Entity\Security\UserRepositoryInterface;
 
 class CustomLdapUserProvider extends BaseLdapUserProvider implements ContainerAwareInterface
 {
-    private $container;
+    private ?\Symfony\Component\DependencyInjection\ContainerInterface $container = null;
     /**
      * {@inheritdoc}
      */
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof LdapUser) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
         return new LdapUser($user->getEntry(), $user->getUsername(), null, $user->getRoles());
@@ -43,7 +43,7 @@ class CustomLdapUserProvider extends BaseLdapUserProvider implements ContainerAw
         $user = parent::loadUser($username, $entry);
         
         // Fetch the user's actual roles from our database
-        $userRepository = $this->container->get('doctrine.orm.entity_manager')->getRepository('App\Entity\Security\User');        
+        $userRepository = $this->container->get('doctrine.orm.entity_manager')->getRepository(\App\Entity\Security\User::class);        
         $databaseRoles = $userRepository->getDatabaseRoles($username);
         
         return new LdapUser($entry, $username, $user->getPassword(), $databaseRoles);

@@ -79,7 +79,6 @@ class OtherResource {
     /**
      * Set datasets_dataset_uid
      *
-     * @param \App\Entity\Dataset $datasetsDatasetUid
      * @return OtherResource
      */
     public function setDatasetsDatasetUid(\App\Entity\Dataset $datasetsDatasetUid = null)
@@ -175,10 +174,6 @@ class OtherResource {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'resource_name'=>$this->resource_name,
-        'resource_description'=>$this->resource_description,
-        'resource_url'=>$this->resource_url
-      );
+      return ['resource_name'=>$this->resource_name, 'resource_description'=>$this->resource_description, 'resource_url'=>$this->resource_url];
     }
 }

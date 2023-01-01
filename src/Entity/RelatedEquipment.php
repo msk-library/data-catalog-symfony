@@ -201,7 +201,6 @@ class RelatedEquipment {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return RelatedEquipment
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -213,8 +212,6 @@ class RelatedEquipment {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -237,11 +234,7 @@ class RelatedEquipment {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'related_equipment'=>$this->related_equipment,
-            'equipment_description'=>$this->equipment_description,
-            'equipment_url'=>$this->equipment_url,
-        );
+        return ['related_equipment'=>$this->related_equipment, 'equipment_description'=>$this->equipment_description, 'equipment_url'=>$this->equipment_url];
     }
 
 }

@@ -124,7 +124,6 @@ class OncoTree {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -136,8 +135,6 @@ class OncoTree {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -388,14 +385,6 @@ class OncoTree {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'onco_tree_name'=>$this->onco_tree_name,
-            'onco_tree_code'=>$this->onco_tree_code,
-            'onco_tree_main_type'=>$this->onco_tree_main_type,
-            'onco_tree_tissue'=>$this->onco_tree_tissue,
-            'onco_tree_parent'=>$this->onco_tree_parent,
-            'onco_tree_nci'=>$this->onco_tree_nci,
-            'onco_tree_umls'=>$this->onco_tree_umls
-        );
+        return ['onco_tree_name'=>$this->onco_tree_name, 'onco_tree_code'=>$this->onco_tree_code, 'onco_tree_main_type'=>$this->onco_tree_main_type, 'onco_tree_tissue'=>$this->onco_tree_tissue, 'onco_tree_parent'=>$this->onco_tree_parent, 'onco_tree_nci'=>$this->onco_tree_nci, 'onco_tree_umls'=>$this->onco_tree_umls];
     }
 }

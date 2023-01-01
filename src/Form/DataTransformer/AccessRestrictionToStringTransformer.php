@@ -52,7 +52,7 @@ class AccessRestrictionToStringTransformer implements DataTransformerInterface {
     if (null === $accessRestriction) {
       return "";
     }
-    $options = array();
+    $options = [];
     foreach ($accessRestriction as $restriction) {
       $options[] = $restriction->getRestriction();
     }
@@ -75,7 +75,7 @@ class AccessRestrictionToStringTransformer implements DataTransformerInterface {
 
     $issue = $this->om
       ->getRepository('App:AccessRestriction')
-      ->findOneBy(array('restriction'=>$restriction));
+      ->findOneBy(['restriction'=>$restriction]);
 
     if (null === $restriction) {
       throw new TransformationFailedException(sprintf(

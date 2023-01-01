@@ -131,7 +131,6 @@ class AccessRestriction {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return AccessRestriction
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -143,8 +142,6 @@ class AccessRestriction {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {

@@ -39,10 +39,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TakController extends AbstractController
 {
   
-  private $security;
-
-  public function __construct(Security $security) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security)
+  {
   }
 
   /**
@@ -60,13 +58,13 @@ class TakController extends AbstractController
   
 		if ($this->security->isGranted('ROLE_ADMIN')) {
 
-			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(array('dataset_uid'=>$uid));
+			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(['dataset_uid'=>$uid]);
 
 			if ($dataset) {
 
 				do {
 					$uuid=uniqid( true );
-				} while($this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(array('uuid'=>$uuid)));
+				} while($this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(['uuid'=>$uuid]));
 
 				$em = $this->getDoctrine()->getManager();
 				$tak = new \App\Entity\TempAccessKey;
@@ -78,14 +76,7 @@ class TakController extends AbstractController
 				$em->persist($tak);
 				$em->flush();
 
-				return $this->render('default/tak_generate.html.twig', array(
-					'displayName' => 'Dataset',
-					'uuid' => $uuid,
-					'dataset_uid' => $dataset->getId(),
-					'dataset_title' => $dataset->getTitle(),
-					'generated' => $tak->getGenerated()
-					
-				));
+				return $this->render('default/tak_generate.html.twig', ['displayName' => 'Dataset', 'uuid' => $uuid, 'dataset_uid' => $dataset->getId(), 'dataset_title' => $dataset->getTitle(), 'generated' => $tak->getGenerated()]);
 
 				
 			} else {
@@ -122,11 +113,11 @@ class TakController extends AbstractController
 
 		if ($this->security->isGranted('ROLE_ADMIN')) {
 
-			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(array('dataset_uid'=>$uid));
+			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(['dataset_uid'=>$uid]);
 
 			if ($dataset) {
 
-				$taks=$this->getDoctrine()->getRepository('App:TempAccessKey')->findBy(array('dataset_association'=>$dataset->getId() ));
+				$taks=$this->getDoctrine()->getRepository('App:TempAccessKey')->findBy(['dataset_association'=>$dataset->getId()]);
 
 				foreach($taks as $t=>$v) {
 
@@ -167,7 +158,7 @@ class TakController extends AbstractController
 
 		if ($this->security->isGranted('ROLE_ADMIN')) {
 
-			$tak=$this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(array('uuid'=>$uuid));
+			$tak=$this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(['uuid'=>$uuid]);
 
 			if ($tak) {
 

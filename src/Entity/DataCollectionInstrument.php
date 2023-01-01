@@ -203,7 +203,6 @@ class DataCollectionInstrument {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return DataCollectionInstrument
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -215,8 +214,6 @@ class DataCollectionInstrument {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -239,11 +236,7 @@ class DataCollectionInstrument {
      * @return array
      **/
     public function getAllProperties() {
-      return array(
-        'data_collection_instrument_name' => $this->data_collection_instrument_name,
-        'url' => $this->url,
-        'notes' => $this->notes
-      );
+      return ['data_collection_instrument_name' => $this->data_collection_instrument_name, 'url' => $this->url, 'notes' => $this->notes];
     }
 
 }

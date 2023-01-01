@@ -176,7 +176,6 @@ class DatasetEdit {
     /**
      * Set parent_dataset_uid
      *
-     * @param \App\Entity\Dataset $parentDatasetUid
      * @return DatasetEdit
      */
     public function setParentDatasetUid(\App\Entity\Dataset $parentDatasetUid = null)
