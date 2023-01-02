@@ -140,7 +140,7 @@ class SolrSearchr {
   protected function makeKeywordQuery() {
     
     $base_query = "q=";
-    $keyword_query_string = trim($this->solrKeyword);
+    $keyword_query_string = trim((string) $this->solrKeyword);
     // the default state:
     $final_query_string = $keyword_query_string;
     // is this query trying to return ALL results? if so, let it through
@@ -210,10 +210,10 @@ class SolrSearchr {
     if ($this->solrFacetQuery) {
       for($i=0,$size=is_countable($this->solrFacetQuery) ? count($this->solrFacetQuery) : 0; $i<$size; ++$i) {
         // If it's a date facet, we need to use a different function
-        if (str_contains($this->solrFacetQuery[$i], 'dataset_years')) {
+        if (str_contains((string) $this->solrFacetQuery[$i], 'dataset_years')) {
           $this_facet_string = "&fq=" . urlencode($this->makeDateRangeFilterQuery($this->solrFacetQuery[$i]));
         } else {
-          $this_facet_string = "&fq=" . urlencode($this->solrFacetQuery[$i]);
+          $this_facet_string = "&fq=" . urlencode((string) $this->solrFacetQuery[$i]);
         }
         $facet_query_string .= $this_facet_string;
       }
