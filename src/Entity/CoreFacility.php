@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -25,7 +27,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CoreFacilityRepository")
  * @ORM\Table(name="core_facilities")
  * @UniqueEntity("core_facility_name")
  */

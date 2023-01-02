@@ -8,9 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\Dataset;
-use App\Form\Type\DatasetAsUserType;
-use App\Form\Type\DatasetAsAdminType;
-use App\Form\Type\UserType;
+use App\Form\DatasetAsUserType;
+use App\Form\DatasetAsAdminType;
+use App\Form\UserType;
 use App\Utils\Slugger;
 
 
@@ -199,7 +199,7 @@ class UpdateController extends AbstractController {
   public function updateEntityAction($entityName, $slug, Request $request) {
 
     $updateEntity   = 'App\Entity\\'.$entityName;
-    $entityFormType = 'App\Form\Type\\' . $entityName . "Type";
+    $entityFormType = 'App\Form\\' . $entityName . 'Type';
     $entityTypeDisplayName = trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $entityName));
 
     $em = $this->getDoctrine()->getManager();
@@ -207,7 +207,7 @@ class UpdateController extends AbstractController {
 
     if ($slug == null) {
       if ($entityName == 'ArchivedDatasets') {
-          $allEntities = $em->getRepository('App:Dataset')->findAllArchived();
+          $allEntities = $em->getRepository('App\Entity\Dataset')->findAllArchived();
           $entityName = 'Dataset';
           $entityTypeDisplayName = 'Archived Dataset';
       } else {

@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DatasetAlternateTitleRepository")
  * @ORM\Table(name="dataset_alternate_titles")
  */
 class DatasetAlternateTitle {

@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -26,7 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @ORM\Entity(repositoryClass="App\Entity\AwardRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AwardRepository")
  * @ORM\Table(name="awards")
  * @UniqueEntity("award")
  */

@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @ORM\Entity(repositoryClass="App\Entity\DatasetEditRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DatasetEditRepository")
  * @ORM\Table(name="dataset_edits")
  */
 class DatasetEdit {

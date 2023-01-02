@@ -37,7 +37,7 @@
   <div class="navbar-collapse collapse flex-column" id="facetToggle">
 
   {% for category,facets in results.facets %}
-    {% if category != 'Origin' %}
+    {% if (category != 'Origin' and category != 0) %}
       {% set facetSection = [] %}
       {% for facet in facets %} 
       {% set fullFacet = results.facetMappings[category] ~ ':"' ~ facet.facetItem ~ '"' %}
@@ -175,7 +175,7 @@
              </dd>
              {% endif %}
 
-             <dt class="col-sm-3">Description</dt><dd class="col-sm-9"><p>{{ item.description[0]|striptags|truncate(400,true) }}</p></dd>
+             <dt class="col-sm-3">Description</dt><dd class="col-sm-9"><p>{{ item.description[0]|striptags|u.truncate(400, '...', false) }}</p></dd>
 
              {% if item.subject_domain is defined and item.subject_domain[0] %}
                <dt class="col-sm-3">Subject</dt><dd class="col-sm-9">{% for subject in item.subject_domain %} 

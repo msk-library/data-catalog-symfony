@@ -9,8 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\SearchResults;
 use App\Entity\SearchState;
 use App\Entity\Dataset;
-use App\Form\Type\DatasetType;
+use App\Form\DatasetType;
 use App\Utils\Slugger;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
@@ -40,11 +41,9 @@ class QueueController extends AbstractController
    *
    * @return Response A Response instance
    */
-  public function queueLengthAction() {
+  public function queueLengthAction(EntityManagerInterface $em) {
 
-    $em = $this->getDoctrine()->getManager();
-
-    $queueLength = $em->getRepository('App:Dataset')
+    $queueLength = $em->getRepository(Dataset::Class)
          ->countAllUnpublished();
     
 
@@ -63,10 +62,9 @@ class QueueController extends AbstractController
    *
    * @Route("/admin/approval-queue", name="approval_queue")
    */
-   public function viewApprovalQueueAction() {
+   public function viewApprovalQueueAction(EntityManagerInterface $em) {
      
-     $em = $this->getDoctrine()->getManager();
-     $approvalQueue = $em->getRepository('App:Dataset')
+     $approvalQueue = $em->getRepository(Dataset::Class)
           ->findAllUnpublished();
 
      return $this->render('default/approval_queue.html.twig',array(

@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,7 +28,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  * @ORM\Table(name="person")
  * @UniqueEntity("kid")
  * @UniqueEntity("full_name")
@@ -384,5 +385,10 @@ class Person {
         'email'=>$this->email,
         'works_here'=>$this->works_here
       );
+    }
+
+    public function isWorksHere(): ?bool
+    {
+        return $this->works_here;
     }
 }

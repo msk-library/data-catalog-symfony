@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Dataset;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
@@ -40,14 +41,15 @@ class RelatedDatasetController extends AbstractController
    *
    * @return Response A Response instance
    */
-  public function relatedDatasetAction($relatedDatasets) {
+  public function relatedDatasetAction($relatedDatasets, EntityManagerInterface $em) {
 
-    $em = $this->getDoctrine()->getManager()->getRepository('App:Dataset');;
+    // $em = $this->getDoctrine()->getManager()->getRepository('App:Dataset');
+    $dataset = $em->getRepository(Dataset::class);
 
     $datasetsForDisplay = array();
     foreach ($relatedDatasets as $related) {
       // find dataset IF it is published AND not archived
-      $relatedDataset = $em->findOneBy(array(
+      $relatedDataset = $dataset->findOneBy(array(
                              'dataset_uid' => $related->getRelatedDatasetUid(), 
                              'published'   => 1,
                              'archived'    => 0

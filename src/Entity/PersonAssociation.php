@@ -23,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PersonAssociationRepository")
  * @ORM\Table(name="person_associations")
  */
 class PersonAssociation {
@@ -50,7 +50,7 @@ class PersonAssociation {
   protected $display_order;
 
   /**
-   * @ORM\ManyToOne(targetEntity="Person", inversedBy="dataset_associations")
+   * @ORM\ManyToOne(targetEntity="Person", inversedBy="datasetAssociations")
    * @ORM\JoinColumn(name="person_id",referencedColumnName="person_id", nullable=FALSE)
    */
   protected $person;
@@ -202,5 +202,10 @@ class PersonAssociation {
         'display_order'=>$this->display_order,
         'person'=>$this->person->getDisplayName(),
       );
+    }
+
+    public function isIsCorrespondingAuthor(): ?bool
+    {
+        return $this->is_corresponding_author;
     }
 }

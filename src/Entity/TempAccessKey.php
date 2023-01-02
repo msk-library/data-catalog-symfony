@@ -27,7 +27,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TempAccessKeyRepository")
  * @ORM\Table(name="temp_access_keys")
  */
 class TempAccessKey {
@@ -54,7 +54,7 @@ class TempAccessKey {
   protected $first_access;
   
   /**
-   * @ORM\ManyToOne(targetEntity="Dataset")
+   * @ORM\ManyToOne(targetEntity="Dataset", inversedBy="temp_access_keys")
    * @ORM\JoinColumn(name="dataset_association",referencedColumnName="dataset_uid", nullable=FALSE)
    */
   protected $dataset_association;

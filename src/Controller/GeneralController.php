@@ -11,17 +11,16 @@ use App\Entity\SearchResults;
 use App\Entity\SearchState;
 use App\Entity\Dataset;
 use App\Service\SolrSearchr;
-use App\Form\Type\DatasetType;
-use App\Form\Type\ContactFormEmailType;
+use App\Form\DatasetType;
+use App\Form\ContactFormEmailType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Utils\Slugger;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
+use Doctrine\ORM\EntityManagerInterface;
 /**
   *  A controller handling the main search functionality, contact and About pages,
   *  dataset views, etc.
@@ -218,9 +217,8 @@ class GeneralController extends AbstractController
    *
    * @Route("/dataset/{uid}", name="view_dataset")
    */
-  public function viewAction($uid, Request $request) {
-    $dataset = $this->getDoctrine()
-      ->getRepository('App:Dataset')
+  public function viewAction($uid, EntityManagerInterface $em, Request $request) {
+    $dataset = $em->getRepository(Dataset::Class)
       ->findOneBy(array('dataset_uid'=>$uid));
 
     // dataset not found
@@ -231,7 +229,7 @@ class GeneralController extends AbstractController
     }
 
     // if dataset archived
-    if ($dataset->getArchived() && !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+    if ($dataset->getArchived() && !$this->security->isGranted('ROLE_ADMIN')) {
       throw $this->createNotFoundException(
         'Sorry, this dataset is no longer available. Please try another search.'
       );

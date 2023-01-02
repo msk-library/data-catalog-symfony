@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -24,7 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\SubjectGenderRepository")
  * @ORM\Table(name="subject_genders")
  */
 class SubjectGender {
