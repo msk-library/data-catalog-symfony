@@ -28,48 +28,29 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\SubjectOfStudyRepository")
- * @ORM\Table(name="subject_of_study")
- * @UniqueEntity("subject_of_study")
  */
+#[ORM\Table(name: 'subject_of_study')]
+#[ORM\Entity(repositoryClass: \App\Repository\SubjectOfStudyRepository::class)]
+#[UniqueEntity('subject_of_study')]
 class SubjectOfStudy {
-  /**
-   * @ORM\Column(type="integer",name="subject_of_study_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'subject_of_study_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $subject_of_study;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, nullable: true)]
   protected $species;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="subject_of_study")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'subject_of_study')]
   protected $datasets;
 
   /**

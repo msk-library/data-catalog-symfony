@@ -26,38 +26,25 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @ORM\Entity(repositoryClass="App\Repository\PublisherCategoryRepository")
- * @ORM\Table(name="publisher_categories")
- * @UniqueEntity("publisher_category")
  */
+#[ORM\Table(name: 'publisher_categories')]
+#[ORM\Entity(repositoryClass: \App\Repository\PublisherCategoryRepository::class)]
+#[UniqueEntity('publisher_category')]
 class PublisherCategory {
-  /**
-   * @ORM\Column(type="integer", name="publisher_category_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'publisher_category_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Category cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Category cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256)]
   protected $publisher_category;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Publisher", mappedBy="publisher_categories")
-   */
+  #[ORM\ManyToMany(targetEntity: 'Publisher', mappedBy: 'publisher_categories')]
   protected $publishers;
 
   public function __construct()

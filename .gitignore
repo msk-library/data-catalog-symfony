@@ -45,3 +45,6 @@ public/.htaccess
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+# Rector Config
+rector.php

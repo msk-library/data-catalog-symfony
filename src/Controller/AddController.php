@@ -52,9 +52,8 @@ class AddController extends AbstractController {
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/add/Dataset", name="add_dataset")
    */
+  #[Route(path: '/add/Dataset', name: 'add_dataset')]
   public function addAction(Request $request) {
     $dataset = new Dataset();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
@@ -80,9 +79,8 @@ class AddController extends AbstractController {
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/ingest_dataset", name="ingest_dataset")
    */
+  #[Route(path: '/ingest_dataset', name: 'ingest_dataset')]
   public function ingestDataset(Request $request) {
     $dataset = new Dataset();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
@@ -132,9 +130,8 @@ class AddController extends AbstractController {
    * @param Request $request The current HTTP request
    *·
    * @return Response A Response instance
-   *
-   * @Route("/add/{entityName}", name="add_new_entity")
    */
+  #[Route(path: '/add/{entityName}', name: 'add_new_entity')]
   public function addNewEntity($entityName, Request $request) {
     //check if form will appear in a modal
     $modal = $request->get('modal', false);

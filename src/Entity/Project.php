@@ -27,42 +27,29 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
- * @ORM\Table(name="project")
  */
+#[ORM\Table(name: 'project')]
+#[ORM\Entity(repositoryClass: \App\Repository\ProjectRepository::class)]
 class Project {
-  /**
-   * @ORM\Column(type="integer",name="project_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'project_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $project_name;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
-  /**
-   * @ORM\Column(type="string",length=1028,nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $project_description;
 
-  /**
-   * @ORM\Column(type="string",length=1028)
-   */
+  #[ORM\Column(type: 'string', length: 1028)]
   protected $project_url;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="projects")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'projects')]
   protected $datasets;
 
     public function __construct() {

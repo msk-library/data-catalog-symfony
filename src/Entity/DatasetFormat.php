@@ -27,38 +27,25 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\DatasetFormatRepository")
- * @ORM\Table(name="dataset_formats")
- * @UniqueEntity("format")
  */
+#[ORM\Table(name: 'dataset_formats')]
+#[ORM\Entity(repositoryClass: \App\Repository\DatasetFormatRepository::class)]
+#[UniqueEntity('format')]
 class DatasetFormat {
-  /**
-   * @ORM\Column(type="integer",name="data_format_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'data_format_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Format cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=128, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Format cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 128, unique: true)]
   protected $format;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $slug;
   
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="dataset_formats")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'dataset_formats')]
   protected $datasets;
 
     public function __construct() {

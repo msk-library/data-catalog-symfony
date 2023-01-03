@@ -53,13 +53,9 @@ class APIController extends AbstractController
    * @param string $_format The output format desired
    * @param Request $request The current HTTP request
    *
-   * @return Response A Response instance
-   *
-   * @Route(
-   *   path="/api/Dataset/{uid}.{_format}", name="json_output_datasets",
-   *   defaults={"uid": "all", "_format":"json"}, methods={"GET"}
-   * ) 
-   */ 
+   * @return Response A Response instance 
+   */
+  #[Route(path: '/api/Dataset/{uid}.{_format}', name: 'json_output_datasets', defaults: ['uid' => 'all', '_format' => 'json'], methods: ['GET'])]
   public function APIDatasetGetAction($uid, $_format, Request $request) {
 
     $em = $this->getDoctrine()->getManager();
@@ -124,9 +120,8 @@ class APIController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route(path="/api/Dataset", methods={"POST"})
    */
+  #[Route(path: '/api/Dataset', methods: ['POST'])]
   public function APIDatasetPostAction(Request $request) {
     $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
     $dataset = new Dataset();
@@ -176,9 +171,8 @@ class APIController extends AbstractController
    * @param Request the current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route(path="/api/{entityName}", methods={"POST"})
    */
+  #[Route(path: '/api/{entityName}', methods: ['POST'])]
   public function APIEntityPostAction($entityName, Request $request) {
     $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -236,13 +230,9 @@ class APIController extends AbstractController
    * @param string $_format The output format desired
    * @param Request $request The current HTTP request
    *
-   * @return Response A Response instance
-   *
-   * @Route(
-   *   path="/api/{entityName}/{slug}.{_format}", name="json_output_related",
-   *   defaults={"slug": "all", "_format":"json"}, methods={"GET"}
-   * ) 
-   */ 
+   * @return Response A Response instance 
+   */
+  #[Route(path: '/api/{entityName}/{slug}.{_format}', name: 'json_output_related', defaults: ['slug' => 'all', '_format' => 'json'], methods: ['GET'])]
   public function APIEntityGetAction($entityName, $slug, $_format, Request $request) {
     if ($entityName == 'User') {
       return new Response('Users cannot be fetched via API', 403);

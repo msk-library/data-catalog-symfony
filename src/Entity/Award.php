@@ -27,64 +27,37 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @ORM\Entity(repositoryClass="App\Repository\AwardRepository")
- * @ORM\Table(name="awards")
- * @UniqueEntity("award")
  */
+#[ORM\Table(name: 'awards')]
+#[ORM\Entity(repositoryClass: \App\Repository\AwardRepository::class)]
+#[UniqueEntity('award')]
 class Award {
-  /**
-   * @ORM\Column(type="integer",name="award_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'award_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $award;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=512, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 512, nullable: true)]
   protected $award_funder;
 
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $award_url;
     
-  /**
-   * @ORM\Column(type="string",length=64, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 64, nullable: true)]
   protected $funder_type;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="awards")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'awards')]
   protected $datasets;
 
     public function __construct() {

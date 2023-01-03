@@ -58,9 +58,9 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/", name="homepage")
-   * @Route("/search", name="user_search_results")
    */
+  #[Route(path: '/', name: 'homepage')]
+  #[Route(path: '/search', name: 'user_search_results')]
   public function indexAction(Request $request, SolrSearchr $solrsearchr ) {
     
     $currentSearch = new SearchState($request);
@@ -87,8 +87,8 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/about", name="about")
    */
+  #[Route(path: '/about', name: 'about')]
   public function aboutAction(Request $request) {
 
     if ($this->get('twig')->getLoader()->exists('institution/about.html.twig')) {
@@ -108,8 +108,8 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/how-to-use-the-catalog", name="how_to_use_catalog")
    */
+  #[Route(path: '/how-to-use-the-catalog', name: 'how_to_use_catalog')]
   public function howToUseTheCatalogAction(Request $request) {
 
     if ($this->get('twig')->getLoader()->exists('institution/how_to_use_catalog.html.twig')) {
@@ -129,8 +129,8 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/frequently-asked-questions", name="faq")
    */
+  #[Route(path: '/frequently-asked-questions', name: 'faq')]
   public function faqAction(Request $request) {
 
     if ($this->get('twig')->getLoader()->exists('institution/faq.html.twig')) {
@@ -152,9 +152,8 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/contact-us", name="contact")
    */
+  #[Route(path: '/contact-us', name: 'contact')]
   public function contactAction(Request $request, MailerInterface $mailer) {
     $contactFormEmail = new \App\Entity\ContactFormEmail();
 
@@ -201,9 +200,8 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/dataset/{uid}", name="view_dataset")
    */
+  #[Route(path: '/dataset/{uid}', name: 'view_dataset')]
   public function viewAction($uid, EntityManagerInterface $em, Request $request) {
     $dataset = $em->getRepository(Dataset::Class)
       ->findOneBy(['dataset_uid'=>$uid]);

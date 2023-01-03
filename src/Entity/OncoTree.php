@@ -28,96 +28,47 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\OncoTreeRepository")
- * @ORM\Table(name="onco_trees")
- * @UniqueEntity("onco_tree_code")
  */
+#[ORM\Table(name: 'onco_trees')]
+#[ORM\Entity(repositoryClass: \App\Repository\OncoTreeRepository::class)]
+#[UniqueEntity('onco_tree_code')]
 class OncoTree {
-/**
-   * @ORM\Column(type="integer",name="onco_tree_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+#[ORM\Column(type: 'integer', name: 'onco_tree_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-/**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Name cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",unique=true)
-   */
+#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', unique: true)]
   protected $onco_tree_code;
 
-/**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Name cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255)
-   */
+#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255)]
   protected $onco_tree_name;
 
-  /**
-   * @ORM\Column(type="string",length=512)
-   */
+  #[ORM\Column(type: 'string', length: 512)]
   protected $slug;
 
-/**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $onco_tree_main_type;
 
-/**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $onco_tree_tissue;
 
- /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+ #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $onco_tree_parent;
 
- /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+ #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $onco_tree_nci;
 
-/**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $onco_tree_umls;
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="onco_trees")
-   */
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'onco_trees')]
   protected $datasets;
 
 

@@ -25,58 +25,41 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Entity\Security\UserRepository")
- * @ORM\Table(name="datacatalog_users")
  */
+#[ORM\Table(name: 'datacatalog_users')]
+#[ORM\Entity(repositoryClass: \App\Entity\Security\UserRepository::class)]
 class User implements UserInterface, EquatableInterface, \Serializable
 {
-  /**
-   * @ORM\Column(type="integer", name="user_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue()
-   */
+  #[ORM\Column(type: 'integer', name: 'user_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
   protected $user_id;
 
-  /**
-   * @ORM\Column(type="string", length=25, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 25, unique: true)]
   protected $username;
 
 
-  /**
-   * @ORM\Column(type="string", length=25, unique=true, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 25, unique: true, nullable: true)]
   protected $slug;
 
 
-  /**
-   * @ORM\Column(type="string",length=64, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 64, nullable: true)]
   protected $password;
 
 
-  /**
-   * @ORM\Column(type="string", length=50)
-   */
+  #[ORM\Column(type: 'string', length: 50)]
   protected $firstName;
 
 
-  /**
-   * @ORM\Column(type="string", length=50)
-   */
+  #[ORM\Column(type: 'string', length: 50)]
   protected $lastName;
 
 
-  /**
-   * @ORM\Column(type="string", length=255, unique=true, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
   protected $apiKey;
 
 
-  /**
-   * @ORM\Column(type="json")
-   */
+  #[ORM\Column(type: 'json')]
   protected $roles = [];
 
 

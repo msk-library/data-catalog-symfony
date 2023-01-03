@@ -37,9 +37,8 @@ class SecurityController extends AbstractController {
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/login", name="login")
    */
+  #[Route(path: '/login', name: 'login')]
   public function loginAction(AuthenticationUtils $authenticationUtils): Response {
 
     $lastUsername = $authenticationUtils->getLastUsername();

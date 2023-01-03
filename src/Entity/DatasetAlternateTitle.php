@@ -23,27 +23,20 @@ use Doctrine\ORM\Mapping as ORM;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\DatasetAlternateTitleRepository")
- * @ORM\Table(name="dataset_alternate_titles")
  */
+#[ORM\Table(name: 'dataset_alternate_titles')]
+#[ORM\Entity(repositoryClass: \App\Repository\DatasetAlternateTitleRepository::class)]
 class DatasetAlternateTitle {
-  /**
-   * @ORM\Column(type="integer",name="alternate_title_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'alternate_title_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $alt_title;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Dataset",inversedBy="dataset_alternate_titles")
-   * @ORM\JoinColumn(name="datasets_dataset_uid",referencedColumnName="dataset_uid")
-   */
+  #[ORM\ManyToOne(targetEntity: 'Dataset', inversedBy: 'dataset_alternate_titles')]
+  #[ORM\JoinColumn(name: 'datasets_dataset_uid', referencedColumnName: 'dataset_uid')]
   protected $datasets_dataset_uid;
 
 

@@ -53,12 +53,11 @@ class QueueController extends AbstractController
 
 
   /**
-   * Produce a list of all the unpublished datasets
-   *
-   * @return Response A Response instance
-   *
-   * @Route("/admin/approval-queue", name="approval_queue")
-   */
+    * Produce a list of all the unpublished datasets
+    *
+    * @return Response A Response instance
+    */
+   #[Route(path: '/admin/approval-queue', name: 'approval_queue')]
    public function viewApprovalQueueAction(EntityManagerInterface $em) {
      
      $approvalQueue = $em->getRepository(Dataset::Class)

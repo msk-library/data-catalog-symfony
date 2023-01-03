@@ -32,57 +32,32 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * **********
  * NOTE: For ease of upgrading, database tables will retain their old names for now
  * **********
- *
- * @ORM\Entity(repositoryClass="App\Repository\DataCollectionInstrumentRepository")
- * @ORM\Table(name="measurement_standards")
- * @UniqueEntity("data_collection_instrument_name")
  */
+#[ORM\Table(name: 'measurement_standards')]
+#[ORM\Entity(repositoryClass: \App\Repository\DataCollectionInstrumentRepository::class)]
+#[UniqueEntity('data_collection_instrument_name')]
 class DataCollectionInstrument {
-  /**
-   * @ORM\Column(type="integer",name="standard_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'standard_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $data_collection_instrument_name;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string", length=256, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $url;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Notes cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string", length=1026, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Notes cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1026, nullable: true)]
   protected $notes;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="data_collection_instruments")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'data_collection_instruments')]
   protected $datasets;
 
     public function __construct() {

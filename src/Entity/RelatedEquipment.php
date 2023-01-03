@@ -28,58 +28,33 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\RelatedEquipmentRepository")
- * @ORM\Table(name="related_equipment")
- * @UniqueEntity("related_equipment")
  */
+#[ORM\Table(name: 'related_equipment')]
+#[ORM\Entity(repositoryClass: \App\Repository\RelatedEquipmentRepository::class)]
+#[UniqueEntity('related_equipment')]
 class RelatedEquipment {
-  /**
-   * @ORM\Column(type="integer",name="related_equipment_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'related_equipment_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Name cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $related_equipment;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Description cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028, unique=false, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Description cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, unique: false, nullable: true)]
   protected $equipment_description;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028, unique=false, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, unique: false, nullable: true)]
   protected $equipment_url;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="related_equipment")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'related_equipment')]
   protected $datasets;
 
   /**

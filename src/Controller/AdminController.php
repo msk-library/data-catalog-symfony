@@ -41,9 +41,8 @@ class AdminController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/dashboard", name="admin_panel")
    */
+  #[Route(path: '/dashboard', name: 'admin_panel')]
   public function adminAction(Request $request) {
     return $this->render('default/admin-home.html.twig',['adminPage'=>true]);
     
@@ -56,9 +55,8 @@ class AdminController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/manage", name="admin_manage")
    */
+  #[Route(path: '/manage', name: 'admin_manage')]
   public function adminManageAction(Request $request) {
     
 
@@ -72,9 +70,8 @@ class AdminController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/users", name="admin_users")
    */
+  #[Route(path: '/users', name: 'admin_users')]
   public function adminUsersAction(Request $request) {
     
 

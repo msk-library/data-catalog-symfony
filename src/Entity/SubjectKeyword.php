@@ -28,44 +28,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\SubjectKeywordRepository")
- * @ORM\Table(name="subject_keywords")
- * @UniqueEntity("keyword")
  */
+#[ORM\Table(name: 'subject_keywords')]
+#[ORM\Entity(repositoryClass: \App\Repository\SubjectKeywordRepository::class)]
+#[UniqueEntity('keyword')]
 class SubjectKeyword {
-  /**
-   * @ORM\Column(type="integer",name="keyword_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'keyword_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Keywords cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Keywords cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $keyword;
 
-  /**
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
-
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $mesh_code;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
-
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="subject_keywords")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'subject_keywords')]
   protected $datasets;
 
   /**

@@ -22,43 +22,30 @@ use Doctrine\ORM\Mapping as ORM;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\PersonAssociationRepository")
- * @ORM\Table(name="person_associations")
  */
+#[ORM\Table(name: 'person_associations')]
+#[ORM\Entity(repositoryClass: \App\Repository\PersonAssociationRepository::class)]
 class PersonAssociation {
-  /** 
-   * @ORM\Column(type="integer",name="person_association_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'person_association_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $person_association_id;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $role;
 
-  /**
-   * @ORM\Column(type="boolean",length=128)
-   */
+  #[ORM\Column(type: 'boolean', length: 128)]
   protected $is_corresponding_author = false;
 
-  /**
-   * @ORM\Column(type="integer", nullable=true)
-   */
+  #[ORM\Column(type: 'integer', nullable: true)]
   protected $display_order;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Person", inversedBy="datasetAssociations")
-   * @ORM\JoinColumn(name="person_id",referencedColumnName="person_id", nullable=FALSE)
-   */
+  #[ORM\ManyToOne(targetEntity: 'Person', inversedBy: 'datasetAssociations')]
+  #[ORM\JoinColumn(name: 'person_id', referencedColumnName: 'person_id', nullable: false)]
   protected $person;
   
-  /**
-   * @ORM\ManyToOne(targetEntity="Dataset", inversedBy="authorships")
-   * @ORM\JoinColumn(name="datasets_dataset_uid",referencedColumnName="dataset_uid", nullable=FALSE)
-   */
+  #[ORM\ManyToOne(targetEntity: 'Dataset', inversedBy: 'authorships')]
+  #[ORM\JoinColumn(name: 'datasets_dataset_uid', referencedColumnName: 'dataset_uid', nullable: false)]
   protected $dataset;
 
 

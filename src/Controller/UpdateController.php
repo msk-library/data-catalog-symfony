@@ -50,9 +50,8 @@ class UpdateController extends AbstractController {
    * @return Response A Response instance
    *
    * @throws NotFoundHttpException
-   *
-   * @Route("/update/Dataset/{uid}", defaults={"uid"=null}, name="update_dataset")
    */
+  #[Route(path: '/update/Dataset/{uid}', defaults: ['uid' => null], name: 'update_dataset')]
   public function UpdateDatasetAction($uid, Request $request) {
     $em = $this->getDoctrine()->getManager();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
@@ -107,9 +106,8 @@ class UpdateController extends AbstractController {
    * @return Response A Response instance
    *
    * @throws NotFoundHttpException
-   *
-   * @Route("/update/User/{user}", defaults={"user"=null}, name="update_user")
    */
+  #[Route(path: '/update/User/{user}', defaults: ['user' => null], name: 'update_user')]
   public function UpdateUserAction($user, Request $request) {
     $em = $this->getDoctrine()->getManager();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
@@ -155,9 +153,8 @@ class UpdateController extends AbstractController {
    * @return Response A Response instance
    *
    * @throws NotFoundHttpException
-   *
-   * @Route("/update/{entityName}/{slug}", defaults={"slug"=null}, name="update_entity")
    */
+  #[Route(path: '/update/{entityName}/{slug}', defaults: ['slug' => null], name: 'update_entity')]
   public function updateEntityAction($entityName, $slug, Request $request) {
 
     $updateEntity   = 'App\Entity\\'.$entityName;
