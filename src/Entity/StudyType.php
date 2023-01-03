@@ -27,33 +27,24 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\StudyTypeRepository")
- * @ORM\Table(name="study_types")
- * @UniqueEntity("study_type")
  */
+#[ORM\Table(name: 'study_types')]
+#[ORM\Entity(repositoryClass: \App\Repository\StudyTypeRepository::class)]
+#[UniqueEntity('study_type')]
 class StudyType {
-  /**
-   * @ORM\Column(type="integer",name="study_type_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'study_type_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $study_type;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="study_types")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'study_types')]
   protected $datasets;
 
   /**
@@ -129,7 +120,6 @@ class StudyType {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return StudyType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -141,8 +131,6 @@ class StudyType {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {

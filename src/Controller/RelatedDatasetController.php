@@ -46,16 +46,12 @@ class RelatedDatasetController extends AbstractController
     // $em = $this->getDoctrine()->getManager()->getRepository('App:Dataset');
     $dataset = $em->getRepository(Dataset::class);
 
-    $datasetsForDisplay = array();
+    $datasetsForDisplay = [];
     foreach ($relatedDatasets as $related) {
       // find dataset IF it is published AND not archived
-      $relatedDataset = $dataset->findOneBy(array(
-                             'dataset_uid' => $related->getRelatedDatasetUid(), 
-                             'published'   => 1,
-                             'archived'    => 0
-                        ));
+      $relatedDataset = $dataset->findOneBy(['dataset_uid' => $related->getRelatedDatasetUid(), 'published'   => 1, 'archived'    => 0]);
       if ($relatedDataset) {
-        $section = array('dataset' => $relatedDataset);
+        $section = ['dataset' => $relatedDataset];
         $notes = $related->getRelationshipNotes();
         if ($notes) {
           $section['relationshipNotes'] = $notes;
@@ -65,9 +61,7 @@ class RelatedDatasetController extends AbstractController
     }
     
     if ($datasetsForDisplay) {
-      return $this->render('default/related_dataset_links.html.twig',array(
-                  'relatedDatasets' => $datasetsForDisplay,
-                  ));
+      return $this->render('default/related_dataset_links.html.twig',['relatedDatasets' => $datasetsForDisplay]);
     } else {
       // return empty response so the "Related Datasets" field will not appear
       return new Response();

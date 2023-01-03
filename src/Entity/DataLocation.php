@@ -24,59 +24,34 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\DataLocationRepository")
- * @ORM\Table(name="data_locations")
  */
+#[ORM\Table(name: 'data_locations')]
+#[ORM\Entity(repositoryClass: \App\Repository\DataLocationRepository::class)]
 class DataLocation {
-  /**
-   * @ORM\Column(type="integer",name="location_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'location_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Data location title cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Data location title cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256)]
   protected $data_location;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Dataset location content cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028,nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Dataset location content cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $location_content;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Enter a valid URL without html or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Enter a valid URL without html or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $data_access_url;
 
 
-  /**
-   * @ORM\Column(type="string", length=512, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 512, nullable: true)]
   protected $accession_number;
 
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Dataset",inversedBy="data_locations")
-   * @ORM\JoinColumn(name="datasets_dataset_uid",referencedColumnName="dataset_uid")
-   */
+  #[ORM\ManyToOne(targetEntity: 'Dataset', inversedBy: 'data_locations')]
+  #[ORM\JoinColumn(name: 'datasets_dataset_uid', referencedColumnName: 'dataset_uid')]
   protected $datasets_dataset_uid;
 
 
@@ -149,7 +124,6 @@ class DataLocation {
     /**
      * Set datasets_dataset_uid
      *
-     * @param \App\Entity\Dataset $datasetsDatasetUid
      * @return DataLocationURL
      */
     public function setDatasetsDatasetUid(\App\Entity\Dataset $datasetsDatasetUid = null)
@@ -221,11 +195,6 @@ class DataLocation {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'data_location'=>$this->data_location,
-        'location_content'=>$this->location_content,
-        'data_access_url'=>$this->data_access_url,
-        'accession_number'=>$this->accession_number
-      );
+      return ['data_location'=>$this->data_location, 'location_content'=>$this->location_content, 'data_access_url'=>$this->data_access_url, 'accession_number'=>$this->accession_number];
     }
 }

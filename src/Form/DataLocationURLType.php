@@ -33,12 +33,9 @@ class DataLocationURLType extends AbstractType {
    * Build the form·
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('data_access_url','text',array(
-      'label'=>false,
-      'attr'=>array('placeholder'=>'Data Location URL'))
+    $builder->add('data_access_url','text',['label'=>false, 'attr'=>['placeholder'=>'Data Location URL']]
       );
   }
 
@@ -48,9 +45,7 @@ class DataLocationURLType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => DataLocationURL::class,
-    ));
+    $resolver->setDefaults(['data_class' => DataLocationURL::class]);
   }
 
   public function getName() {

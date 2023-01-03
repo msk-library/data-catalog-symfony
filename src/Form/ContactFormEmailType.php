@@ -37,8 +37,6 @@ class ContactFormEmailType extends AbstractType {
 
   /**
    * Build institutional affiliation options list
-   * 
-   * @param array $options
    */
   public function __construct(array $options = []) {
   }
@@ -47,49 +45,18 @@ class ContactFormEmailType extends AbstractType {
    * Build the form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('first_name', TextType::class, array(
-      'label'=> 'First Name',
-      'label_attr'=>array(),
-    ));
-     $builder->add('last_name', TextType::class, array(
-      'label'=> 'Last Name',
-      'label_attr'=>array(),
-    ));
-    $builder->add('affiliation', TextType::class, array(
-      'label'=>'Affiliation',
-      'label_attr'=>array(),
-    ));
-    $builder->add('department', TextType::class, array(
-      'label'=> 'Department',
-      'label_attr'=>array('class'=>'no-asterisk'),
-    ));
-    $builder->add('email_address', EmailType::class, array(
-      'label'=> 'E-mail',
-      'label_attr'=>array(),
-    ));
+    $builder->add('first_name', TextType::class, ['label'=> 'First Name', 'label_attr'=>[]]);
+     $builder->add('last_name', TextType::class, ['label'=> 'Last Name', 'label_attr'=>[]]);
+    $builder->add('affiliation', TextType::class, ['label'=>'Affiliation', 'label_attr'=>[]]);
+    $builder->add('department', TextType::class, ['label'=> 'Department', 'label_attr'=>['class'=>'no-asterisk']]);
+    $builder->add('email_address', EmailType::class, ['label'=> 'E-mail', 'label_attr'=>[]]);
        
-    $builder->add('reason', ChoiceType::class, array(
-      'label_attr'=>array(),
-      'choices' =>array(
-        'Suggest a dataset record for inclusion' => 'Suggest a dataset record for inclusion',
-        'Request a correction to a dataset record' => 'Request a correction to a dataset record',
-        'Request a presentation' => 'Request a presentation',
-        'General inquiry'    => 'General inquiry or comments',
-      )
-    ));
-    $builder->add('message_body', TextareaType::class, array(
-      'attr' => array('rows'=>'5'),
-      'label_attr'=>array(),
-      'label'=>'Please provide some details about your question/comment',
-    ));
-    $builder->add('checker', TextType::class, array(
-      'required'=>false,
-      'attr'=>array('class'=>'checker'),
-      'label_attr'=>array('class'=>'no-asterisk checker')));
-    $builder->add('save',SubmitType::class,array('label'=>'Send'));
+    $builder->add('reason', ChoiceType::class, ['label_attr'=>[], 'choices' =>['Suggest a dataset record for inclusion' => 'Suggest a dataset record for inclusion', 'Request a correction to a dataset record' => 'Request a correction to a dataset record', 'Request a presentation' => 'Request a presentation', 'General inquiry'    => 'General inquiry or comments']]);
+    $builder->add('message_body', TextareaType::class, ['attr' => ['rows'=>'5'], 'label_attr'=>[], 'label'=>'Please provide some details about your question/comment']);
+    $builder->add('checker', TextType::class, ['required'=>false, 'attr'=>['class'=>'checker'], 'label_attr'=>['class'=>'no-asterisk checker']]);
+    $builder->add('save',SubmitType::class,['label'=>'Send']);
 
   }
 
@@ -102,10 +69,7 @@ class ContactFormEmailType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-        'data_class' => ContactFormEmail::class,
-        'affiliationOptions' => null,
-    ));
+    $resolver->setDefaults(['data_class' => ContactFormEmail::class, 'affiliationOptions' => null]);
   }
 
 

@@ -28,47 +28,28 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\PublisherRepository")
- * @ORM\Table(name="publishers")
- * @UniqueEntity("publisher_name")
  */
+#[ORM\Table(name: 'publishers')]
+#[ORM\Entity(repositoryClass: \App\Repository\PublisherRepository::class)]
+#[UniqueEntity('publisher_name')]
 class Publisher {
-  /**
-   * @ORM\Column(type="integer",name="publisher_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'publisher_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Name cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $publisher_name;
 
-  /**
-   * @ORM\Column(type="string",length=512)
-   */
+  #[ORM\Column(type: 'string', length: 512)]
   protected $slug;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $publisher_url;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="publishers")
-   */
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'publishers')]
   protected $datasets;
 
 
@@ -77,7 +58,6 @@ class Publisher {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -89,8 +69,6 @@ class Publisher {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -213,9 +191,6 @@ class Publisher {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'publisher_name'=>$this->publisher_name,
-            'publisher_url'=>$this->publisher_url,
-        );
+        return ['publisher_name'=>$this->publisher_name, 'publisher_url'=>$this->publisher_url];
     }
 }

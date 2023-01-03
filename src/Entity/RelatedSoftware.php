@@ -28,58 +28,33 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\RelatedSoftwareRepository")
- * @ORM\Table(name="related_software")
- * @UniqueEntity("software_name")
  */
+#[ORM\Table(name: 'related_software')]
+#[ORM\Entity(repositoryClass: \App\Repository\RelatedSoftwareRepository::class)]
+#[UniqueEntity('software_name')]
 class RelatedSoftware {
-  /**
-   * @ORM\Column(type="integer",name="related_software_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'related_software_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Name cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=128, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 128, unique: true)]
   protected $software_name;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Description cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=512, unique=false, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Description cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 512, unique: false, nullable: true)]
   protected $software_description;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=512, unique=false, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 512, unique: false, nullable: true)]
   protected $software_url;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="related_software")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'related_software')]
   protected $datasets;
 
   /**
@@ -201,7 +176,6 @@ class RelatedSoftware {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return RelatedSoftware
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -213,8 +187,6 @@ class RelatedSoftware {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -237,11 +209,7 @@ class RelatedSoftware {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'software_name'=>$this->software_name,
-            'software_description'=>$this->software_description,
-            'software_url'=>$this->software_url
-        );
+        return ['software_name'=>$this->software_name, 'software_description'=>$this->software_description, 'software_url'=>$this->software_url];
     }
 
 }

@@ -28,33 +28,24 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\DataTypeRepository")
- * @ORM\Table(name="data_types")
- * @UniqueEntity("data_type")
  */
+#[ORM\Table(name: 'data_types')]
+#[ORM\Entity(repositoryClass: \App\Repository\DataTypeRepository::class)]
+#[UniqueEntity('data_type')]
 class DataType {
-  /**
-   * @ORM\Column(type="integer",name="data_type_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'data_type_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $data_type;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="data_types")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'data_types')]
   protected $datasets;
 
     public function __construct() {
@@ -131,7 +122,6 @@ class DataType {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -143,8 +133,6 @@ class DataType {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {

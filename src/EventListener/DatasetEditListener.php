@@ -30,11 +30,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class DatasetEditListener
 {
-    private $tokenStorage;
-
-    public function __construct(TokenStorageInterface $tokenStorage = null) 
+    public function __construct(private readonly ?\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage = null)
     {
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -100,7 +97,7 @@ class DatasetEditListener
 
         $em->persist($edit);
         $dataset->addDatasetEdits($edit);
-        $md = $em->getClassMetadata('App:DatasetEdit');
+        $md = $em->getClassMetadata('\App\Entity\DatasetEdit');
         $uow->computeChangeSet($md, $edit);
 
         return $dataset;

@@ -33,11 +33,10 @@ class StudyTypeType extends AbstractType {
    * Build form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('study_type');
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -46,9 +45,7 @@ class StudyTypeType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => StudyType::class,
-    ));
+    $resolver->setDefaults(['data_class' => StudyType::class]);
   }
 
   public function getName() {

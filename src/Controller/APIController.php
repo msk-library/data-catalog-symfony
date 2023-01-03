@@ -36,20 +36,14 @@ use App\Utils\Slugger;
 class APIController extends AbstractController
 {
 
-  private $security;
-
   /**
    *  We have several pseudo-entities that all relate back to the Person
    *  entity. We'll check this array so we know if we encounter one of them.
    */
-  public $personEntities = array(
-     'Author',
-     'LocalExpert',
-     'CorrespondingAuthor',
-  );
+  public $personEntities = ['Author', 'LocalExpert', 'CorrespondingAuthor'];
 
-  public function __construct(Security $security) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security)
+  {
   }
 
   /**
@@ -59,13 +53,9 @@ class APIController extends AbstractController
    * @param string $_format The output format desired
    * @param Request $request The current HTTP request
    *
-   * @return Response A Response instance
-   *
-   * @Route(
-   *   path="/api/Dataset/{uid}.{_format}", name="json_output_datasets",
-   *   defaults={"uid": "all", "_format":"json"}, methods={"GET"}
-   * ) 
-   */ 
+   * @return Response A Response instance 
+   */
+  #[Route(path: '/api/Dataset/{uid}.{_format}', name: 'json_output_datasets', defaults: ['uid' => 'all', '_format' => 'json'], methods: ['GET'])]
   public function APIDatasetGetAction($uid, $_format, Request $request) {
 
     $em = $this->getDoctrine()->getManager();
@@ -96,13 +86,13 @@ class APIController extends AbstractController
         break;
       case "solr":
         // for Solr
-        $content = array();
+        $content = [];
         foreach ($datasets as $dataset) {
           $content[] = $dataset->serializeForSolr();
         }
         break;
       case "complete":
-        $content = array();
+        $content = [];
         foreach ($datasets as $dataset) {
           $content[] = $dataset->serializeComplete();
         }
@@ -114,7 +104,7 @@ class APIController extends AbstractController
     
     if ($_format == "json") {
       $response = new Response();
-      $response->setContent(json_encode($content));
+      $response->setContent(json_encode($content, JSON_THROW_ON_ERROR));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
@@ -130,11 +120,10 @@ class APIController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route(path="/api/Dataset", methods={"POST"})
    */
+  #[Route(path: '/api/Dataset', methods: ['POST'])]
   public function APIDatasetPostAction(Request $request) {
-    $submittedData = json_decode($request->getContent(), true);
+    $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
     $dataset = new Dataset();
     $em = $this->getDoctrine()->getManager();
     $userCanSubmit = $this->security->isGranted('ROLE_API_SUBMITTER');
@@ -144,7 +133,7 @@ class APIController extends AbstractController
     $dataset->setDatasetUid($datasetUid);
 
     if ($userCanSubmit) {
-      $form = $this->createForm(new DatasetViaApiType($userCanSubmit, $datasetUid), $dataset, array('csrf_protection'=>false));
+      $form = $this->createForm(new DatasetViaApiType($userCanSubmit, $datasetUid), $dataset, ['csrf_protection'=>false]);
       $form->submit($submittedData);
       if ($form->isSubmitted() && $form->isValid()) {
         $dataset = $form->getData();
@@ -164,7 +153,7 @@ class APIController extends AbstractController
         return new Response('Dataset Successfully Added', 201);
       } else {
           $errors = $form->getErrorsAsString();
-          $response = new Response(json_encode($errors), 422);
+          $response = new Response(json_encode($errors, JSON_THROW_ON_ERROR), 422);
           $response->headers->set('Content-Type', 'application/json');
 
           return $response;
@@ -182,11 +171,10 @@ class APIController extends AbstractController
    * @param Request the current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route(path="/api/{entityName}", methods={"POST"})
    */
+  #[Route(path: '/api/{entityName}', methods: ['POST'])]
   public function APIEntityPostAction($entityName, Request $request) {
-    $submittedData = json_decode($request->getContent(), true);
+    $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
     if ($entityName == 'User') {
       return new Response('Users cannot be added via API', 403);
@@ -198,7 +186,7 @@ class APIController extends AbstractController
     
     //prefix with namespaces so it can be called dynamically
     if (in_array($entityName, $this->personEntities)) {
-      $newEntity = 'App\Entity\\Person';
+      $newEntity = \App\Entity\Person::class;
     } else {
       $newEntity = 'App\Entity\\' . $entityName;
     }
@@ -208,7 +196,7 @@ class APIController extends AbstractController
     if ($userCanSubmit) {
       $form = $this->createForm(new $newEntityFormType(), 
                                 new $newEntity(),
-                                array('csrf_protection'=>false));
+                                ['csrf_protection'=>false]);
       $form->submit($submittedData);
       if ($form->isSubmitted() && $form->isValid()) {
         $entity = $form->getData();
@@ -224,7 +212,7 @@ class APIController extends AbstractController
         return new Response($entityName . ': "' . $addedEntityName . '" successfully added.', 201);
       } else {
         $errors = $form->getErrorsAsString();
-        $response = new Response(json_encode($errors), 422);
+        $response = new Response(json_encode($errors, JSON_THROW_ON_ERROR), 422);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -242,13 +230,9 @@ class APIController extends AbstractController
    * @param string $_format The output format desired
    * @param Request $request The current HTTP request
    *
-   * @return Response A Response instance
-   *
-   * @Route(
-   *   path="/api/{entityName}/{slug}.{_format}", name="json_output_related",
-   *   defaults={"slug": "all", "_format":"json"}, methods={"GET"}
-   * ) 
-   */ 
+   * @return Response A Response instance 
+   */
+  #[Route(path: '/api/{entityName}/{slug}.{_format}', name: 'json_output_related', defaults: ['slug' => 'all', '_format' => 'json'], methods: ['GET'])]
   public function APIEntityGetAction($entityName, $slug, $_format, Request $request) {
     if ($entityName == 'User') {
       return new Response('Users cannot be fetched via API', 403);
@@ -257,7 +241,7 @@ class APIController extends AbstractController
     $em = $this->getDoctrine()->getManager();
     $qb = $em->createQueryBuilder();
     if (in_array($entityName, $this->personEntities)) {
-      $entity = 'App\Entity\\Person';
+      $entity = \App\Entity\Person::class;
     } else {
       $entity = 'App\Entity\\' . $entityName;
     }
@@ -279,13 +263,13 @@ class APIController extends AbstractController
                      ->setParameter('slug', $slug)
                      ->getQuery()->getResult();
     }
-    for ($i = 0; $i < count($entities); $i++) {
+    for ($i = 0; $i < (is_countable($entities) ? count($entities) : 0); $i++) {
       $entities[$i] = $entities[$i]->getAllProperties();
     }
 
     if ($_format == "json") {
       $response = new Response();
-      $response->setContent(json_encode($entities));
+      $response->setContent(json_encode($entities, JSON_THROW_ON_ERROR));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;

@@ -27,75 +27,52 @@ use Doctrine\Common\Collections\ArrayCollection;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
- * @ORM\Table(name="person")
- * @UniqueEntity("kid")
- * @UniqueEntity("full_name")
  */
+#[ORM\Table(name: 'person')]
+#[ORM\Entity(repositoryClass: \App\Repository\PersonRepository::class)]
+#[UniqueEntity('kid')]
+#[UniqueEntity('full_name')]
 class Person {
-  /**
-   * @ORM\Column(type="integer",name="person_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'person_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=128, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, unique: true)]
   protected $full_name;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $slug;
 
 
-  /**
-   * @ORM\Column(type="string",length=128,nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
   protected $last_name;
 
-  /**
-   * @ORM\Column(type="string",length=128,nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
   protected $first_name;
 
 
-  /**
-   * @ORM\Column(type="string",length=16, nullable=true, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 16, nullable: true, unique: true)]
   protected $kid;
 
 
-  /**
-   * @ORM\Column(type="string",length=128, nullable=true, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, nullable: true, unique: true)]
   protected $orcid_id;
 
 
-  /**
-   * @ORM\Column(type="string",length=1028, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $bio_url;
 
 
-  /**
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $email;
 
 
-  /**
-   * @ORM\Column(type="boolean", options={"default"=false}, nullable=true)
-   */
+  #[ORM\Column(type: 'boolean', options: ['default' => false], nullable: true)]
   protected $works_here;
 
 
-  /**
-   * @ORM\OneToMany(targetEntity="PersonAssociation", mappedBy="person")
-   */
+  #[ORM\OneToMany(targetEntity: 'PersonAssociation', mappedBy: 'person')]
   protected $datasetAssociations;
 
 
@@ -363,9 +340,7 @@ class Person {
     public function getAssociatedDatasets()
     {
       return array_map(
-        function ($association) {
-          return $association->getDataset();
-        },
+        fn($association) => $association->getDataset(),
         $this->datasetAssociations->toArray()
       );
     }
@@ -376,15 +351,7 @@ class Person {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'full_name'=>$this->full_name,
-        'last_name'=>$this->last_name,
-        'first_name'=>$this->first_name,
-        'orcid_id'=>$this->orcid_id,
-        'bio_url'=>$this->bio_url,
-        'email'=>$this->email,
-        'works_here'=>$this->works_here
-      );
+      return ['full_name'=>$this->full_name, 'last_name'=>$this->last_name, 'first_name'=>$this->first_name, 'orcid_id'=>$this->orcid_id, 'bio_url'=>$this->bio_url, 'email'=>$this->email, 'works_here'=>$this->works_here];
     }
 
     public function isWorksHere(): ?bool

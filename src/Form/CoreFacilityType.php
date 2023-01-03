@@ -39,22 +39,12 @@ class CoreFacilityType extends AbstractType {
    * Build form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('core_facility_name', TextType::class, array(
-      'label'=> 'Core Facility Name',
-      'label_attr'=>array('class'=>'required'),
-    ));
-    $builder->add('core_facility_url', TextType::class, array(
-      'label'=> 'Core Facility URL',
-      'label_attr'=>array('class'=>'no-asterisk'),
-    ));
-    $builder->add('core_facility_email', TextType::class, array(
-      'label'=> 'Core Facility Email',
-      'label_attr'=>array('class'=>'no-asterisk'),
-    ));
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('core_facility_name', TextType::class, ['label'=> 'Core Facility Name', 'label_attr'=>['class'=>'required']]);
+    $builder->add('core_facility_url', TextType::class, ['label'=> 'Core Facility URL', 'label_attr'=>['class'=>'no-asterisk']]);
+    $builder->add('core_facility_email', TextType::class, ['label'=> 'Core Facility Email', 'label_attr'=>['class'=>'no-asterisk']]);
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -63,9 +53,7 @@ class CoreFacilityType extends AbstractType {
    * @param OptionsResolverInterface
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => CoreFacility::class,
-    ));
+    $resolver->setDefaults(['data_class' => CoreFacility::class]);
   }
 
   public function getName() {

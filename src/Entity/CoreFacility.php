@@ -26,52 +26,31 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\CoreFacilityRepository")
- * @ORM\Table(name="core_facilities")
- * @UniqueEntity("core_facility_name")
  */
+#[ORM\Table(name: 'core_facilities')]
+#[ORM\Entity(repositoryClass: \App\Repository\CoreFacilityRepository::class)]
+#[UniqueEntity('core_facility_name')]
 class CoreFacility {
-  /**
-   * @ORM\Column(type="integer",name="core_facility_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'core_facility_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Name cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $core_facility_name;
 
-  /**
-   * @ORM\Column(type="string",length=512)
-   */
+  #[ORM\Column(type: 'string', length: 512)]
   protected $slug;
 
-    /**
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $core_facility_email;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $core_facility_url;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="core_facilities")
-   */
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'core_facilities')]
   protected $datasets;
 
 
@@ -80,7 +59,6 @@ class CoreFacility {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return DataType
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -92,8 +70,6 @@ class CoreFacility {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -239,10 +215,6 @@ class CoreFacility {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'core_facility_name'=>$this->core_facility_name,
-            'core_facility_url'=>$this->core_facility_url,
-            'core_facility_email'=>$this->core_facility_email
-        );
+        return ['core_facility_name'=>$this->core_facility_name, 'core_facility_url'=>$this->core_facility_url, 'core_facility_email'=>$this->core_facility_email];
     }
 }

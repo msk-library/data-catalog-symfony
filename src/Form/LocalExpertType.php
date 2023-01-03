@@ -34,17 +34,13 @@ class LocalExpertType extends AbstractType {
    * Build the form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('full_name');
     $builder->add('kid');
-    $builder->add('orcid_id', TextType::class, array(
-      'required' => false,
-      'label'    => 'ORCID ID',
-    ));
+    $builder->add('orcid_id', TextType::class, ['required' => false, 'label'    => 'ORCID ID']);
     $builder->add('bio_url');
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -53,9 +49,7 @@ class LocalExpertType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => Person::class,
-    ));
+    $resolver->setDefaults(['data_class' => Person::class]);
   }
 
   public function getName() {

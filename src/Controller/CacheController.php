@@ -33,10 +33,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class CacheController extends AbstractController {
 
-  private $security;
-
-  public function __construct(Security $security) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security)
+  {
   }
 
   /**
@@ -45,9 +43,8 @@ class CacheController extends AbstractController {
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/admin/cache/clear", name="cache_clear")
    */
+  #[Route(path: '/admin/cache/clear', name: 'cache_clear')]
   public function clearCache(Request $request) {
 
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
@@ -69,9 +66,8 @@ class CacheController extends AbstractController {
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/admin/cache/view", name="cache_info")
    */
+  #[Route(path: '/admin/cache/view', name: 'cache_info')]
   public function viewCache(Request $request) {
 
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');

@@ -23,37 +23,26 @@ use Doctrine\ORM\Mapping as ORM;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\DatasetRelationshipRepository")
- * @ORM\Table(name="dataset_relationships")
  */
+#[ORM\Table(name: 'dataset_relationships')]
+#[ORM\Entity(repositoryClass: \App\Repository\DatasetRelationshipRepository::class)]
 class DatasetRelationship {
-  /**
-   * @ORM\Column(type="integer",name="relationship_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'relationship_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=512, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 512, nullable: true)]
   protected $relationship_attributes;
 
-  /**
-   * @ORM\Column(type="string",length=512, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 512, nullable: true)]
   protected $relationship_notes;
 
-  /**
-   * @ORM\Column(type="integer")
-   */
+  #[ORM\Column(type: 'integer')]
   protected $related_dataset_uid;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Dataset",inversedBy="related_datasets")
-   * @ORM\JoinColumn(name="parent_dataset_uid",referencedColumnName="dataset_uid")
-   */
+  #[ORM\ManyToOne(targetEntity: 'Dataset', inversedBy: 'related_datasets')]
+  #[ORM\JoinColumn(name: 'parent_dataset_uid', referencedColumnName: 'dataset_uid')]
   protected $parent_dataset_uid;
 
 
@@ -139,7 +128,6 @@ class DatasetRelationship {
     /**
      * Set parent_dataset_uid
      *
-     * @param \App\Entity\Dataset $parentDatasetUid
      * @return DatasetRelationship
      */
     public function setParentDatasetUid(\App\Entity\Dataset $parentDatasetUid = null)
@@ -165,11 +153,6 @@ class DatasetRelationship {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'related_dataset_uid'=>$this->related_dataset_uid,
-            'relationship_attributes'=>$this->relationship_attributes,
-            'relationship_notes'=>$this->relationship_notes,
-            'parent_dataset_uid'=>$this->parent_dataset_uid
-        );
+        return ['related_dataset_uid'=>$this->related_dataset_uid, 'relationship_attributes'=>$this->relationship_attributes, 'relationship_notes'=>$this->relationship_notes, 'parent_dataset_uid'=>$this->parent_dataset_uid];
     }
 }

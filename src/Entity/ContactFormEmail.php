@@ -24,59 +24,40 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\ContactFormEmailRepository")
- * @ORM\Table(name="contact_form_emails")
  */
+#[ORM\Table(name: 'contact_form_emails')]
+#[ORM\Entity(repositoryClass: \App\Repository\ContactFormEmailRepository::class)]
 class ContactFormEmail {
-  /**
-   * @ORM\Column(type="integer",name="email_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'email_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
  
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $first_name;
   
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $last_name;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $affiliation;
 
-  /**
-   * @ORM\Column(type="string",length=128,nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
   protected $department;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $email_address;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $reason;
 
 
-  /**
-   * @ORM\Column(type="string",length=128,nullable=true)
-   * @Assert\Blank()
-   */
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
+  #[Assert\Blank]
   protected $checker;
 
 
-  /**
-   * @ORM\Column(type="string",length=1028)
-   */
+  #[ORM\Column(type: 'string', length: 1028)]
   protected $message_body;
 
 

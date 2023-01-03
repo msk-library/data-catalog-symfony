@@ -34,15 +34,11 @@ class SubjectKeywordType extends AbstractType {
    * Build form
    *
    * @param FormBuilderInterface
-   * @param array $options
    */
   public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder->add('keyword');
-    $builder->add('mesh_code', TextType::class, array(
-      'label' => 'URI',
-      'required' => false,
-    ));
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('mesh_code', TextType::class, ['label' => 'URI', 'required' => false]);
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   /**
@@ -51,9 +47,7 @@ class SubjectKeywordType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => SubjectKeyword::class,
-    ));
+    $resolver->setDefaults(['data_class' => SubjectKeyword::class]);
   }
 
   public function getName() {

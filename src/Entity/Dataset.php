@@ -29,167 +29,106 @@ use JsonSerializable;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\DatasetRepository")
- * @ORM\Table(name="datasets")
- * @UniqueEntity("title")
  */
+#[ORM\Table(name: 'datasets')]
+#[ORM\Entity(repositoryClass: \App\Repository\DatasetRepository::class)]
+#[UniqueEntity('title')]
 class Dataset implements JsonSerializable {
-  /**
-   * @Assert\NotBlank()
-   * @ORM\Id
-   * @ORM\Column(type="integer", unique=true)
-   */
+  #[Assert\NotBlank]
+  #[ORM\Id]
+  #[ORM\Column(type: 'integer', unique: true)]
   protected $dataset_uid;
 
-  /**
-   * @ORM\Column(type="string",length=16, options={"default"="Internal"})
-   */
-  protected $origin;
+  #[ORM\Column(type: 'string', length: 16, options: ['default' => 'Internal'])]
+  protected $origin = "Internal";
 
-  /**
-   * @Assert\NotBlank()
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Title cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string", length=255, unique=true)
-   */
+  #[Assert\NotBlank]
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Title cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $title;
 
-  /**
-   * @ORM\Column(type="boolean", options={"default"=false})
-   */
-  protected $published;
+  #[ORM\Column(type: 'boolean', options: ['default' => false])]
+  protected $published = false;
 
-  /**
-   * @ORM\Column(type="string", length=512, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 512, nullable: true)]
   protected $slug;
 
-  /**
-   * @ORM\Column(type="string", length=128, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
   protected $doi;
 
-  /**
-   * @Assert\NotBlank()
-   * @ORM\Column(type="string", length=3000)
-   */
+  #[Assert\NotBlank]
+  #[ORM\Column(type: 'string', length: 3000)]
   protected $description;
 
 
-  /**
-   * @ORM\Column(type="string", length=16, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 16, nullable: true)]
   protected $subject_start_date;
 
 
-  /**
-   * @ORM\Column(type="string", length=16, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 16, nullable: true)]
   protected $subject_end_date;
 
 
-  /**
-   * @ORM\Column(type="string", length=128, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
   protected $dataset_size;
 
 
-  /**
-   * @ORM\Column(type="string", length=256, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $subscriber;
 
 
-  /**
-   * @ORM\Column(type="string", length=3000, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 3000, nullable: true)]
   protected $access_instructions;
 
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Licensing details cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string", length=3000, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Licensing details cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 3000, nullable: true)]
   protected $licensing_details;
 
 
-  /**
-   * @ORM\Column(type="date", nullable=true)
-   */
+  #[ORM\Column(type: 'date', nullable: true)]
   protected $license_expiration_date;
 
 
-  /**
-   * @ORM\Column(type="string", length=1028, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $erd_url;
 
 
-  /**
-   * @ORM\Column(type="string", length=1028, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $library_catalog_url;
 
 
-  /**
-   * @ORM\Column(type="string", length=256, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $funder_category;
 
 
-  /**
-   * @ORM\Column(type="string", length=1028, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $pubmed_search;
 
 
   
-  /**
-   * @ORM\Column(type="date", nullable=true)
-   */
+  #[ORM\Column(type: 'date', nullable: true)]
   protected $date_added;
 
 
-  /**
-   * @ORM\Column(type="date", nullable=true)
-   */
+  #[ORM\Column(type: 'date', nullable: true)]
   protected $date_updated;
 
 
-  /**
-   * @ORM\Column(type="date", nullable=true)
-   */
+  #[ORM\Column(type: 'date', nullable: true)]
   protected $date_archived;
 
   
-  /**
-   * @ORM\Column(type="boolean", options={"default"=false}, nullable=true)
-   */
-  protected $archived;
+  #[ORM\Column(type: 'boolean', options: ['default' => false], nullable: true)]
+  protected $archived = false;
 
 
-  /**
-   * @ORM\Column(type="string", length=500, nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 500, nullable: true)]
   protected $archival_notes;
 
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="This field cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string", length=3000, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'This field cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 3000, nullable: true)]
   protected $data_location_description;
 
 
@@ -198,311 +137,211 @@ class Dataset implements JsonSerializable {
    * DatasetEdit entity, but since we want to also capture archival_notes in that entity, we're
    * using the onFlush handler, which only works if the field is managed by Doctrine. So the easiest
    * way to do that is to make an additional field here which can be captured in the onFlush handler.
-   *
-   * @ORM\Column(type="string", length=500, nullable=true)
    */
+  #[ORM\Column(type: 'string', length: 500, nullable: true)]
   protected $last_edit_notes;
 
-  //
-  //
-  // BEGIN ASSOCIATED ENTITIES
-  //
-  //
-
-
-  /**
-   * @ORM\ManyToMany(targetEntity="DatasetFormat", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_dataset_formats",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="data_format_id",referencedColumnName="data_format_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_dataset_formats')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'data_format_id', referencedColumnName: 'data_format_id')]
+  #[ORM\ManyToMany(targetEntity: 'DatasetFormat', cascade: ['persist'], inversedBy: 'datasets')]
   protected $dataset_formats;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Award", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_awards",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="award_id",referencedColumnName="award_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_awards')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'award_id', referencedColumnName: 'award_id')]
+  #[ORM\ManyToMany(targetEntity: 'Award', cascade: ['persist'], inversedBy: 'datasets')]
   protected $awards;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Project", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_projects",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="project_id",referencedColumnName="project_id")}
-   *                )
-   * @ORM\OrderBy({"project_name"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_projects')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'project_id', referencedColumnName: 'project_id')]
+  #[ORM\ManyToMany(targetEntity: 'Project', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['project_name' => 'ASC'])]
   protected $projects;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="AccessRestriction", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_access_restrictions",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="restriction_id",referencedColumnName="restriction_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_access_restrictions')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'restriction_id', referencedColumnName: 'restriction_id')]
+  #[ORM\ManyToMany(targetEntity: 'AccessRestriction', cascade: ['persist'], inversedBy: 'datasets')]
   protected $access_restrictions;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="DataCollectionInstrument", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_standards",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="standard_id",referencedColumnName="standard_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_standards')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'standard_id', referencedColumnName: 'standard_id')]
+  #[ORM\ManyToMany(targetEntity: 'DataCollectionInstrument', cascade: ['persist'], inversedBy: 'datasets')]
   protected $data_collection_instruments;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectGender", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_genders",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="gender_id",referencedColumnName="gender_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_genders')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'gender_id', referencedColumnName: 'gender_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectGender', cascade: ['persist'], inversedBy: 'datasets')]
   protected $subject_genders;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectSex", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_sexes",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="sex_id",referencedColumnName="sex_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_sexes')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'sex_id', referencedColumnName: 'sex_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectSex', cascade: ['persist'], inversedBy: 'datasets')]
   protected $subject_sexes;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectPopulationAge", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_ages",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="pop_age_id",referencedColumnName="pop_age_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_ages')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'pop_age_id', referencedColumnName: 'pop_age_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectPopulationAge', cascade: ['persist'], inversedBy: 'datasets')]
   protected $subject_population_ages;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="DataType", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_data_types",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="data_type_id",referencedColumnName="data_type_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_data_types')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'data_type_id', referencedColumnName: 'data_type_id')]
+  #[ORM\ManyToMany(targetEntity: 'DataType', cascade: ['persist'], inversedBy: 'datasets')]
   protected $data_types;
 
   
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectGeographicArea", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_geographic_areas",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="area_id",referencedColumnName="area_id")}
-   *                )
-   * @ORM\OrderBy({"geographic_area_name"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_geographic_areas')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'area_id', referencedColumnName: 'area_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectGeographicArea', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['geographic_area_name' => 'ASC'])]
   protected $subject_geographic_areas;
   
   
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectGeographicAreaDetail", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_geographic_area_details",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="area_detail_id",referencedColumnName="area_detail_id")}
-   *                )
-   * @ORM\OrderBy({"geographic_area_detail_name"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_geographic_area_details')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'area_detail_id', referencedColumnName: 'area_detail_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectGeographicAreaDetail', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['geographic_area_detail_name' => 'ASC'])]
   protected $subject_geographic_area_details;
   
   
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectDomain", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_subject_domains",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="subject_domain_id",referencedColumnName="subject_domain_id")}
-   *                )
-   * @ORM\OrderBy({"subject_domain"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_subject_domains')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'subject_domain_id', referencedColumnName: 'subject_domain_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectDomain', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['subject_domain' => 'ASC'])]
   protected $subject_domains;
   
   
-  /**
-   * @ORM\ManyToMany(targetEntity="Publication", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_publications",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="publication_id",referencedColumnName="publication_id")}
-   *                )
-   */
+  #[ORM\JoinTable(name: 'datasets_publications')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'publication_id', referencedColumnName: 'publication_id')]
+  #[ORM\ManyToMany(targetEntity: 'Publication', cascade: ['persist'], inversedBy: 'datasets')]
   protected $publications;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectKeyword", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_keywords",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="keyword_id",referencedColumnName="keyword_id")}
-   *                )
-   * @ORM\OrderBy({"keyword"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_keywords')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'keyword_id', referencedColumnName: 'keyword_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectKeyword', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['keyword' => 'ASC'])]
   protected $subject_keywords;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="StudyType", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_study_types",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="study_type_id",referencedColumnName="study_type_id")}
-   *                )
-   * @ORM\OrderBy({"study_type"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_study_types')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'study_type_id', referencedColumnName: 'study_type_id')]
+  #[ORM\ManyToMany(targetEntity: 'StudyType', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['study_type' => 'ASC'])]
   protected $study_types;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Publisher", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_publishers",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="publisher_id",referencedColumnName="publisher_id")}
-   *                )
-   * @ORM\OrderBy({"publisher_name"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_publishers')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'publisher_id', referencedColumnName: 'publisher_id')]
+  #[ORM\ManyToMany(targetEntity: 'Publisher', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['publisher_name' => 'ASC'])]
   protected $publishers;
 
 
-    /**
-   * @ORM\ManyToMany(targetEntity="CoreFacility", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_core_facilities",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="core_facility_id",referencedColumnName="core_facility_id")}
-   *                )
-   * @ORM\OrderBy({"core_facility_name"="ASC"})
-   */
+    #[ORM\JoinTable(name: 'datasets_core_facilities')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'core_facility_id', referencedColumnName: 'core_facility_id')]
+  #[ORM\ManyToMany(targetEntity: 'CoreFacility', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['core_facility_name' => 'ASC'])]
   protected $core_facilities;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Person", cascade={"persist"})
-   * @ORM\JoinTable(name="datasets_corresponding_authors",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="person_id",referencedColumnName="person_id")}
-   *                )
-   * @ORM\OrderBy({"full_name"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_corresponding_authors')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'person_id', referencedColumnName: 'person_id')]
+  #[ORM\ManyToMany(targetEntity: 'Person', cascade: ['persist'])]
+  #[ORM\OrderBy(['full_name' => 'ASC'])]
   protected $corresponding_authors;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Person", cascade={"persist"})
-   * @ORM\JoinTable(name="datasets_experts",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="person_id",referencedColumnName="person_id")}
-   *                )
-   * @ORM\OrderBy({"full_name"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_experts')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'person_id', referencedColumnName: 'person_id')]
+  #[ORM\ManyToMany(targetEntity: 'Person', cascade: ['persist'])]
+  #[ORM\OrderBy(['full_name' => 'ASC'])]
   protected $local_experts;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="RelatedSoftware", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_related_software",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="related_software_id",referencedColumnName="related_software_id")}
-   *                )
-   * @ORM\OrderBy({"software_name"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_related_software')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'related_software_id', referencedColumnName: 'related_software_id')]
+  #[ORM\ManyToMany(targetEntity: 'RelatedSoftware', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['software_name' => 'ASC'])]
   protected $related_software;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="OncoTree", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_onco_trees",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="onco_tree_id",referencedColumnName="onco_tree_id")}
-   *                )
-   * @ORM\OrderBy({"onco_tree_code"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_onco_trees')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'onco_tree_id', referencedColumnName: 'onco_tree_id')]
+  #[ORM\ManyToMany(targetEntity: 'OncoTree', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['onco_tree_code' => 'ASC'])]
   protected $onco_trees;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="RelatedEquipment", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_related_equipment",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="related_equipment_id",referencedColumnName="related_equipment_id")}
-   *                )
-   * @ORM\OrderBy({"related_equipment"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_related_equipment')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'related_equipment_id', referencedColumnName: 'related_equipment_id')]
+  #[ORM\ManyToMany(targetEntity: 'RelatedEquipment', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['related_equipment' => 'ASC'])]
   protected $related_equipment;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="SubjectOfStudy", cascade={"persist"}, inversedBy="datasets")
-   * @ORM\JoinTable(name="datasets_subject_of_study",
-   *                joinColumns={@ORM\JoinColumn(name="dataset_uid",referencedColumnName="dataset_uid")},
-   *                inverseJoinColumns={@ORM\JoinColumn(name="subject_of_study_id",referencedColumnName="subject_of_study_id")}
-   *                )
-   * @ORM\OrderBy({"subject_of_study"="ASC"})
-   */
+  #[ORM\JoinTable(name: 'datasets_subject_of_study')]
+  #[ORM\JoinColumn(name: 'dataset_uid', referencedColumnName: 'dataset_uid')]
+  #[ORM\InverseJoinColumn(name: 'subject_of_study_id', referencedColumnName: 'subject_of_study_id')]
+  #[ORM\ManyToMany(targetEntity: 'SubjectOfStudy', cascade: ['persist'], inversedBy: 'datasets')]
+  #[ORM\OrderBy(['subject_of_study' => 'ASC'])]
   protected $subject_of_study;
 
 
-  //
-  //
-  // BEGIN OneToMany RELATIONSHIPS
-  //
-  //
-
-
-  /**
-   * @ORM\OneToMany(targetEntity="PersonAssociation", mappedBy="dataset", orphanRemoval=TRUE)
-   * @ORM\OrderBy({"display_order" = "ASC"})
-   */
+  #[ORM\OneToMany(targetEntity: 'PersonAssociation', mappedBy: 'dataset', orphanRemoval: true)]
+  #[ORM\OrderBy(['display_order' => 'ASC'])]
   protected $authorships;
 
-  /**
-   * @ORM\OneToMany(targetEntity="DataLocation", mappedBy="datasets_dataset_uid", cascade={"all"})
-   **/
+  #[ORM\OneToMany(targetEntity: 'DataLocation', mappedBy: 'datasets_dataset_uid', cascade: ['all'])]
   protected $data_locations;
 
-  /**
-   * @ORM\OneToMany(targetEntity="DataLocationURL", mappedBy="datasets_dataset_uid", cascade={"all"})
-   **/
+  #[ORM\OneToMany(targetEntity: 'DataLocationURL', mappedBy: 'datasets_dataset_uid', cascade: ['all'])]
   protected $data_location_urls;
 
 
-  /**
-   * @ORM\OneToMany(targetEntity="OtherResource", mappedBy="datasets_dataset_uid", cascade={"all"})
-   **/
+  #[ORM\OneToMany(targetEntity: 'OtherResource', mappedBy: 'datasets_dataset_uid', cascade: ['all'])]
   protected $other_resources;
 
 
-  /**
-   * @ORM\OneToMany(targetEntity="DatasetAlternateTitle", mappedBy="datasets_dataset_uid", cascade={"all"})
-   **/
+  #[ORM\OneToMany(targetEntity: 'DatasetAlternateTitle', mappedBy: 'datasets_dataset_uid', cascade: ['all'])]
   protected $dataset_alternate_titles;
 
 
-  /**
-   * @ORM\OneToMany(targetEntity="DatasetRelationship", mappedBy="parent_dataset_uid", cascade={"all"})
-   **/
+  #[ORM\OneToMany(targetEntity: 'DatasetRelationship', mappedBy: 'parent_dataset_uid', cascade: ['all'])]
   protected $related_datasets;
 
 
-  /** 
-   * @ORM\OneToMany(targetEntity="DatasetEdit", mappedBy="parent_dataset_uid", cascade={"all"})
-   **/
+  #[ORM\OneToMany(targetEntity: 'DatasetEdit', mappedBy: 'parent_dataset_uid', cascade: ['all'])]
   protected $dataset_edits;
 
-  /** 
-   * @ORM\OneToMany(targetEntity="TempAccessKey", mappedBy="dataset_association", cascade={"all"})
-   **/
+  #[ORM\OneToMany(targetEntity: 'TempAccessKey', mappedBy: 'dataset_association', cascade: ['all'])]
   protected $temp_access_keys;
 
 
@@ -541,11 +380,6 @@ class Dataset implements JsonSerializable {
     $this->subject_of_study = new \Doctrine\Common\Collections\ArrayCollection();
     $this->authorships = new \Doctrine\Common\Collections\ArrayCollection();
     $this->temp_access_keys = new \Doctrine\Common\Collections\ArrayCollection();
-
-    // set field defaults
-    $this->published = false;
-    $this->archived  = false;
-    $this->origin    = "Internal";
     $this->study_types = new ArrayCollection();
     $this->corresponding_authors = new ArrayCollection();
     $this->local_experts = new ArrayCollection();
@@ -1109,7 +943,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add dataset_formats
      *
-     * @param \App\Entity\DatasetFormat $datasetFormats
      * @return Dataset
      */
     public function addDatasetFormat(\App\Entity\DatasetFormat $datasetFormats)
@@ -1121,8 +954,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove dataset_formats
-     *
-     * @param \App\Entity\DatasetFormat $datasetFormats
      */
     public function removeDatasetFormat(\App\Entity\DatasetFormat $datasetFormats)
     {
@@ -1142,7 +973,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add awards
      *
-     * @param \App\Entity\Award $awards
      * @return Dataset
      */
     public function addAward(\App\Entity\Award $awards)
@@ -1154,8 +984,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove awards
-     *
-     * @param \App\Entity\Award $awards
      */
     public function removeAward(\App\Entity\Award $awards)
     {
@@ -1176,7 +1004,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add projects
      *
-     * @param \App\Entity\Project $projects
      * @return Dataset
      */
     public function addProject(\App\Entity\Project $projects)
@@ -1188,8 +1015,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove projects
-     *
-     * @param \App\Entity\Project $projects
      */
     public function removeProject(\App\Entity\Project $projects)
     {
@@ -1210,7 +1035,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add access_restrictions
      *
-     * @param \App\Entity\AccessRestriction $accessRestrictions
      * @return Dataset
      */
     public function addAccessRestriction(\App\Entity\AccessRestriction $accessRestrictions)
@@ -1222,8 +1046,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove access_restrictions
-     *
-     * @param \App\Entity\AccessRestriction $accessRestrictions
      */
     public function removeAccessRestriction(\App\Entity\AccessRestriction $accessRestrictions)
     {
@@ -1276,7 +1098,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add subject_genders
      *
-     * @param \App\Entity\SubjectGender $subjectGenders
      * @return Dataset
      */
     public function addSubjectGender(\App\Entity\SubjectGender $subjectGenders)
@@ -1288,8 +1109,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove subject_genders
-     *
-     * @param \App\Entity\SubjectGender $subjectGenders
      */
     public function removeSubjectGender(\App\Entity\SubjectGender $subjectGenders)
     {
@@ -1343,7 +1162,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add subject_population_ages
      *
-     * @param \App\Entity\SubjectPopulationAge $subjectPopulationAges
      * @return Dataset
      */
     public function addSubjectPopulationAge(\App\Entity\SubjectPopulationAge $subjectPopulationAges)
@@ -1355,8 +1173,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove subject_population_ages
-     *
-     * @param \App\Entity\SubjectPopulationAge $subjectPopulationAges
      */
     public function removeSubjectPopulationAge(\App\Entity\SubjectPopulationAge $subjectPopulationAges)
     {
@@ -1376,7 +1192,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add data_types
      *
-     * @param \App\Entity\DataType $dataTypes
      * @return Dataset
      */
     public function addDataType(\App\Entity\DataType $dataTypes)
@@ -1388,8 +1203,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove data_types
-     *
-     * @param \App\Entity\DataType $dataTypes
      */
     public function removeDataType(\App\Entity\DataType $dataTypes)
     {
@@ -1409,7 +1222,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add subject_geographic_areas
      *
-     * @param \App\Entity\SubjectGeographicArea $subjectGeographicAreas
      * @return Dataset
      */
     public function addSubjectGeographicArea(\App\Entity\SubjectGeographicArea $subjectGeographicAreas)
@@ -1421,8 +1233,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove subject_geographic_areas
-     *
-     * @param \App\Entity\SubjectGeographicArea $subjectGeographicAreas
      */
     public function removeSubjectGeographicArea(\App\Entity\SubjectGeographicArea $subjectGeographicAreas)
     {
@@ -1453,8 +1263,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove subject_geographic_area_details
-     *
-     * @param \App\Entity\SubjectGeographicAreaDetail $subjectGeographicAreaDetails
      */
     public function removeSubjectGeographicAreaDetail(\App\Entity\SubjectGeographicAreaDetail $subjectGeographicAreaDetails)
     {
@@ -1474,7 +1282,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add subject_domains
      *
-     * @param \App\Entity\SubjectDomain $subjectDomains
      * @return Dataset
      */
     public function addSubjectDomain(\App\Entity\SubjectDomain $subjectDomains)
@@ -1486,8 +1293,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove subject_domains
-     *
-     * @param \App\Entity\SubjectDomain $subjectDomains
      */
     public function removeSubjectDomain(\App\Entity\SubjectDomain $subjectDomains)
     {
@@ -1507,7 +1312,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add publications
      *
-     * @param \App\Entity\Publication $publications
      * @return Dataset
      */
     public function addPublication(\App\Entity\Publication $publications)
@@ -1519,8 +1323,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove publications
-     *
-     * @param \App\Entity\Publication $publications
      */
     public function removePublication(\App\Entity\Publication $publications)
     {
@@ -1540,7 +1342,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add subject_keywords
      *
-     * @param \App\Entity\SubjectKeyword $subjectKeywords
      * @return Dataset
      */
     public function addSubjectKeyword(\App\Entity\SubjectKeyword $subjectKeywords)
@@ -1552,8 +1353,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove subject_keywords
-     *
-     * @param \App\Entity\SubjectKeyword $subjectKeywords
      */
     public function removeSubjectKeyword(\App\Entity\SubjectKeyword $subjectKeywords)
     {
@@ -1576,7 +1375,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add study_types
      *
-     * @param \App\Entity\StudyType $studyType
      * @return Dataset
      */
     public function addStudyType(\App\Entity\StudyType $studyType)
@@ -1588,8 +1386,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove study_types
-     *
-     * @param \App\Entity\StudyType $studyType
      */
     public function removeStudyType(\App\Entity\StudyType $studyType)
     {
@@ -1612,7 +1408,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add publishers
      *
-     * @param \App\Entity\Publisher $publishers
      * @return Dataset
      */
     public function addPublisher(\App\Entity\Publisher $publishers)
@@ -1624,8 +1419,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove publishers
-     *
-     * @param \App\Entity\Publisher $publishers
      */
     public function removePublisher(\App\Entity\Publisher $publishers)
     {
@@ -1646,7 +1439,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add core_facilities
      *
-     * @param \App\Entity\CoreFacility $coreFacility
      * @return Dataset
      */
     public function addCoreFacility(\App\Entity\CoreFacility $coreFacility)
@@ -1658,8 +1450,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove core_facilities
-     *
-     * @param \App\Entity\CoreFacility $coreFacility
      */
     public function removeCoreFacility(\App\Entity\CoreFacility $coreFacility)
     {
@@ -1680,7 +1470,6 @@ class Dataset implements JsonSerializable {
         /**
      * Add onco_trees
      *
-     * @param \App\Entity\OncoTree $oncoTree
      * @return Dataset
      */
     public function addOncoTree(\App\Entity\OncoTree $oncoTree)
@@ -1692,8 +1481,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove onco_trees
-     *
-     * @param \App\Entity\OncoTree $oncoTree
      */
     public function removeOncoTree(\App\Entity\OncoTree $oncoTree)
     {
@@ -1713,7 +1500,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add data_location
      *
-     * @param \App\Entity\DataLocation $dataLocation
      * @return Dataset
      */
     public function addDataLocation(\App\Entity\DataLocation $dataLocation)
@@ -1728,8 +1514,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove data_location
-     *
-     * @param \App\Entity\DataLocation $dataLocation
      */
     public function removeDataLocation(\App\Entity\DataLocation $dataLocation)
     {
@@ -1752,7 +1536,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add other_resource
      *
-     * @param \App\Entity\OtherResource $otherResource
      * @return Dataset
      */
     public function addOtherResource(\App\Entity\OtherResource $otherResource)
@@ -1767,8 +1550,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove other_resource
-     *
-     * @param \App\Entity\OtherResource $otherResource
      */
     public function removeOtherResource(\App\Entity\OtherResource $otherResource)
     {
@@ -1792,7 +1573,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add dataset_alternate_titles
      *
-     * @param \App\Entity\DatasetAlternateTitle $datasetAlternateTitle
      * @return Dataset
      */
     public function addDatasetAlternateTitle(\App\Entity\DatasetAlternateTitle $datasetAlternateTitle)
@@ -1807,8 +1587,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove dataset_alternate_titles
-     *
-     * @param \App\Entity\DatasetAlternateTitle $datasetAlternateTitle
      */
     public function removeDatasetAlternateTitle(\App\Entity\DatasetAlternateTitle $datasetAlternateTitle)
     {
@@ -1831,7 +1609,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add related_datasets
      *
-     * @param \App\Entity\DatasetRelationship $relatedDataset
      * @return Dataset
      */
     public function addRelatedDataset(\App\Entity\DatasetRelationship $relatedDataset)
@@ -1846,8 +1623,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove related_datasets
-     *
-     * @param \App\Entity\DatasetRelationship $relatedDataset
      */
     public function removeRelatedDataset(\App\Entity\DatasetRelationship $relatedDataset)
     {
@@ -1934,48 +1709,49 @@ class Dataset implements JsonSerializable {
       foreach ($this->study_types as $study_type) { $types_of_study[]=$study_type->getDisplayName(); }
       foreach ($this->subject_of_study as $subject) { $subject_of_study[]=$subject->getDisplayName(); }
 
-      return array(
-        'title'                     => $this->title,
-        'origin'                    => $this->origin,
-        'description'               => $this->description,
-        'access_instructions'       => $this->access_instructions,
-        'doi'                       => $this->doi,
-        'pubmed_search'             => $this->pubmed_search,
-        'dataset_size'              => $this->dataset_size,
-        'subject_start_date'        => $this->subject_start_date,
-        'subject_end_date'          => $this->subject_end_date,
-        'library_catalog_url'       => $this->library_catalog_url,
-        'licensing_details'         => $this->licensing_details,
-        'license_expiration_date'   => $this->license_expiration_date, //THIS NEEDS TO BE IN SPECIFIC FORMAT
-        'subscriber'                => $this->subscriber,
-        'data_locations'            => $locs,
-        'dataset_alternate_titles'  => $akas,
-        'other_resources'           => $others,
-        'related_datasets'          => $related_datasets,
-        'authorships'               => $authors,
-        'subject_keywords'          => $keywords,
-        'publishers'                => $publishers,
-        'publications'              => $publications,
-        'core_facilities'           => $core_facilities,
-        'onco_trees'                => $onco_trees,
-        'access_restrictions'       => $restrictions,
-        'related_equipment'         => $equipment,
-        'related_software'          => $software,
-        'dataset_formats'           => $formats,
-        'data_types'                => $data_type_array,
-        'data_collection_standards' => $stds,
-        'awards'                    => $awards,
-        'projects'                  => $projects,
-        'local_experts'             => $experts,
-        'subject_domains'           => $domains,
-        'subject_genders'           => $genders,
-        'subject_sexes'             => $sexes,
-        'subject_population_ages'   => $ages,
-        'subject_geographic_areas'   => $areas,
-        'subject_geographic_area_details'=>$area_details,
-        'study_types'               => $types_of_study,
-        'subject_of_study'          => $subject_of_study,
-      );
+      return [
+          'title'                     => $this->title,
+          'origin'                    => $this->origin,
+          'description'               => $this->description,
+          'access_instructions'       => $this->access_instructions,
+          'doi'                       => $this->doi,
+          'pubmed_search'             => $this->pubmed_search,
+          'dataset_size'              => $this->dataset_size,
+          'subject_start_date'        => $this->subject_start_date,
+          'subject_end_date'          => $this->subject_end_date,
+          'library_catalog_url'       => $this->library_catalog_url,
+          'licensing_details'         => $this->licensing_details,
+          'license_expiration_date'   => $this->license_expiration_date,
+          //THIS NEEDS TO BE IN SPECIFIC FORMAT
+          'subscriber'                => $this->subscriber,
+          'data_locations'            => $locs,
+          'dataset_alternate_titles'  => $akas,
+          'other_resources'           => $others,
+          'related_datasets'          => $related_datasets,
+          'authorships'               => $authors,
+          'subject_keywords'          => $keywords,
+          'publishers'                => $publishers,
+          'publications'              => $publications,
+          'core_facilities'           => $core_facilities,
+          'onco_trees'                => $onco_trees,
+          'access_restrictions'       => $restrictions,
+          'related_equipment'         => $equipment,
+          'related_software'          => $software,
+          'dataset_formats'           => $formats,
+          'data_types'                => $data_type_array,
+          'data_collection_standards' => $stds,
+          'awards'                    => $awards,
+          'projects'                  => $projects,
+          'local_experts'             => $experts,
+          'subject_domains'           => $domains,
+          'subject_genders'           => $genders,
+          'subject_sexes'             => $sexes,
+          'subject_population_ages'   => $ages,
+          'subject_geographic_areas'   => $areas,
+          'subject_geographic_area_details'=>$area_details,
+          'study_types'               => $types_of_study,
+          'subject_of_study'          => $subject_of_study,
+      ];
     }
 
 
@@ -2029,47 +1805,7 @@ class Dataset implements JsonSerializable {
          $accession_numbers[]=$loc->getAccessionNumber(); 
        }
        foreach ($this->publications as $pub) { $publications[]=$pub->getDisplayName(); }
-       return array(
-         'id'                    => $this->dataset_uid,
-         'dataset_title'         => $this->title,
-         'dataset_alt_title'     => $akas,
-         'doi'                   => $this->doi,
-         'origin'                => $this->origin,
-         'description'           => $this->description,
-         'dataset_end_date'      => $this->subject_end_date,
-         'dataset_start_date'    => $this->subject_start_date,
-         'local_experts'         => $experts,
-         'authors'               => $authors,
-         'corresponding_authors' => $corresponding_authors,
-         'date_added'            => $this->date_added,
-         'dataset_formats'       => $formats,
-         'data_types'            => $data_type_array,
-         'study_types'           => $types_of_study,
-         'collection_standards'  => $stds,
-         'awards'                => $awards,
-         'projects'              => $projects,
-         'access_restrictions'   => $restrictions,
-         'subject_population_ages'=>$ages,
-         'subject_geographic_area'=>$areas,
-         'subject_geographic_area_details'=>$area_details,
-         'subject_domain'        => $domains,
-         'subject_keywords'      => $keywords,
-         'onco_trees'            => $onco_trees,
-         'publishers'            => $publishers,
-         'core_facilities'       => $core_facilities,
-         'subject_of_study'      => $subject_of_study,
-         'related_software'      => $software,
-         'related_equipment'     => $equipment,
-         'other_resource_names'       => $other_resource_names,
-         'other_resource_descriptions'=> $other_resource_descriptions,
-         'data_locations'             => $data_locations,
-         'data_location_urls'    => $data_location_urls,
-         'data_location_contents'     => $data_location_contents,
-         'accession_numbers'          => $accession_numbers,
-         'publications'               => $publications,
-         'synapseids'                 => $synapseids,
-         'access_instructions'        => $this->access_instructions,
-       );
+       return ['id'                    => $this->dataset_uid, 'dataset_title'         => $this->title, 'dataset_alt_title'     => $akas, 'doi'                   => $this->doi, 'origin'                => $this->origin, 'description'           => $this->description, 'dataset_end_date'      => $this->subject_end_date, 'dataset_start_date'    => $this->subject_start_date, 'local_experts'         => $experts, 'authors'               => $authors, 'corresponding_authors' => $corresponding_authors, 'date_added'            => $this->date_added, 'dataset_formats'       => $formats, 'data_types'            => $data_type_array, 'study_types'           => $types_of_study, 'collection_standards'  => $stds, 'awards'                => $awards, 'projects'              => $projects, 'access_restrictions'   => $restrictions, 'subject_population_ages'=>$ages, 'subject_geographic_area'=>$areas, 'subject_geographic_area_details'=>$area_details, 'subject_domain'        => $domains, 'subject_keywords'      => $keywords, 'onco_trees'            => $onco_trees, 'publishers'            => $publishers, 'core_facilities'       => $core_facilities, 'subject_of_study'      => $subject_of_study, 'related_software'      => $software, 'related_equipment'     => $equipment, 'other_resource_names'       => $other_resource_names, 'other_resource_descriptions'=> $other_resource_descriptions, 'data_locations'             => $data_locations, 'data_location_urls'    => $data_location_urls, 'data_location_contents'     => $data_location_contents, 'accession_numbers'          => $accession_numbers, 'publications'               => $publications, 'synapseids'                 => $synapseids, 'access_instructions'        => $this->access_instructions];
      }
 
 
@@ -2115,55 +1851,55 @@ class Dataset implements JsonSerializable {
       foreach ($this->study_types as $study_type) { $types_of_study[]=$study_type->getDisplayName(); }
       foreach ($this->subject_of_study as $subject) { $subject_of_study[]=$subject->getAllProperties(); }
 
-      return array(
-        'title'                     => $this->title,
-        'origin'                    => $this->origin,
-        'description'               => $this->description,
-        'access_instructions'       => $this->access_instructions,
-        'doi'                       => $this->doi,
-        'pubmed_search'             => $this->pubmed_search,
-        'dataset_size'              => $this->dataset_size,
-        'subject_start_date'        => $this->subject_start_date,
-        'subject_end_date'          => $this->subject_end_date,
-        'library_catalog_url'       => $this->library_catalog_url,
-        'licensing_details'         => $this->licensing_details,
-        'license_expiration_date'   => $this->license_expiration_date, //THIS NEEDS TO BE IN SPECIFIC FORMAT
-        'subscriber'                => $this->subscriber,
-        'data_locations'            => $locs,
-        'dataset_alternate_titles'  => $akas,
-        'other_resources'           => $others,
-        'related_datasets'          => $related_datasets,
-        'authorships'               => $authors,
-        'subject_keywords'          => $keywords,
-        'onco_trees'                => $onco_trees,
-        'publishers'                => $publishers,
-        'publications'              => $publications,
-        'core_facilities'           => $core_facilities,
-        'access_restrictions'       => $restrictions,
-        'related_equipment'         => $equipment,
-        'related_software'          => $software,
-        'dataset_formats'           => $formats,
-        'data_types'                => $data_type_array,
-        'data_collection_standards' => $stds,
-        'awards'                    => $awards,
-        'projects'                  => $projects,
-        'local_experts'             => $experts,
-        'subject_domains'           => $domains,
-        'subject_genders'           => $genders,
-        'subject_sexes'             => $sexes,
-        'subject_population_ages'   => $ages,
-        'subject_geographic_areas'   => $areas,
-        'subject_geographic_area_details'=>$area_details,
-        'study_types'               => $types_of_study,
-        'subject_of_study'          => $subject_of_study,
-      );
+      return [
+          'title'                     => $this->title,
+          'origin'                    => $this->origin,
+          'description'               => $this->description,
+          'access_instructions'       => $this->access_instructions,
+          'doi'                       => $this->doi,
+          'pubmed_search'             => $this->pubmed_search,
+          'dataset_size'              => $this->dataset_size,
+          'subject_start_date'        => $this->subject_start_date,
+          'subject_end_date'          => $this->subject_end_date,
+          'library_catalog_url'       => $this->library_catalog_url,
+          'licensing_details'         => $this->licensing_details,
+          'license_expiration_date'   => $this->license_expiration_date,
+          //THIS NEEDS TO BE IN SPECIFIC FORMAT
+          'subscriber'                => $this->subscriber,
+          'data_locations'            => $locs,
+          'dataset_alternate_titles'  => $akas,
+          'other_resources'           => $others,
+          'related_datasets'          => $related_datasets,
+          'authorships'               => $authors,
+          'subject_keywords'          => $keywords,
+          'onco_trees'                => $onco_trees,
+          'publishers'                => $publishers,
+          'publications'              => $publications,
+          'core_facilities'           => $core_facilities,
+          'access_restrictions'       => $restrictions,
+          'related_equipment'         => $equipment,
+          'related_software'          => $software,
+          'dataset_formats'           => $formats,
+          'data_types'                => $data_type_array,
+          'data_collection_standards' => $stds,
+          'awards'                    => $awards,
+          'projects'                  => $projects,
+          'local_experts'             => $experts,
+          'subject_domains'           => $domains,
+          'subject_genders'           => $genders,
+          'subject_sexes'             => $sexes,
+          'subject_population_ages'   => $ages,
+          'subject_geographic_areas'   => $areas,
+          'subject_geographic_area_details'=>$area_details,
+          'study_types'               => $types_of_study,
+          'subject_of_study'          => $subject_of_study,
+      ];
     }
 
 
     /**
      * Add author
      *
-     * @param \App\Entity\PersonAssociation $authorship
      * @return Dataset
      */
     public function addAuthorship(\App\Entity\PersonAssociation $authorship)
@@ -2177,8 +1913,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove authorship
-     *
-     * @param \App\Entity\PersonAssociation $authorship
      */
     public function removeAuthorship(\App\Entity\PersonAssociation $authorship)
     {
@@ -2215,9 +1949,7 @@ class Dataset implements JsonSerializable {
     public function getAuthors()
     {
       return array_map(
-        function($authorship) {
-          return $authorship->getPerson();
-        },
+        fn($authorship) => $authorship->getPerson(),
         $this->authorships->toArray()
       );
     }
@@ -2226,7 +1958,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add corresponding authors
      *
-     * @param \App\Entity\Person $corresponding_authors
      * @return Dataset
      */
     public function addCorrespondingAuthor(\App\Entity\Person $corresponding_authors)
@@ -2238,8 +1969,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove corresponding authors
-     *
-     * @param \App\Entity\Person $corresponding_authors
      */
     public function removeCorrespondingAuthor(\App\Entity\Person $corresponding_authors)
     {
@@ -2260,7 +1989,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add local_experts
      *
-     * @param \App\Entity\Person $localExperts
      * @return Dataset
      */
     public function addLocalExpert(\App\Entity\Person $localExperts)
@@ -2272,8 +2000,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove local_experts
-     *
-     * @param \App\Entity\Person $localExperts
      */
     public function removeLocalExpert(\App\Entity\Person $localExperts)
     {
@@ -2294,7 +2020,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add related_software
      *
-     * @param \App\Entity\RelatedSoftware $relatedSoftware
      * @return Dataset
      */
     public function addRelatedSoftware(\App\Entity\RelatedSoftware $relatedSoftware)
@@ -2306,8 +2031,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove related_software
-     *
-     * @param \App\Entity\RelatedSoftware $relatedSoftware
      */
     public function removeRelatedSoftware(\App\Entity\RelatedSoftware $relatedSoftware)
     {
@@ -2327,7 +2050,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add dataset_edits
      *
-     * @param \App\Entity\DatasetEdit $datasetEdits
      * @return Dataset
      */
     public function addDatasetEdits(\App\Entity\DatasetEdit $datasetEdits)
@@ -2339,8 +2061,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove dataset_edit
-     *
-     * @param \App\Entity\DatasetEdit $datasetEdits
      */
     public function removeDatasetEdits(\App\Entity\DatasetEdit $datasetEdits)
     {
@@ -2361,7 +2081,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add temp_access_keys
      *
-     * @param \App\Entity\TempAccessKey $tempAccessKeys
      * @return Dataset
      */
     public function addTempAccessKeys(\App\Entity\TempAccessKey $tempAccessKeys)
@@ -2373,8 +2092,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove temp_access_keys
-     *
-     * @param \App\Entity\TempAccessKey $tempAccessKeys
      */
     public function removeTempAccessKeys(\App\Entity\TempAccessKey $tempAccessKeys)
     {
@@ -2399,7 +2116,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add related_equipment
      *
-     * @param \App\Entity\RelatedEquipment $relatedEquipment
      * @return Dataset
      */
     public function addRelatedEquipment(\App\Entity\RelatedEquipment $relatedEquipment)
@@ -2411,8 +2127,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove related_equipment
-     *
-     * @param \App\Entity\RelatedEquipment $relatedEquipment
      */
     public function removeRelatedEquipment(\App\Entity\RelatedEquipment $relatedEquipment)
     {
@@ -2432,7 +2146,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add subject_of_study
      *
-     * @param \App\Entity\SubjectOfStudy $subjectOfStudy
      * @return Dataset
      */
     public function addSubjectOfStudy(\App\Entity\SubjectOfStudy $subjectOfStudy)
@@ -2444,8 +2157,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove subject_of_study
-     *
-     * @param \App\Entity\SubjectOfStudy $subjectOfStudy
      */
     public function removeSubjectOfStudy(\App\Entity\SubjectOfStudy $subjectOfStudy)
     {
@@ -2491,7 +2202,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add datasetEdit
      *
-     * @param \App\Entity\DatasetEdit $datasetEdit
      *
      * @return Dataset
      */
@@ -2504,8 +2214,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove datasetEdit
-     *
-     * @param \App\Entity\DatasetEdit $datasetEdit
      */
     public function removeDatasetEdit(\App\Entity\DatasetEdit $datasetEdit)
     {
@@ -2515,7 +2223,6 @@ class Dataset implements JsonSerializable {
     /**
      * Add tempAccessKey
      *
-     * @param \App\Entity\TempAccessKey $tempAccessKey
      *
      * @return Dataset
      */
@@ -2528,8 +2235,6 @@ class Dataset implements JsonSerializable {
 
     /**
      * Remove tempAccessKey
-     *
-     * @param \App\Entity\TempAccessKey $tempAccessKey
      */
     public function removeTempAccessKey(\App\Entity\TempAccessKey $tempAccessKey)
     {

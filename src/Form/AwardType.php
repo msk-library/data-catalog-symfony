@@ -30,32 +30,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class AwardType extends AbstractType {
 
   public function buildForm(FormBuilderInterface $builder, array $options) {
-    $builder->add('award',TextareaType::class,array(
-      'label'=>'Grant Number or Name',
-    ));
-    $builder->add('award_funder',TextareaType::class,array(
-      'label'=>'Funding Agency',
-    ));
-    $builder->add('funder_type',ChoiceType::class,array(
-      'label'=>'Funder Type',
-      'choices'=>array('Federal, NIH'    => 'Federal, NIH',
-                       'Federal, non-NIH'=> 'Federal, non-NIH',
-                       'Non-federal'     => 'Non-federal',
-                       'Non-US'          => 'Non-US',
-                       'Private'         => 'Private'
-                      ),
-    ));
-    $builder->add('award_url', TextareaType::class, array(
-      'required'=>false,
-      'label'=>'NIH Reporter URL',
-    ));
-    $builder->add('save',SubmitType::class,array('label'=>'Submit'));
+    $builder->add('award',TextareaType::class,['label'=>'Grant Number or Name']);
+    $builder->add('award_funder',TextareaType::class,['label'=>'Funding Agency']);
+    $builder->add('funder_type',ChoiceType::class,['label'=>'Funder Type', 'choices'=>['Federal, NIH'    => 'Federal, NIH', 'Federal, non-NIH'=> 'Federal, non-NIH', 'Non-federal'     => 'Non-federal', 'Non-US'          => 'Non-US', 'Private'         => 'Private']]);
+    $builder->add('award_url', TextareaType::class, ['required'=>false, 'label'=>'NIH Reporter URL']);
+    $builder->add('save',SubmitType::class,['label'=>'Submit']);
   }
 
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(array(
-      'data_class' => Award::class,
-    ));
+    $resolver->setDefaults(['data_class' => Award::class]);
   }
 
   public function getName() {

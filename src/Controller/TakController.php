@@ -39,10 +39,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TakController extends AbstractController
 {
   
-  private $security;
-
-  public function __construct(Security $security) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security)
+  {
   }
 
   /**
@@ -52,21 +50,19 @@ class TakController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/tak/gen/{uid}", name="tak_generate")
    */
-
+  #[Route(path: '/tak/gen/{uid}', name: 'tak_generate')]
   public function generateTak($uid, Request $request) {
   
 		if ($this->security->isGranted('ROLE_ADMIN')) {
 
-			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(array('dataset_uid'=>$uid));
+			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(['dataset_uid'=>$uid]);
 
 			if ($dataset) {
 
 				do {
 					$uuid=uniqid( true );
-				} while($this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(array('uuid'=>$uuid)));
+				} while($this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(['uuid'=>$uuid]));
 
 				$em = $this->getDoctrine()->getManager();
 				$tak = new \App\Entity\TempAccessKey;
@@ -78,14 +74,7 @@ class TakController extends AbstractController
 				$em->persist($tak);
 				$em->flush();
 
-				return $this->render('default/tak_generate.html.twig', array(
-					'displayName' => 'Dataset',
-					'uuid' => $uuid,
-					'dataset_uid' => $dataset->getId(),
-					'dataset_title' => $dataset->getTitle(),
-					'generated' => $tak->getGenerated()
-					
-				));
+				return $this->render('default/tak_generate.html.twig', ['displayName' => 'Dataset', 'uuid' => $uuid, 'dataset_uid' => $dataset->getId(), 'dataset_title' => $dataset->getTitle(), 'generated' => $tak->getGenerated()]);
 
 				
 			} else {
@@ -112,21 +101,19 @@ class TakController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/tak/get/{uid}", name="tak_get_for_uid")
    */
-  
+  #[Route(path: '/tak/get/{uid}', name: 'tak_get_for_uid')]
   public function getTaks($uid, Request $request) {
 
 		$data = ['response'=>'DENIED','keys'=>[],'dataset'=>0];
 
 		if ($this->security->isGranted('ROLE_ADMIN')) {
 
-			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(array('dataset_uid'=>$uid));
+			$dataset=$this->getDoctrine()->getRepository('App:Dataset')->findOneBy(['dataset_uid'=>$uid]);
 
 			if ($dataset) {
 
-				$taks=$this->getDoctrine()->getRepository('App:TempAccessKey')->findBy(array('dataset_association'=>$dataset->getId() ));
+				$taks=$this->getDoctrine()->getRepository('App:TempAccessKey')->findBy(['dataset_association'=>$dataset->getId()]);
 
 				foreach($taks as $t=>$v) {
 
@@ -157,17 +144,15 @@ class TakController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/tak/delete/{uuid}", name="tak_delete_id")
    */
-  
+  #[Route(path: '/tak/delete/{uuid}', name: 'tak_delete_id')]
   public function deleteTak($uuid, Request $request) {
 
 		$data = ['response'=>'DENIED', 'uuid'=>'', 'dataset'=>0];
 
 		if ($this->security->isGranted('ROLE_ADMIN')) {
 
-			$tak=$this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(array('uuid'=>$uuid));
+			$tak=$this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(['uuid'=>$uuid]);
 
 			if ($tak) {
 

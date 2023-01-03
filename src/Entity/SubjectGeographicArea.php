@@ -28,49 +28,30 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\SubjectGeographicAreaRepository")
- * @ORM\Table(name="subject_geographic_areas")
- * @UniqueEntity("geographic_area_name")
  */
+#[ORM\Table(name: 'subject_geographic_areas')]
+#[ORM\Entity(repositoryClass: \App\Repository\SubjectGeographicAreaRepository::class)]
+#[UniqueEntity('geographic_area_name')]
 class SubjectGeographicArea {
-  /**
-   * @ORM\Column(type="integer",name="area_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'area_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Name cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $geographic_area_name;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Authority cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Authority cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $geographic_area_authority;
 
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="subject_geographic_areas")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'subject_geographic_areas')]
   protected $datasets;
 
     public function __construct() {
@@ -169,7 +150,6 @@ class SubjectGeographicArea {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectGeographicArea
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -181,8 +161,6 @@ class SubjectGeographicArea {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -205,9 +183,6 @@ class SubjectGeographicArea {
      * @return array
      */
     public function getAllProperties() {
-        return array(
-            'geographic_area_name'=>$this->geographic_area_name,
-            'geographic_area_authority'=>$this->geographic_area_authority
-        );
+        return ['geographic_area_name'=>$this->geographic_area_name, 'geographic_area_authority'=>$this->geographic_area_authority];
     }
 }

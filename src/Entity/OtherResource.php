@@ -23,37 +23,26 @@ use Doctrine\ORM\Mapping as ORM;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\OtherResourceRepository")
- * @ORM\Table(name="other_resources")
  */
+#[ORM\Table(name: 'other_resources')]
+#[ORM\Entity(repositoryClass: \App\Repository\OtherResourceRepository::class)]
 class OtherResource {
-  /**
-   * @ORM\Column(type="integer",name="other_resource_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'other_resource_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $resource_name;
 
-  /**
-   * @ORM\Column(type="string",length=1028,nullable=true)
-   */
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $resource_description;
 
-  /**
-   * @ORM\Column(type="string",length=1028)
-   */
+  #[ORM\Column(type: 'string', length: 1028)]
   protected $resource_url;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Dataset",inversedBy="other_resources")
-   * @ORM\JoinColumn(name="datasets_dataset_uid",referencedColumnName="dataset_uid")
-   */
+  #[ORM\ManyToOne(targetEntity: 'Dataset', inversedBy: 'other_resources')]
+  #[ORM\JoinColumn(name: 'datasets_dataset_uid', referencedColumnName: 'dataset_uid')]
   protected $datasets_dataset_uid;
 
 
@@ -79,7 +68,6 @@ class OtherResource {
     /**
      * Set datasets_dataset_uid
      *
-     * @param \App\Entity\Dataset $datasetsDatasetUid
      * @return OtherResource
      */
     public function setDatasetsDatasetUid(\App\Entity\Dataset $datasetsDatasetUid = null)
@@ -175,10 +163,6 @@ class OtherResource {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'resource_name'=>$this->resource_name,
-        'resource_description'=>$this->resource_description,
-        'resource_url'=>$this->resource_url
-      );
+      return ['resource_name'=>$this->resource_name, 'resource_description'=>$this->resource_description, 'resource_url'=>$this->resource_url];
     }
 }

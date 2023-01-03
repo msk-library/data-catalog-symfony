@@ -22,27 +22,20 @@ use Doctrine\ORM\Mapping as ORM;
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @ORM\Entity(repositoryClass="App\Repository\DataLocationURLRepository")
- * @ORM\Table(name="data_location_urls")
  */
+#[ORM\Table(name: 'data_location_urls')]
+#[ORM\Entity(repositoryClass: \App\Repository\DataLocationURLRepository::class)]
 class DataLocationURL {
-  /**
-   * @ORM\Column(type="integer",name="location_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'location_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=1028)
-   */
+  #[ORM\Column(type: 'string', length: 1028)]
   protected $data_access_url;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Dataset",inversedBy="data_location_urls")
-   * @ORM\JoinColumn(name="datasets_dataset_uid",referencedColumnName="dataset_uid")
-   */
+  #[ORM\ManyToOne(targetEntity: 'Dataset', inversedBy: 'data_location_urls')]
+  #[ORM\JoinColumn(name: 'datasets_dataset_uid', referencedColumnName: 'dataset_uid')]
   protected $datasets_dataset_uid;
 
 
@@ -92,7 +85,6 @@ class DataLocationURL {
     /**
      * Set datasets_dataset_uid
      *
-     * @param \App\Entity\Dataset $datasetsDatasetUid
      * @return DataLocationURL
      */
     public function setDatasetsDatasetUid(\App\Entity\Dataset $datasetsDatasetUid = null)

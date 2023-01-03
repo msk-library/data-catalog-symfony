@@ -44,10 +44,7 @@ use Doctrine\ORM\EntityManagerInterface;
   */
 class GeneralController extends AbstractController
 {
-  private $security;
-
-  public function __construct(Security $security, ParameterBagInterface $params) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security, ParameterBagInterface $params) {
     $this->params = $params;
   }
 
@@ -61,9 +58,9 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/", name="homepage")
-   * @Route("/search", name="user_search_results")
    */
+  #[Route(path: '/', name: 'homepage')]
+  #[Route(path: '/search', name: 'user_search_results')]
   public function indexAction(Request $request, SolrSearchr $solrsearchr ) {
     
     $currentSearch = new SearchState($request);
@@ -75,15 +72,9 @@ class GeneralController extends AbstractController
     $results = new SearchResults($resultsFromSolr);
 
     if ($results->numResults == 0) {
-      return $this->render('default/no_results.html.twig', array(
-        'results' => $results,
-        'currentSearch'=>$currentSearch,
-      ));
+      return $this->render('default/no_results.html.twig', ['results' => $results, 'currentSearch'=>$currentSearch]);
     } else {
-      return $this->render('default/results.html.twig',array(
-                  'results' => $results,
-                  'currentSearch' => $currentSearch,
-                  ));
+      return $this->render('default/results.html.twig',['results' => $results, 'currentSearch' => $currentSearch]);
     }
     
   }
@@ -96,15 +87,15 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/about", name="about")
    */
+  #[Route(path: '/about', name: 'about')]
   public function aboutAction(Request $request) {
 
     if ($this->get('twig')->getLoader()->exists('institution/about.html.twig')) {
-      return $this->render('institution/about.html.twig',array()); 
+      return $this->render('institution/about.html.twig',[]); 
     }
     else {
-      return $this->render('about.html.twig', array());
+      return $this->render('about.html.twig', []);
     }
 
   }
@@ -117,15 +108,15 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/how-to-use-the-catalog", name="how_to_use_catalog")
    */
+  #[Route(path: '/how-to-use-the-catalog', name: 'how_to_use_catalog')]
   public function howToUseTheCatalogAction(Request $request) {
 
     if ($this->get('twig')->getLoader()->exists('institution/how_to_use_catalog.html.twig')) {
-      return $this->render('institution/how_to_use_catalog.html.twig',array()); 
+      return $this->render('institution/how_to_use_catalog.html.twig',[]); 
     }
     else {
-      return $this->render('how_to_use_catalog.html.twig', array());
+      return $this->render('how_to_use_catalog.html.twig', []);
     }
 
   }
@@ -138,15 +129,15 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   * @Route("/frequently-asked-questions", name="faq")
    */
+  #[Route(path: '/frequently-asked-questions', name: 'faq')]
   public function faqAction(Request $request) {
 
     if ($this->get('twig')->getLoader()->exists('institution/faq.html.twig')) {
-      return $this->render('institution/faq.html.twig',array()); 
+      return $this->render('institution/faq.html.twig',[]); 
     }
     else {
-      return $this->render('faq.html.twig', array());
+      return $this->render('faq.html.twig', []);
     }
   }
 
@@ -161,9 +152,8 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/contact-us", name="contact")
    */
+  #[Route(path: '/contact-us', name: 'contact')]
   public function contactAction(Request $request, MailerInterface $mailer) {
     $contactFormEmail = new \App\Entity\ContactFormEmail();
 
@@ -195,14 +185,10 @@ class GeneralController extends AbstractController
         ->context(['msg' => $email]);
       $mailer->send($message);
 
-      return $this->render('default/contact_email_send_success.html.twig', array(
-        'form' => $form->createView(),
-      ));
+      return $this->render('default/contact_email_send_success.html.twig', ['form' => $form->createView()]);
     }
 
-    return $this->render('default/contact.html.twig', array(
-      'form' => $form->createView(),
-    ));
+    return $this->render('default/contact.html.twig', ['form' => $form->createView()]);
 
   }
 
@@ -214,12 +200,11 @@ class GeneralController extends AbstractController
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/dataset/{uid}", name="view_dataset")
    */
+  #[Route(path: '/dataset/{uid}', name: 'view_dataset')]
   public function viewAction($uid, EntityManagerInterface $em, Request $request) {
     $dataset = $em->getRepository(Dataset::Class)
-      ->findOneBy(array('dataset_uid'=>$uid));
+      ->findOneBy(['dataset_uid'=>$uid]);
 
     // dataset not found
     if (!$dataset) {
@@ -245,7 +230,7 @@ class GeneralController extends AbstractController
 			
 			if ($request->get('tak') && !$dataset->getPublished()) {
 	
-				$tak=$this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(array('dataset_association'=>$uid, 'uuid'=>$request->get('tak')) );
+				$tak=$this->getDoctrine()->getRepository('App:TempAccessKey')->findOneBy(['dataset_association'=>$uid, 'uuid'=>$request->get('tak')] );
 			
 				if (sizeof($tak)>0) {
 					
@@ -288,13 +273,9 @@ class GeneralController extends AbstractController
 
 		if ($dataset->getOrigin() == 'Internal') {
 			// return $this->render('default/view_dataset_internal.html.twig', array(
-			   return $this->render('view_dataset_external.html.twig', array(
-				'dataset' => $dataset,
-			));
+			   return $this->render('view_dataset_external.html.twig', ['dataset' => $dataset]);
 		} else {
-			return $this->render('view_dataset_external.html.twig', array(
-				'dataset' => $dataset,
-			));
+			return $this->render('view_dataset_external.html.twig', ['dataset' => $dataset]);
 		}
   
   }

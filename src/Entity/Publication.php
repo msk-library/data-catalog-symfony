@@ -28,68 +28,37 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\PublicationRepository")
- * @ORM\Table(name="publications")
- * @UniqueEntity("slug")
  */
-class Publication {
-  /**
-   * @ORM\Column(type="integer",name="publication_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+#[ORM\Table(name: 'publications')]
+#[ORM\Entity(repositoryClass: \App\Repository\PublicationRepository::class)]
+#[UniqueEntity('slug')]
+class Publication implements \Stringable {
+  #[ORM\Column(type: 'integer', name: 'publication_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Citation cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=512)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Citation cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 512)]
   protected $citation;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="URL cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=1028, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 1028, nullable: true)]
   protected $url;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Synapse ID cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=128, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Synapse ID cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
   protected $synapseid;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="DOI cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=128, nullable=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'DOI cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 128, nullable: true)]
   protected $doi;
 
-  /**
-   * @ORM\Column(type="string",length=128, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 128, unique: true)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="publications")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'publications')]
   protected $datasets;
 
     public function __construct() {
@@ -233,7 +202,7 @@ class Publication {
     }
 
     /* Return a string concatenating the citation and synapse id for searching on the admin form */
-    public function __toString()
+    public function __toString(): string
     {
         if ($this->synapseid) {
             $combined = $this->citation." (SynapseID: ".$this->synapseid.")";
@@ -247,7 +216,6 @@ class Publication {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return Publication
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -259,8 +227,6 @@ class Publication {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -283,11 +249,6 @@ class Publication {
     * @return array
     */
     public function getAllProperties() {
-      return array(
-        'citation'=>$this->citation,
-        'url'=>$this->url,
-        'doi'=>$this->doi,
-        'synapseid'=>$this->synapseid
-      );
+      return ['citation'=>$this->citation, 'url'=>$this->url, 'doi'=>$this->doi, 'synapseid'=>$this->synapseid];
     }
 }

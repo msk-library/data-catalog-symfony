@@ -47,30 +47,23 @@ class QueueController extends AbstractController
          ->countAllUnpublished();
     
 
-    return $this->render('default/queue_notification.html.twig',array(
-                'queueLength' => $queueLength,
-                'adminPage'=>true,
-                ));
+    return $this->render('default/queue_notification.html.twig',['queueLength' => $queueLength, 'adminPage'=>true]);
     
   }
 
 
   /**
-   * Produce a list of all the unpublished datasets
-   *
-   * @return Response A Response instance
-   *
-   * @Route("/admin/approval-queue", name="approval_queue")
-   */
+    * Produce a list of all the unpublished datasets
+    *
+    * @return Response A Response instance
+    */
+   #[Route(path: '/admin/approval-queue', name: 'approval_queue')]
    public function viewApprovalQueueAction(EntityManagerInterface $em) {
      
      $approvalQueue = $em->getRepository(Dataset::Class)
           ->findAllUnpublished();
 
-     return $this->render('default/approval_queue.html.twig',array(
-                 'approvalQueue' => $approvalQueue,
-                 'adminPage'=>true,
-                  ));
+     return $this->render('default/approval_queue.html.twig',['approvalQueue' => $approvalQueue, 'adminPage'=>true]);
 
    }
 

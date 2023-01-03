@@ -28,44 +28,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\SubjectKeywordRepository")
- * @ORM\Table(name="subject_keywords")
- * @UniqueEntity("keyword")
  */
+#[ORM\Table(name: 'subject_keywords')]
+#[ORM\Entity(repositoryClass: \App\Repository\SubjectKeywordRepository::class)]
+#[UniqueEntity('keyword')]
 class SubjectKeyword {
-  /**
-   * @ORM\Column(type="integer",name="keyword_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'keyword_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @Assert\Regex(
-   *     pattern="/<[a-z][\s\S]*>/i",
-   *     match=false,
-   *     message="Keywords cannot contain HTML or script tags"
-   * )
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Keywords cannot contain HTML or script tags')]
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $keyword;
 
-  /**
-   * @ORM\Column(type="string",length=256, nullable=true)
-   */
-
+  #[ORM\Column(type: 'string', length: 256, nullable: true)]
   protected $mesh_code;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
-
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="subject_keywords")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'subject_keywords')]
   protected $datasets;
 
   /**
@@ -148,7 +131,7 @@ class SubjectKeyword {
             return;   
         } else {
             $json_data = @file_get_contents($api_url);
-            $onco_data = json_decode($json_data);
+            $onco_data = json_decode($json_data, null, 512, JSON_THROW_ON_ERROR);
             $returnhtml =  "<p><strong>Name:</strong> {$onco_data[0]->name}</p>";
             $returnhtml .= "<p><strong>Main Type:</strong> {$onco_data[0]->mainType}</p>";
             $returnhtml .= "<p><strong>Tissue:</strong> {$onco_data[0]->tissue}</p>";
@@ -190,7 +173,6 @@ class SubjectKeyword {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectKeyword
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -202,8 +184,6 @@ class SubjectKeyword {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {
@@ -226,10 +206,7 @@ class SubjectKeyword {
      * @return array
      */
     public function getAllProperties() {
-      return array(
-        'keyword'=>$this->keyword,
-        'mesh_code'=>$this->mesh_code
-      );
+      return ['keyword'=>$this->keyword, 'mesh_code'=>$this->mesh_code];
     }
 
 }

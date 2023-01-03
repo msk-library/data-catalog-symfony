@@ -27,34 +27,25 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\AccessRestrictionRepository")
- * @ORM\Table(name="access_restrictions")
- * @UniqueEntity("restriction")
  */
+#[ORM\Table(name: 'access_restrictions')]
+#[ORM\Entity(repositoryClass: \App\Repository\AccessRestrictionRepository::class)]
+#[UniqueEntity('restriction')]
 class AccessRestriction {
-  /**
-   * @ORM\Column(type="integer",name="restriction_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'restriction_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
 
-  /**
-   * @ORM\Column(type="string",length=255, unique=true)
-   */
+  #[ORM\Column(type: 'string', length: 255, unique: true)]
   protected $restriction;
 
-  /**
-   * @ORM\Column(type="string",length=256)
-   */
+  #[ORM\Column(type: 'string', length: 256)]
   protected $slug;
 
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="access_restrictions")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'access_restrictions')]
   protected $datasets;
 
     public function __construct() {
@@ -131,7 +122,6 @@ class AccessRestriction {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return AccessRestriction
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -143,8 +133,6 @@ class AccessRestriction {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {

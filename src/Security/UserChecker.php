@@ -22,7 +22,7 @@ class UserChecker implements UserCheckerInterface
     public function checkPreAuth(UserInterface $user)
     {
         $username = $user->getUsername();
-        $userRepo = $this->em->getRepository('App\Entity\Security\User');
+        $userRepo = $this->em->getRepository(\App\Entity\Security\User::class);
 
         // loadUserByUsername will throw an exception if database user isn't found
         $userInfo = $userRepo->loadUserByUsername($username);

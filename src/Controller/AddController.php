@@ -36,10 +36,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class AddController extends AbstractController {
 
-  private $security;
-
-  public function __construct(Security $security, EntityManagerInterface $em) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security, EntityManagerInterface $em) {
     $this->em = $em;
   }
 
@@ -47,11 +44,7 @@ class AddController extends AbstractController {
    *  We have several pseudo-entities that all relate back to the Person
    *  entity. We'll check this array so we know if we encounter one of them.
    */
-  public $personEntities = array(
-     'Author',
-     'LocalExpert',
-     'CorrespondingAuthor',
-  );
+  public $personEntities = ['Author', 'LocalExpert', 'CorrespondingAuthor'];
 
   /**
    * Build the form to add a new dataset
@@ -59,9 +52,8 @@ class AddController extends AbstractController {
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/add/Dataset", name="add_dataset")
    */
+  #[Route(path: '/add/Dataset', name: 'add_dataset')]
   public function addAction(Request $request) {
     $dataset = new Dataset();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
@@ -70,23 +62,11 @@ class AddController extends AbstractController {
     $dataset->setDatasetUid($datasetUid);
 
     if ($userIsAdmin) {
-      $form = $this->createForm(DatasetAsAdminType::class, $dataset, array(
-	  'datasetUid' => $datasetUid,
-          'action' => $this->generateUrl('ingest_dataset')));
-      return $this->render('default/add_dataset_admin.html.twig', array(
-        'form'=> $form->createView(),
-        'adminPage'=>true,
-        'userIsAdmin'=>$userIsAdmin,
-      ));
+      $form = $this->createForm(DatasetAsAdminType::class, $dataset, ['datasetUid' => $datasetUid, 'action' => $this->generateUrl('ingest_dataset')]);
+      return $this->render('default/add_dataset_admin.html.twig', ['form'=> $form->createView(), 'adminPage'=>true, 'userIsAdmin'=>$userIsAdmin]);
     } else {
-      $form = $this->createForm(DatasetAsUserType::class, $dataset, array(
-	  'datasetUid' => $datasetUid,
-          'action' => $this->generateUrl('ingest_dataset')));
-      return $this->render('default/add_dataset_user.html.twig', array(
-        'form'=> $form->createView(),
-        'adminPage'=>true,
-        'userIsAdmin'=>$userIsAdmin,
-      ));
+      $form = $this->createForm(DatasetAsUserType::class, $dataset, ['datasetUid' => $datasetUid, 'action' => $this->generateUrl('ingest_dataset')]);
+      return $this->render('default/add_dataset_user.html.twig', ['form'=> $form->createView(), 'adminPage'=>true, 'userIsAdmin'=>$userIsAdmin]);
     }
   
 
@@ -99,9 +79,8 @@ class AddController extends AbstractController {
    * @param Request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/ingest_dataset", name="ingest_dataset")
    */
+  #[Route(path: '/ingest_dataset', name: 'ingest_dataset')]
   public function ingestDataset(Request $request) {
     $dataset = new Dataset();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
@@ -111,11 +90,9 @@ class AddController extends AbstractController {
     $dataset->setDatasetUid($datasetUid);
     
     if ($userIsAdmin) {
-      $form = $this->createForm(DatasetAsAdminType::class, $dataset, array(
-	  'datasetUid' => $datasetUid));
+      $form = $this->createForm(DatasetAsAdminType::class, $dataset, ['datasetUid' => $datasetUid]);
     } else {
-      $form = $this->createForm(DatasetAsUserType::class, $dataset, array(
-	  'datasetUid' => $datasetUid));
+      $form = $this->createForm(DatasetAsUserType::class, $dataset, ['datasetUid' => $datasetUid]);
     }
 
     $form->handleRequest($request);
@@ -134,23 +111,12 @@ class AddController extends AbstractController {
       }
       $this->em->flush();
      
-      return $this->render('default/add_success.html.twig', array(
-        'adminPage'=>true,
-        'entityName'=>'Dataset',
-        'displayName'=>'Dataset',
-        'addedEntityName'=>$addedEntityName,
-        'userIsAdmin'=>$userIsAdmin,
-        'uid'=>$datasetUid,
-      ));
+      return $this->render('default/add_success.html.twig', ['adminPage'=>true, 'entityName'=>'Dataset', 'displayName'=>'Dataset', 'addedEntityName'=>$addedEntityName, 'userIsAdmin'=>$userIsAdmin, 'uid'=>$datasetUid]);
     } else {
 
       $formToRender = $userIsAdmin ? 'default/add_dataset_admin.html.twig' : 'default/add_dataset_user.html.twig';
 
-      return $this->render($formToRender, array(
-        'form' => $form->createView(),
-        'userIsAdmin'=>$userIsAdmin,
-        'entityName'=>'Dataset',
-        'adminPage'=>true,));
+      return $this->render($formToRender, ['form' => $form->createView(), 'userIsAdmin'=>$userIsAdmin, 'entityName'=>'Dataset', 'adminPage'=>true]);
     }
 
   }
@@ -164,9 +130,8 @@ class AddController extends AbstractController {
    * @param Request $request The current HTTP request
    *·
    * @return Response A Response instance
-   *
-   * @Route("/add/{entityName}", name="add_new_entity")
    */
+  #[Route(path: '/add/{entityName}', name: 'add_new_entity')]
   public function addNewEntity($entityName, Request $request) {
     //check if form will appear in a modal
     $modal = $request->get('modal', false);
@@ -188,7 +153,7 @@ class AddController extends AbstractController {
     if ($entityName == 'User') {
       $newEntity = 'App\Entity\Security\\' . $entityName;
     } elseif (in_array($entityName, $this->personEntities)) {
-      $newEntity = 'App\Entity\\Person';
+      $newEntity = \App\Entity\Person::class;
     } else {
       $newEntity = 'App\Entity\\' . $entityName;
       
@@ -197,9 +162,7 @@ class AddController extends AbstractController {
 
     $form = $this->createForm($newEntityFormType, 
                               new $newEntity(),
-                              array(
-                                'action'=>$action,
-                                'method'=>'POST'));
+                              ['action'=>$action, 'method'=>'POST']);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $entity = $form->getData();
@@ -227,22 +190,9 @@ class AddController extends AbstractController {
       // Retrieves the ID of the entity once it is persisted and adds it to render bundle for the twig
       $addedId=$entity->getId();
       
-      return $this->render('default/'.$successTemplate, array(
-        'displayName'    => $entityTypeDisplayName,
-        'adminPage'=>true,
-        'newSlug'=>$slug,
-        'userIsAdmin'=>$userIsAdmin,
-        'entityName'=>$entityName,
-        'addedEntityName'=> $addedEntityName,
-        'addedId'=> $addedId
-      ));
+      return $this->render('default/'.$successTemplate, ['displayName'    => $entityTypeDisplayName, 'adminPage'=>true, 'newSlug'=>$slug, 'userIsAdmin'=>$userIsAdmin, 'entityName'=>$entityName, 'addedEntityName'=> $addedEntityName, 'addedId'=> $addedId]);
     }
-    return $this->render('default/'.$addTemplate, array(
-      'form' => $form->createView(),
-      'userIsAdmin'=>$userIsAdmin,
-      'displayName' => $entityTypeDisplayName,
-      'adminPage'=>true,
-      'entityName' => $entityName));
+    return $this->render('default/'.$addTemplate, ['form' => $form->createView(), 'userIsAdmin'=>$userIsAdmin, 'displayName' => $entityTypeDisplayName, 'adminPage'=>true, 'entityName' => $entityName]);
       
   } 
 

@@ -25,7 +25,7 @@ class Slugger {
     // lowercase
     $text = strtolower($text);
     // remove unwanted characters
-    $text = preg_replace('~[^-\w]+~', '', $text);
+    $text = preg_replace('~[^\-\w]+~', '', $text);
     $text = substr($text, 0, 100);
     $text = $text . '-' . $title_hash;
     if (empty($text))

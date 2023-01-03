@@ -25,31 +25,22 @@ use Doctrine\ORM\Mapping as ORM;
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * @ORM\Entity(repositoryClass="App\Repository\SubjectGenderRepository")
- * @ORM\Table(name="subject_genders")
  */
+#[ORM\Table(name: 'subject_genders')]
+#[ORM\Entity(repositoryClass: \App\Repository\SubjectGenderRepository::class)]
 class SubjectGender {
-  /**
-   * @ORM\Column(type="integer",name="gender_id")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+  #[ORM\Column(type: 'integer', name: 'gender_id')]
+  #[ORM\Id]
+  #[ORM\GeneratedValue(strategy: 'AUTO')]
   protected $id;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $subject_gender;
 
-  /**
-   * @ORM\Column(type="string",length=128)
-   */
+  #[ORM\Column(type: 'string', length: 128)]
   protected $slug;
     
-  /**
-   * @ORM\ManyToMany(targetEntity="Dataset", mappedBy="subject_genders")
-   **/
+  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'subject_genders')]
   protected $datasets;
 
     public function __construct() {
@@ -125,7 +116,6 @@ class SubjectGender {
     /**
      * Add datasets
      *
-     * @param \App\Entity\Dataset $datasets
      * @return SubjectGender
      */
     public function addDataset(\App\Entity\Dataset $datasets)
@@ -137,8 +127,6 @@ class SubjectGender {
 
     /**
      * Remove datasets
-     *
-     * @param \App\Entity\Dataset $datasets
      */
     public function removeDataset(\App\Entity\Dataset $datasets)
     {

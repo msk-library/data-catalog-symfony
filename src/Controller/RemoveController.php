@@ -34,10 +34,8 @@ use App\Utils\Slugger;
  */
 class RemoveController extends AbstractController {
 
-  private $security;
-
-  public function __construct(Security $security) {
-    $this->security = $security;
+  public function __construct(private readonly Security $security)
+  {
   }
 
   /**
@@ -47,23 +45,17 @@ class RemoveController extends AbstractController {
    * @param Request $request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/remove/Dataset/{uid}", defaults={"uid"=null}, name="remove_dataset")
    */
+  #[Route(path: '/remove/Dataset/{uid}', defaults: ['uid' => null], name: 'remove_dataset')]
   public function removeDatasetAction($uid, Request $request) {
     $em = $this->getDoctrine()->getManager();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
 
     if ($uid == null) {
-      $allEntities = $em->getRepository('App\Entity\Dataset')->findBy([], ['slug'=>'ASC']);
-      return $this->render('default/list_of_entities_to_remove.html.twig', array(
-        'entities'    => $allEntities,
-        'entityName'  => 'Dataset',
-        'adminPage'   => true,
-        'displayName' => 'Dataset' 
-      ));
+      $allEntities = $em->getRepository(\App\Entity\Dataset::class)->findBy([], ['slug'=>'ASC']);
+      return $this->render('default/list_of_entities_to_remove.html.twig', ['entities'    => $allEntities, 'entityName'  => 'Dataset', 'adminPage'   => true, 'displayName' => 'Dataset']);
     }
-    $thisEntity = $em->getRepository('App\Entity\Dataset')->findOneBy(array('dataset_uid'=>$uid));
+    $thisEntity = $em->getRepository(\App\Entity\Dataset::class)->findOneBy(['dataset_uid'=>$uid]);
     if (!$thisEntity) {
       throw $this->createNotFoundException(
         'No dataset with UID ' . $uid . ' was found.'
@@ -75,19 +67,10 @@ class RemoveController extends AbstractController {
       if ($form->isSubmitted() && $form->isValid() && $userIsAdmin) {
         $em->remove($thisEntity);
         $em->flush();
-        return $this->render('default/remove_success.html.twig', array(
-          'entityName' => 'Dataset',
-          'adminPage'  => true,
-        ));
+        return $this->render('default/remove_success.html.twig', ['entityName' => 'Dataset', 'adminPage'  => true]);
       }
    
-      return $this->render('default/remove.html.twig', array(
-        'form'          => $form->createView(),
-        'displayName'   => 'Dataset',
-        'adminPage'     => true,
-        'thisEntityName'=> $thisEntity->getDisplayName(),
-        'entityName'    => 'Dataset'
-      ));
+      return $this->render('default/remove.html.twig', ['form'          => $form->createView(), 'displayName'   => 'Dataset', 'adminPage'     => true, 'thisEntityName'=> $thisEntity->getDisplayName(), 'entityName'    => 'Dataset']);
     }
   }
 
@@ -102,9 +85,8 @@ class RemoveController extends AbstractController {
    * @param Request $request The current HTTP request
    *
    * @return Response A Response instance
-   *
-   * @Route("/remove/{entityName}/{slug}", defaults={"slug"=null}, name="remove_entity")
    */
+  #[Route(path: '/remove/{entityName}/{slug}', defaults: ['slug' => null], name: 'remove_entity')]
   public function removeEntityAction($entityName, $slug, Request $request) {
     //preface with namespace so it can be called dynamically
     if ($entityName == 'User') {
@@ -121,12 +103,7 @@ class RemoveController extends AbstractController {
 
     if ($slug == null) {
       $allEntities = $em->getRepository($removeEntity)->findAll();
-      return $this->render('default/list_of_entities_to_remove.html.twig', array(
-        'entities'    => $allEntities,
-        'entityName'  => $entityName,
-        'adminPage'=>true,
-        'displayName' => $entityTypeDisplayName
-      ));
+      return $this->render('default/list_of_entities_to_remove.html.twig', ['entities'    => $allEntities, 'entityName'  => $entityName, 'adminPage'=>true, 'displayName' => $entityTypeDisplayName]);
     }
 
     $thisEntity = $em->getRepository($removeEntity)->findOneBySlug($slug);
@@ -147,18 +124,10 @@ class RemoveController extends AbstractController {
     if ($form->isSubmitted() && $form->isValid() && $userIsAdmin) {
       $em->remove($thisEntity);
       $em->flush();
-      return $this->render('default/remove_success.html.twig', array(
-        'entityName'=>$entityTypeDisplayName,
-        'adminPage'=>true,
-      ));
+      return $this->render('default/remove_success.html.twig', ['entityName'=>$entityTypeDisplayName, 'adminPage'=>true]);
     }
  
-    return $this->render('default/remove.html.twig', array(
-      'form'    => $form->createView(),
-      'displayName'=>$entityTypeDisplayName,
-      'adminPage'=>true,
-      'thisEntityName'=>$thisEntity->getDisplayName(),
-      'entityName' =>$entityName));
+    return $this->render('default/remove.html.twig', ['form'    => $form->createView(), 'displayName'=>$entityTypeDisplayName, 'adminPage'=>true, 'thisEntityName'=>$thisEntity->getDisplayName(), 'entityName' =>$entityName]);
   }
 
 }
