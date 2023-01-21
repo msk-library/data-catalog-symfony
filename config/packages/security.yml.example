@@ -10,6 +10,7 @@
 # you can read more about security in the related section of the documentation
 # http://symfony.com/doc/current/book/security.html
 security:
+    enable_authenticator_manager: true
     # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
       Symfony\Component\Security\Core\User\User: plaintext
@@ -53,7 +54,6 @@ security:
                 - app.api_token_authenticator
         secured_area:
             pattern: ^/
-            anonymous: ~
             #
             # ! The in_memory provider should be used in DEV ONLY
             # !
@@ -66,6 +66,7 @@ security:
               login_path: /login
               check_path: /login
               default_target_path: admin_panel
+              enable_csrf: true
             #form_login_ldap:
             #  service: app.ldap
             #  dn_string: ** FILL THIS OUT **

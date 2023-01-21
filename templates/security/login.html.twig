@@ -33,6 +33,7 @@
           is redirected to on success
           <input type="hidden" name="_target_path" value="/account" />
       #}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-secondary">Sign in</button>
