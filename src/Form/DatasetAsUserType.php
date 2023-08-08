@@ -90,7 +90,7 @@ class DatasetAsUserType extends AbstractType {
    * @param OptionsResolver
    */
   public function configureOptions(OptionsResolver $resolver) {
-    $resolver->setDefaults(['data_class' => \App\Entity\Dataset::class]);
+    $resolver->setDefaults(['data_class' => \App\Entity\Dataset::class, 'datasetUid' => null, 'csrf_protection' => false]);
   }
 
 }
