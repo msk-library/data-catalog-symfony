@@ -1,4 +1,4 @@
-// src/Msk/OaiBundle/MskOaiBundle.php
+<?php
 namespace App\Msk\OaiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
