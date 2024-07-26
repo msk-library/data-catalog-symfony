@@ -1,22 +1,13 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace App\Msk\OaiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\SearchResults;
-use AppBundle\Entity\SearchState;
-use AppBundle\Entity\Dataset;
-use AppBundle\Form\Type\DatasetType;
-use AppBundle\Utils\Slugger;
-use Symfony\Component\Validator\Constraints as Assert;
-
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class XSLController extends Controller
+
+class XSLController extends AbstractController
 {
     public function indexAction(){
 
