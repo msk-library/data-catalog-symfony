@@ -7,7 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Dataset;
 
 
 class OAIController extends AbstractController
@@ -22,7 +23,7 @@ class OAIController extends AbstractController
    * @Route("/oai/", name="oai_base")
    * 
    */
-    public function indexAction(Request $request){
+    public function indexAction(Request $request, EntityManagerInterface $em){
         date_default_timezone_set('UTC');
 
         $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'];
@@ -31,10 +32,11 @@ class OAIController extends AbstractController
         if(isset($_GET['identifier'])){
             $dataset_uid = explode(':', $_GET['identifier']);
             $dataset_uid = (int)end($dataset_uid);
-            $results = $this->getDoctrine()->getRepository('AppBundle:Dataset')->findBy(['dataset_uid'=>$dataset_uid]);
+            $results = $em->getRepository('Dataset::Class')->findBy(['dataset_uid'=>$dataset_uid]);
         }
+
         else{
-            $results = $this->getDoctrine()->getRepository('AppBundle:Dataset')->findAll();
+            $results = $em->getRepository('Dataset::Class')->findAll();
         }
         //dump($results);
 
