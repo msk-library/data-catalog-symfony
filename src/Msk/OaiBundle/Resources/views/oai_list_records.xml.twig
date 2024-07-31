@@ -1,0 +1,87 @@
+<request verb="ListRecords" metadataPrefix="oai_dc">{{ base_url }}/oai</request>
+<ListRecords>
+
+{% for result in results %}
+{% if result.published %}
+<record>
+<header>
+<identifier>oai:{{ base_identifier }}:{{ result.getId() }}</identifier>
+<datestamp>{{ result.getDateUpdated()|date('Y-m-d') }}</datestamp>
+</header>
+
+<metadata>
+<oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<dc:title>{{ result.getTitle() }}</dc:title>
+
+{% for author in result.getAuthors() %}
+    <dc:creator>{{ author.getDisplayName() }}</dc:creator>
+{% endfor %}
+
+{% for coreFacility in result.getCoreFacilities() %}
+    <dc:contributor>{{ coreFacility.getcoreFacilityName() }}</dc:contributor>
+{% endfor %}
+
+{% for publisher in result.getPublishers() %}
+    <dc:publisher>{{ publisher.getpublisherName() }}</dc:publisher>
+{% endfor %}
+
+
+<!-- <dc:date>{{ result.getDateAdded()|date('Y-m-d') }}</dc:date>
+-->
+
+<dc:identifier>{{ base_url }}/dataset/{{ result.getId() }}</dc:identifier>
+
+{% if result.getdoi() %}
+<dc:identifier>{{ result.getdoi() }}</dc:identifier>
+{% endif %}
+
+{% for location in result.getDataLocations() %}
+<dc:source>{{ location.getDataLocation() }}</dc:source>
+{% endfor %}
+
+{% for subjectOfStudy in result.getSubjectOfStudy() %}
+<dc:subject>{{ subjectOfStudy.getDisplayName() }}</dc:subject>
+{% endfor %}
+
+{% for subjectDomain in result.getSubjectDomains() %}
+<dc:subject>{{ subjectDomain.getDisplayName() }}</dc:subject>
+{% endfor %}
+
+{% for subjectKeyword in result.getSubjectKeywords() %}
+<dc:subject>{{ subjectKeyword.getDisplayName() }}</dc:subject>
+{% endfor %}
+
+{% for OncoTrees in result.getOncoTrees() %}
+<dc:subject>{{ OncoTrees.getDisplayName() }}</dc:subject>
+{% endfor %}
+
+<dc:description>{{ result.getDescription() }}</dc:description>
+
+<dc:rights>{{ result.getAccessInstructions() }}</dc:rights>
+
+<dc:language>eng</dc:language>
+
+{% for studyType in result.getStudyTypes() %}
+    <dc:type>{{ studyType.getStudyType() }}</dc:type>
+{% endfor %}
+
+{% for datasetFormat in result.getDatasetFormats() %}
+    <dc:format>{{ datasetFormat.getDisplayName() }}</dc:format>
+{% endfor %}
+
+{% if result.getDatasetSize() %}
+    <dc:format>{{ result.getDatasetSize() }}</dc:format>
+{% endif %}
+
+{% for pub in result.getPublications() %}
+    <dc:relation>{{ pub.getURL() }}</dc:relation>
+{% endfor %}
+
+</oai_dc:dc>
+</metadata>
+
+</record>
+{% endif %}
+{% endfor %}
+
+</ListRecords> 

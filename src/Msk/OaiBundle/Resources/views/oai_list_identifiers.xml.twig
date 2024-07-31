@@ -1,0 +1,13 @@
+<request verb="ListIdentifiers" metadataPrefix="oai_dc">{{ base_url }}/oai</request>
+
+<ListIdentifiers>
+{% for result in results %}
+{% if result.published %}
+<header>
+<identifier>oai:{{ base_identifier }}:{{ result.getId() }}</identifier>
+<datestamp>{{ result.getDateUpdated()|date('Y-m-d') }}</datestamp>
+</header>
+{% endif %}
+{% endfor %}
+
+</ListIdentifiers> 

@@ -1,0 +1,11 @@
+<request verb="ListSets">{{ base_url }}/oai</request>
+<ListSets>
+{% for result in results %}
+{% if result.published %}
+<set>
+	<setName>{{ result.getId() }}</setName>
+</set>
+{% endif %}
+{% endfor %}
+<!--resumptionToken completeListSize="1617" cursor="0"/-->
+</ListSets> 
