@@ -1,6 +1,8 @@
 twig:
     exception_controller: null
     default_path: '%kernel.project_dir%/templates'
+    paths: 
+        'src/Msk/OaiBundle/Resources/views': 'oai'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
