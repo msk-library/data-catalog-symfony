@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class XSLController extends AbstractController
 {
-    public function indexAction(){
+    public function index() : Response {
 
         //date_default_timezone_set('UTC');
 
