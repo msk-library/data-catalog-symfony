@@ -1,6 +1,6 @@
 // Bootstrap scss overriddes must go before bootstrap scss is imported
 // Find variables to override here: https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss
-$primary:#1c75cd;
+$primary: #1c75cd;
 $navbar-dark-color: white;
 $navbar-dark-hover-color: #70BCFF;
 $navbar-dark-active-color: white;
@@ -16,13 +16,14 @@ $nav-tabs-link-hover-border-color: none;
 html {
   -ms-overflow-style: scrollbar;
 }
+
 .page-wrapper {
   min-height: 100%;
   margin: 0 auto;
 }
 
 .container-fluid {
-padding: 0;
+  padding: 0;
 }
 
 body {
@@ -46,6 +47,7 @@ body {
 #logo {
   height: 5em;
   margin-top: 1em;
+  margin-left: 1em;
 }
 
 #msk-logo {
@@ -67,6 +69,7 @@ body {
   padding-right: 5px;
   margin-right: 15px;
 }
+
 /* 
 // Not using Nav Tabs
 .nav-tabs>li:not(.active) {
@@ -89,6 +92,7 @@ body {
 .nav-tabs>li.privileged-nav-link>a {
   color: rgb(236, 161, 108);
 }
+
 // Uncomment if you want the active page link to be a different color/style
 // .navbar-dark .navbar-nav .nav-link.active {
 //   text-decoration: underline;
@@ -99,18 +103,19 @@ body {
   right: 0;
 }
 
-/* LibChat */ 
+/* LibChat */
 #libchat_3076b2dec6dcb63e8f19fa62ee5d1115 button.libchat_online:hover {
   transition-duration: 0.4s;
-  background-color:#03AEDF;
+  background-color: #03AEDF;
   color: white;
 }
 
 #libchat_3076b2dec6dcb63e8f19fa62ee5d1115 button.libchat_offline:hover {
   transition-duration: 0.4s;
-  background-color:#03aedf;
+  background-color: #03aedf;
   color: white;
 }
+
 #libchat_3076b2dec6dcb63e8f19fa62ee5d1115 button.libchat_online {
   padding: 6px 6px;
 }
@@ -124,10 +129,12 @@ body {
   background: #03AEDF;
   padding: 2px;
 }
+
 #keyword-search-input {
   max-width: 500px;
   min-width: 280px;
 }
+
 /* Search Box */
 form.input-group {
   width: 100%;
@@ -149,49 +156,55 @@ form.input-group {
 /*Feedback */
 .btn-warning {
   margin-right: 30px;
-  background-image: -webkit-linear-gradient(top,#ff8c00 0,#e67e00 100%);
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#ff8c00),to(#e67e00));
-  background-image: linear-gradient(to bottom, #e67e00 0, #ff8c00 100% );
+  background-image: -webkit-linear-gradient(top, #ff8c00 0, #e67e00 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ff8c00), to(#e67e00));
+  background-image: linear-gradient(to bottom, #e67e00 0, #ff8c00 100%);
   color: white;
 }
-.btn-warning:focus, .btn-warning:hover {
+
+.btn-warning:focus,
+.btn-warning:hover {
   background-color: #eb9316;
   background-position: 0 -15px;
-  color:white;
+  color: white;
 }
 
 /* Facets */
 #facets-pane {
   //margin-left: 1em;
   padding-left: 2em;
-  max-width:none;
+  max-width: none;
 }
 
 /* Footer */
 
 /* the submit button */
 #dataset_save {
-  display:block;
+  display: block;
   margin-bottom: 175px;
-  
+
 }
 
 /* Overriding this so the footer is responsive, with a fixed height, mobile breaks the content*/
-footer, .push {
-  height: auto; /* '.push' must be the same height as 'footer' */
-  clear:both;
+footer,
+.push {
+  height: auto;
+  /* '.push' must be the same height as 'footer' */
+  clear: both;
 }
 
 #footer {
   position: absolute;
   margin-top: 0px;
 }
+
 div.footer-wrapper {
   color: white;
   line-height: 30px;
   text-align: center;
   padding: 2px 0 2px 0;
-  height: auto; /* Another override to make footer content fully display on mobile devices */
+  height: auto;
+  /* Another override to make footer content fully display on mobile devices */
 }
 
 div.footer-wrapper a {
@@ -211,21 +224,22 @@ div.footer-wrapper a {
 }
 
 /* Detailed Record View */
-.msk-author {
-}
+.msk-author {}
+
 .msk-author-note {
-  font-size:.75em;
-  display:block;
+  font-size: .75em;
+  display: block;
 }
 
 .msk-author-note {
-  font-size:.75em;
-  display:block;
+  font-size: .75em;
+  display: block;
 }
 
-.dataset-detail-authors, .dataset-detail-id {
+.dataset-detail-authors,
+.dataset-detail-id {
   color: black;
-  font-size:inherit;
+  font-size: inherit;
 }
 
 #dataset-detail-accesspanel {
@@ -233,7 +247,7 @@ div.footer-wrapper a {
 }
 
 .internal-dataset-badge {
-  background: rgb(255,64,13);
+  background: rgb(255, 64, 13);
   color: #ffffff;
 }
 
@@ -247,8 +261,9 @@ div.footer-wrapper a {
 
 /* Facets */
 .facet-header {
-  color:black;
+  color: black;
 }
+
 .show_more {
   font-weight: 700;
   cursor: pointer;
@@ -258,19 +273,20 @@ div.footer-wrapper a {
 .show_less {
   font-weight: 700;
   cursor: pointer;
-  color:gray;
+  color: gray;
 }
 
 .more_facets {
-  font-size:smaller;
+  font-size: smaller;
 }
 
 /* About Page */
 
 .about-page-column {
-  padding-top:2em;
+  padding-top: 2em;
   height: 1900px;
 }
+
 .about-page-section {
   margin-bottom: 7em;
 }
@@ -293,6 +309,7 @@ div.footer-wrapper a {
   position: -webkit-sticky;
   top: 0;
 }
+
 .about-anchor-link {
   vertical-align: middle;
   display: inline-block;
@@ -301,10 +318,10 @@ div.footer-wrapper a {
   text-transform: uppercase;
   color: #717171;
   padding: 1em;
-  border-left: 3px solid rgb(255,64,13);
+  border-left: 3px solid rgb(255, 64, 13);
   letter-spacing: 0.5px;
 }
 
 #contact_form_email .checker {
-  display:none;
+  display: none;
 }
