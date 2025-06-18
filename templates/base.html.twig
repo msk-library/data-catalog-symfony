@@ -1,30 +1,29 @@
 {% set route_name = app.request.attributes.get('_route') %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="{{ site_description  }}">
-        {% block page_title %}
-        <title>{{ site_name }}</title>
-        {% endblock %}
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}" />
-        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-      
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ site_description }}" />
+    {% block page_title %}
+      <title>{{ site_name }}</title>
+    {% endblock %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}" />
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet" />
 
-        {# placeholder blocks for page-specific elements #}
-        {% block page_stylesheets %}
-        {% endblock %}
+    {# placeholder blocks for page-specific elements #}
+    {% block page_stylesheets %}
 
-        {# if you use something like Google Analytics, put it in ./institution/analytics.html.twig and we'll include it here #}
-        {% include ['institution/analytics.html.twig', 'analytics.html.twig'] ignore missing %}
+    {% endblock %}
 
-       {# placeholder block for JSON-LD output #}
-       {% block JSONLD_output %}
+    {# if you use something like Google Analytics, put it in ./institution/analytics.html.twig and we'll include it here #}
+    {% include ['institution/analytics.html.twig', 'analytics.html.twig'] %}
 
-<script type="application/ld+json">
+    {# placeholder block for JSON-LD output #}
+    {% block JSONLD_output %}
+      <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "DataCatalog",
 "name": "{{ site_name }}",
@@ -43,7 +42,7 @@
  }
 }
  </script>
-<script type="application/ld+json">
+      <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "WebSite",
 "name": "{{ site_name }}",
@@ -57,131 +56,141 @@
 }
 }
 </script>
-       {% endblock %}
+    {% endblock %}
 
-       {% block results_JSONLD_output %}
-       {% endblock %}
+    {% block results_JSONLD_output %}
 
+    {% endblock %}
 
     {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
+      {{ encore_entry_script_tags('app') }}
     {% endblock %}
-    </head>
-<body>
-  <div class="container-fluid">
+  </head>
+  <body>
+    <div class="container-fluid">
       <a href="#maincontent" class="skip">Skip to content</a>
       <div class="page-wrapper">
-      <header id="page-header">
-      <div class="row">
-        <div class="col-lg-8 col-md-6 col-sm-6 logo-container">
-        {# tell us where your site's logo lives in 'institution/logo.html.twig' #}
-        {% include ['institution/applogo.html.twig','logo.html.twig'] ignore missing %}
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-          <div class="d-flex flex-sm-column justify-content-between">
-            <div class="global-links-flex-1">
-              <nav class="nav-links navbar navbar-expand-sm navbar-dark bg-primary float-right">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbarXs">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse" id="collapsingNavbarXs">
-                  <ul class="navbar-nav">
-                    <li class="nav-item home-nav-link"><a class="nav-link {{ (route_name == 'homepage') ? 'active' }}" href="/">Home</a></li>
-                    <li class="nav-item about-nav-link"><a class="nav-link {{ (route_name == 'about') ? 'active'}}" href="{{ path('about') }}">About</a></li>
-                    <li class="nav-item contact-page-link"><a class="nav-link {{ (route_name == 'contact') ? 'active'}}" href="{{ path('contact') }}">Contact Us</a></li>
-                    {% if not is_granted('ROLE_USER') %}<li class="chat-link" id="libchat_3076b2dec6dcb63e8f19fa62ee5d1115"></li>{% endif %}
-                    {% if is_granted('ROLE_USER') %}
-                      <li class="nav-item privileged-nav-link admin-page-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('admin_panel') }}">Admin</a></li>
-                    {% endif %}
-                    {% if is_granted('ROLE_USER') %}
-                      <li class="nav-item privileged-nav-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('app_logout') }}">Logout</a></li>
-                    {% endif %}
+        <header class="site-banner">
+          <div class="container">
+            <div class="row">
+              <!-- Left Column: Logo and Site Title -->
+              <div class="col-md-6 site-branding">
+                <!-- Using a custom class 'd-flex-like' to apply styles for mimicking d-flex -->
+                <a href="https://library.mskcc.org">
+                  <div class="d-flex-like">
+                    <img src="https://library.mskcc.org/themes/custom/msk_radix/build/assets/images/logo.svg" alt="MSK Logo" class="banner-logo" />
+                    <h1 class="site-title">Data Catalog</h1>
+                  </div>
+                </a>
+              </div>
 
+              <!-- Right Column: Navigation Links -->
+              <div class="col-md-6 banner-navigation">
+                <!--                   
+                    In Bootstrap 3, a simple `nav` wrapper around `ul.nav` is sufficient.
+                    `navbar-expand-md` and `p-0` are Bootstrap 4/5 specific.
+                                   -->
+                <nav>
+                  <ul class="nav">
+                    <!-- Standard Bootstrap 3 nav class -->
+                    <li>
+                      <a class="nav-link mskchaticon" id="libchat_8403b9d38f84123c0b0cf39dd565e719c114529150410740433530c2ea22916f" href="https://mskcc.libanswers.com/"></a>
+                    </li>
+                    <li>
+                      <a class="nav-link mskhelpicon" href="https://mskcc.libanswers.com/" target="_blank">Help</a>
+                    </li>
+                    <li>
+                      <a class="nav-link mskemailicon" href="mailto:asklibrarian@mskcc.org">Email</a>
+                    </li>
+                    <li>
+                      <a class="nav-link mskpersonicon" href="https://library.mskcc.org/remote-access" target="_blank">Remote Access</a>
+                    </li>
                   </ul>
-                </div>{# end navbar collapse div #}
-              </nav>
+                </nav>
+              </div>
+            </div>
           </div>
-          <div class="msk-branding-flex-2">
-            {% include ['institution/msklogo.html.twig','logo.html.twig'] ignore missing %}
-          </div><!-- closesomething 2 -->
-        </div><!--End flex columns -->
+          <div class="container">
+            <!-- Bootstrap 4 Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mx-4">
+              <!-- Toggler button for small screens -->
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+              <!-- Navbar content that collapses -->
+              <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+                <!-- Navigation Links -->
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </header>
+        <div class="container d-flex justify-content-center align-items-center">
+          <form id="keyword-search-form" class="form-inline my-2 my-lg-0">
+            <input id="keyword-search-input" class="form-control mr-sm-2" type="search" placeholder="Find datasets used in research at MSK " aria-label="Search" />
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            <span class="search-tips-link"><a data-toggle="modal" role="button" href="#searchTips"><i class="fas fa-info-circle search-help-circle"></i></a></span>
+          </form>
         </div>
-      </header>  
-      <div id="search-header">
-        <div class="row">
-          <div class="col-xl-7 offset-xl-4 col-lg-6 offset-lg-4 col-md-7 offset-md-3 col-sm-9">
-          {# <div class="mx-auto"> #}
-
-            <form id="keyword-search-form" class="input-group">
-                <label for="keyword-search-input">search terms</label>
-                <input type="text" id="keyword-search-input" class="form-control" placeholder="Find datasets used in research at MSK">
-                <span class="input-group-btn">
-                  <button id="keyword-search-submit" class="btn btn-light" type="submit">Go!</button>
-                </span>
-              <!-- Trigger the modal with a link -->
-              <span class="search-tips-link">
-            	  <a data-toggle="modal"role="button" href="#searchTips" style="color: white"><i class="fas fa-info-circle"></i> Search Tips</a>
-              </span>
-            </form>
-
-            
-            <!-- Modal -->
-            <div class="modal fade" id="searchTips" role="dialog" tabindex="-1" aria-labelledby="searchTipsLabel" aria-hidden="true">
-                <div class="modal-dialog">
-    
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="modal-title">Search Tips</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                        <ul>
-    	                <li><b>Default Boolean Operator:</b> Terms in a search string will be connected by the <b>AND</b> operator, EXAMPLE: searching <b>genomic melanoma</b> will produce the <b>same results as genomic AND melanoma</b>. </li> &nbsp;
-
-		                <li><b>AND, OR, NOT:</b> Combine terms in a search with the boolean operators <b>AND</b> (to add specificity), <b>OR</b> (to broaden), or <b>NOT</b> (to eliminate a term). Operators must be capitalized (all other search terms are not case-sensitive).</li> &nbsp;
-
-		                <li><b>Wild Card:</b> Add wild card symbols <b>*</b> (open-ended) and <b>?</b> (single character) to truncate terms. EXAMPLE: searching <b>gen*</b> shows results for 'gene', 'genetic', 'genomic, etc. Searching <b>gene?</b> returns results for 'gene' or 'genes' but not for 'genome'. </li> &nbsp;
-
-		                <li><b>Phrase Searching:</b> Enclose search in quotation marks <b>"keyword or search term"</b> to search for an exact phrase. EXAMPLE: <b>"transcription factors"</b> returns results for records where <b>transcription</b> is immediately followed by the word <b>factors</b>. </li> &nbsp;
-
-		                <li><b>Diacritics:</b> Words containing diacritics translate those characters to non-diacritic form. EXAMPLE: <b>massague</b> returns results for <b>Massague&#769</b>. </li> &nbsp;
-
-		                <li><b>Filter by:</b> Located on the homepage (left panel), use filters to search for records or narrow the search. From search results page, filters can be removed by clicking on the term at the top of the page. </li> &nbsp;
-		        </ul>
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
+        <!-- Modal -->
+        <div class="modal fade" id="searchTips" role="dialog" tabindex="-1" aria-labelledby="searchTipsLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Search Tips</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  <ul>
+                    <li>
+                      <b>Default Boolean Operator:</b> Terms in a search string will be connected by the <b>AND</b> operator, EXAMPLE: searching <b>genomic melanoma</b> will produce the <b>same results as genomic AND melanoma</b>.
+                    </li>&nbsp;<li>
+                      <b>AND, OR, NOT:</b> Combine terms in a search with the boolean operators <b>AND</b> (to add specificity), <b>OR</b> (to broaden), or <b>NOT</b> (to eliminate a term). Operators must be capitalized (all other search terms are not case-sensitive).
+                    </li>&nbsp;<li>
+                      <b>Wild Card:</b> Add wild card symbols <b>*</b> (open-ended) and <b>?</b> (single character) to truncate terms. EXAMPLE: searching <b>gen*</b> shows results for 'gene', 'genetic', 'genomic, etc. Searching <b>gene?</b> returns results for 'gene' or 'genes' but not for 'genome'.
+                    </li>&nbsp;<li>
+                      <b>Phrase Searching:</b> Enclose search in quotation marks <b>"keyword or search term"</b> to search for an exact phrase. EXAMPLE: <b>"transcription factors"</b> returns results for records where <b>transcription</b> is immediately followed by the word <b>factors</b>.
+                    </li>&nbsp;<li>
+                      <b>Diacritics:</b> Words containing diacritics translate those characters to non-diacritic form. EXAMPLE: <b>massague</b> returns results for <b>Massague&#769</b>.
+                    </li>&nbsp;<li>
+                      <b>Filter by:</b> Located on the homepage (left panel), use filters to search for records or narrow the search. From search results page, filters can be removed by clicking on the term at the top of the page.
+                    </li>&nbsp;
+                  </ul>
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
           </div>
-          <div class="col-xl-1 col-lg-2 col-md-2 col-sm-2">
-              <button id="feedback" class="btn btn-warning float-right float-sm-none" onclick="window.open('https://www.surveymonkey.com/r/dataset_feedback','popup','width=600,height=600','centerscreen'); return false;"type="button">Feedback</button>
-          </div>
-        </div><!-- /.row -->
-      </div> 
-      <div id="maincontent" class="content-container">
+        </div>
+        <div id="maincontent" class="content-container">
+          {% block content %}
 
-      {% block content %}{% endblock %}
+          {% endblock %}
 
-      {# placeholder block for page-specific scripts #}
-      {% block page_scripts %}
-      {% endblock %}
+          {# placeholder block for page-specific scripts #}
+          {% block page_scripts %}
+
+          {% endblock %}
+        </div>
+        <div class="push"></div>
       </div>
-      <div class="push"></div>
-    </div>
-      <footer class="bg-secondary">
-
+      <footer class="page__footer">
         {# Use the file 'institution/footer.html.twig' for your institution-specific footer content #}
-        {% include ['institution/footer.html.twig','footer.html.twig'] ignore missing %}
-
+        {% include ['institution/footer.html.twig', 'footer.html.twig'] %}
       </footer>
-      </div> <!-- container-fluid -->
+    </div> <!-- container-fluid -->
   </body>
 </html>
