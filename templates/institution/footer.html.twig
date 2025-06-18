@@ -1,38 +1,82 @@
 {# Use this template for your institution's footer content #}
-<div class="footer-wrapper">
-  <div class="d-flex justify-content-center">
-    <div class="p-2">Follow Us On</div>
-    <div class="p-2">
-      <a class="igram" href="https://www.instagram.com/msklibrary/" target="_blank" title="Instagram">
-        <img class="insta_color" src="{{ asset('img/light-instagram-96.png') }}">
-      </a>
+<div class="container">
+  <div class="d-flex flex-wrap justify-content-sm-between">
+    <div class="footer-col">
+      <h3 class="footer-col-heading">Connect</h3>
+      <ul class="footer-link-list">
+        <li>
+          <a href="https://mskcc.libanswers.com/" target="_blank">Contact Us</a>
+        </li>
+        <li>
+          <a href="https://libguides.mskcc.org/patienteducation" target="_blank">Info for Patients</a>
+        </li>
+        <li>
+          <a href="https://library.mskcc.org/blog" target="_blank">MSK Library Blog</a>
+        </li>
+        <li>
+          <a href="#">Follow Us On:</a><br />
+          <a href="https://www.instagram.com/msklibrary/" target="_blank">
+            <svg class="footer-icon footer-icon-instagram" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <title>Instagram logo image and link</title><path fill="#ffffff" d="M18.313 19.946c-.104.022-.208.037-.312.054H1.999c-.043-.007-.086-.016-.128-.02a2.163 2.163 0 01-1.815-1.652c-.024-.1-.038-.203-.056-.305V1.977c.006-.037.014-.074.019-.112A2.156 2.156 0 011.687.053c.095-.022.193-.034.29-.052h16.046c.038.006.075.015.113.02.91.126 1.64.815 1.82 1.716.018.087.03.175.044.262v16.003c-.015.089-.027.18-.044.269a2.165 2.165 0 01-1.643 1.675zM2.163 8.164v8.879a.81.81 0 00.794.791h14.08c.43 0 .797-.365.797-.793V8.11h-1.909a6.246 6.246 0 01-.616 5.124 6.221 6.221 0 01-8.342 2.193 6.072 6.072 0 01-2.415-2.433c-.846-1.556-.98-3.19-.484-4.885H2.163v.054h-.002zm3.784 1.775a4.057 4.057 0 003.96 4.112 4.062 4.062 0 004.144-3.961 4.051 4.051 0 00-8.103-.15h-.001v-.001zm11.119-4.81a.802.802 0 00.768-.797V2.438a.807.807 0 00-.811-.814h-1.89a.808.808 0 00-.81.815c0 .626-.002 1.252.002 1.878 0 .094.019.19.048.279.113.333.418.537.791.539h.913c.329-.004.659.003.987-.005h.001z"></path>
+            </svg>
+          </a><a href="https://bsky.app/profile/msklibrary.bsky.social" target="_blank">
+            <svg class="footer-icon footer-icon-bluesky" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530">
+              <title>Bluesky logo image and link</title><path fill="#ffffff" d="M135.72 44.03C202.216 93.951 273.74 195.17 300 249.49c26.262-54.316 97.782-155.54 164.28-205.46C512.26 8.009 590-19.862 590 68.825c0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.38-3.69-10.832-3.708-7.896-.017-2.936-1.193.516-3.707 7.896-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.45-163.25-81.433C20.15 217.613 9.997 86.535 9.997 68.825c0-88.687 77.742-60.816 125.72-24.795z"></path>
+            </svg>
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="p-2">
-      <a class="twitter" href="https://twitter.com/MSKLibrary" target="_blank" title="Twitter">
-        <img class="insta_color" src="{{ asset('img/light-twitter-96.png') }}">
-      </a>
+    <div class="footer-col">
+      <h3 class="footer-col-heading">About the Library</h3>
+      <ul class="footer-link-list">
+        <li>
+          <a href="https://library.mskcc.org/staff-directory" target="_blank">Staff Directory</a>
+        </li>
+        <li>
+          <a href="https://mskcc.libanswers.com/search/" target="_blank">Library FAQs</a>
+        </li>
+        <li>
+          <a href="/using-the-library">Using the Library</a>
+        </li>
+      </ul>
     </div>
-  </div> 
-  <div class="d-flex justify-content-center">
-    <div class="p-2"><a href="https://www.mskcc.org">Memorial Sloan Kettering Cancer Center</a></div>
-    <div class="p-2"><a href="https://www.mskcc.org/cancer-care">Memorial Hospital for Cancer and Allied Diseases</a></div>
-    <div class="p-2"><a href="https://www.mskcc.org/research/ski">Sloan Kettering Institute</a></div>
+    <div class="footer-col">
+      <h3 class="footer-col-heading">Research and Education</h3>
+      <ul class="footer-link-list">
+        <li>
+          <a href="https://www.mskcc.org/research/ski" target="_blank">Sloan Kettering Institute</a>
+        </li>
+        <li>
+          <a href="https://www.sloankettering.edu/gerstner" target="_blank">Gerstner Sloan Kettering Graduate School</a>
+        </li>
+        <li>
+          <a href="https://www.mskcc.org/hcp-education-training/graduate-medical-education" target="_blank">Graduate Medical Education</a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="d-flex justify-content-center">
-    <div class="p-2"><a href="https://www.sloankettering.edu/gerstner">Gerstner Sloan Kettering Graduate School of Biomedical Sciences</a></div>
-    <div class="p-2"><a href="https://libguides.mskcc.org/patienteducation">Patients &amp; Caregivers</a></div>
   </div>
-  <div class="d-flex justify-content-center">
-    <hr class="w-50 bg-light" />
-  </div>
-  <div class="d-flex justify-content-center">
-    <div class="p-2"><a href="https://library.mskcc.org/legal-disclaimer">Legal Disclaimer</a></div>
-    <div class="p-2"><a href="https://library.mskcc.org/about/giving-to-the-library">Giving to the Library</a></div>
-  </div>
-  <div class="d-flex justify-content-center">
-    <div id="footer-message">
-      <a class="inside-mskcc" href="https://mskcc.sharepoint.com">OneMSK</a>
-      © 2023&nbsp;Memorial Sloan Kettering Cancer Center Library
+  <div class="container-fluid footer-separator"></div>
+  <div class="container footer-bottom-section">
+    <div class="d-flex flex-wrap justify-content-between">
+      <div class="footer-col">
+        <img class="footer-logo" src="https://library.mskcc.org/themes/custom/msk_radix/build/assets/images/logo-white.svg" alt="Memorial Sloan Kettering Cancer Center" width="250" height="53" />
+      </div>
+      <div class="footer-col">
+        <ul class="footer-link-list d-flex flex-row">
+          <li class="mx-2">
+            <a href="https://library.mskcc.org/legal-disclaimer" target="_blank">Legal Disclaimer</a>
+          </li>
+          <li class="mx-2">
+            <a href="https://library.mskcc.org/accessibility-statement" target="_blank">Accessibility Statement</a>
+          </li>
+        </ul>
+        <p>
+          <a class="copyright-link" href="https://mskcc.org" target="_blank">© 2025 Memorial Sloan Kettering Cancer Center</a>
+        </p>
+      </div>
     </div>
   </div>
 </div>
+<!-- End of footer content -->
