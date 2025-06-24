@@ -142,7 +142,6 @@ li.dataset-summary h4 {
   /* Remove list bullets */
   display: inline-block;
   /* Allow the ul to center itself on small screens */
-  /* For Bootstrap 3, we float list items to make them horizontal */
   float: right;
   /* Push nav items to the right within their container on larger screens */
   margin-top: 1em;
@@ -301,24 +300,11 @@ li.dataset-summary h4 {
   margin-right: 15px;
 }
 
-/* 
-// Not using Nav Tabs
-.nav-tabs>li:not(.active) {
-  background: #1c75cd;
-}
 
-.nav-tabs {
-  border-bottom: none;
+#sort-and-results {
+  font-size: .8em;
+  padding-right: 5em;
 }
-.nav-tabs li {
-  margin-bottom: 0px;
-}
-.nav-tabs>li>a {
-  //color: white;
-  padding: 5px 15px;
-  height: 32px;
-}
-*/
 
 .nav-tabs>li.privileged-nav-link>a {
   color: rgb(236, 161, 108);
@@ -363,9 +349,9 @@ li.dataset-summary h4 {
 
 #keyword-search-input {
   max-width: 500px;
-  min-width: 190px;
-  font-size: 1.4rem;
-  height: 3rem;
+  min-width: 245px;
+  font-size: 1.8rem;
+  height: 4rem;
 
 
   @media (min-width: 576px) {
@@ -408,6 +394,7 @@ form.input-group {
   vertical-align: top;
   color: #0073e0;
   cursor: help;
+  font-size: 2rem;
 
 }
 
@@ -415,7 +402,7 @@ form.input-group {
   background-color: #0073e0;
   border-color: #0073e0;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -709,4 +696,15 @@ footer,
 
 #contact_form_email .checker {
   display: none;
+}
+
+
+.popover {
+  max-width: 400px;
+  font-size: 1em;
+}
+
+.popover-header {
+  font-weight: bold;
+  font-size: 1em;
 }

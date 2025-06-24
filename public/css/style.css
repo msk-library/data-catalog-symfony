@@ -1,25 +1,33 @@
 * {
   margin: 0;
 }
-html, body {
+
+html,
+body {
   height: 100%;
 }
+
 .page-wrapper {
   min-height: 100%;
-  margin: 0 auto -175px; /* the bottom margin is the negative value of the footer's height */
+  margin: 0 auto -175px;
+  /* the bottom margin is the negative value of the footer's height */
 }
-footer, .push {
-  height: 175px; /* '.push' must be the same height as 'footer' */
-  clear:both;
+
+footer,
+.push {
+  height: 175px;
+  /* '.push' must be the same height as 'footer' */
+  clear: both;
 }
 
 #maincontent {
-    padding-top:.25em;
+  padding-top: .25em;
 }
 
 #login-form-container {
-    padding-top:2em;
+  padding-top: 2em;
 }
+
 /*
 
 Sticky Footer by Ryan Fait
@@ -29,127 +37,152 @@ http://ryanfait.com/
 
 
 .label-warning {
-  background:#C25019;
+  background: #C25019;
 }
 
 .spacer25 {
-  height:25px;
+  height: 25px;
 }
+
 .spacer50 {
-  height:50px;
+  height: 50px;
 }
+
 #page-header {
- background: black;
-  position:relative;
+  background: black;
+  position: relative;
 }
+
 #page-header span {
-  display:inline-block;
+  display: inline-block;
 }
+
 #header-logo {
-  height:42px;
+  height: 42px;
 }
+
 .logos-container {
-    padding:.75em;
+  padding: .75em;
 }
+
 #content-wrapper {
-  margin-bottom:5em;
+  margin-bottom: 5em;
 }
+
 .page-header {
-  margin-top:1em;
+  margin-top: 1em;
 }
+
 .page-header.entities-list {
-    overflow:hidden;
+  overflow: hidden;
 }
+
 #frontpage-sitename {
-  color:white;
-  vertical-align:bottom;
-  margin-bottom:1em;
+  color: white;
+  vertical-align: bottom;
+  margin-bottom: 1em;
 }
+
 .sitename-link {
-  color:white;
+  color: white;
 }
+
 .sitename-link:hover {
-  color:white;
-  text-decoration:none;
+  color: white;
+  text-decoration: none;
 }
+
 .pagetitlelink {
-  color:rgb(243,243,243);
+  color: rgb(243, 243, 243);
 }
+
 .pagetitlelink:hover {
-  color:white;
-  text-decoration:none;
+  color: white;
+  text-decoration: none;
 }
 
 #logged-in-badge {
-  text-align:right;
-  margin-right:.2em;
-  margin-bottom:.5em;
+  text-align: right;
+  margin-right: .2em;
+  margin-bottom: .5em;
 }
 
 .queue-notification:hover,
 .greeting:hover {
-  text-decoration:underline;
+  text-decoration: underline;
 }
 
 .menu-bar {
-    background:white;
-    width:100%;
+  background: white;
+  width: 100%;
 }
 
 .menu-links {
-  border-bottom:none;
-  list-style-type:none;
-  margin-bottom:0;
+  border-bottom: none;
+  list-style-type: none;
+  margin-bottom: 0;
 }
+
 .menu-links li {
-  margin-bottom:0px;
-  display:inline-block;
-  padding:.35em 1em;
+  margin-bottom: 0px;
+  display: inline-block;
+  padding: .35em 1em;
 }
+
 .menu-links>li>a {
-  border-radius:2px 2px 0px 0px;
-  color:black;  
+  border-radius: 2px 2px 0px 0px;
+  color: black;
 }
+
 .menu-links>li>a {
-    padding:5px 15px;
+  padding: 5px 15px;
 }
+
 .menu-links>li>a:hover {
-  color:#580f8b;
-  background:white;
-  border:none;
-  text-decoration:none;
+  color: #580f8b;
+  background: white;
+  border: none;
+  text-decoration: none;
 }
+
 .menu-links>li:hover {
-  background:white;
+  background: white;
 }
+
 .menu-links>li.active>a {
-  margin-right:0px;
+  margin-right: 0px;
 }
 
 .admin-menu-link a {
-  color:#e1480c !important;
+  color: #e1480c !important;
 }
+
 .admin-nav-sidebar {
-  max-width:250px;
-  font-size:.85em;
-  margin-top:1em;
-  min-width:245px;
-  padding:1em 1em 3em 1em;
+  max-width: 250px;
+  font-size: .85em;
+  margin-top: 1em;
+  min-width: 245px;
+  padding: 1em 1em 3em 1em;
 }
+
 .admin-nav-sidebar .nav-item:hover {
-    background:lightgray;
-    border-radius:3px;
+  background: lightgray;
+  border-radius: 3px;
 }
+
 .admin-nav-sidebar .nav-link {
-    color:#337ab7;
+  color: #337ab7;
 }
+
 .admin-nav-sidebar li.active>a {
-  background:#e8e8e8;
-  color:rgb(82, 82, 82);
+  background: #e8e8e8;
+  color: rgb(82, 82, 82);
 }
-.list-group-item.active>.badge, .nav-pills>.active>a>.badge {
-  color:white;
-  background:#777;
+
+.list-group-item.active>.badge,
+.nav-pills>.active>a>.badge {
+  color: white;
+  background: #777;
 }
 
 
@@ -162,16 +195,16 @@ http://ryanfait.com/
   text-align: left;
   overflow: hidden;
 }
-    
-a.skip:active, 
-a.skip:focus, 
+
+a.skip:active,
+a.skip:focus,
 a.skip:hover {
   position: relative;
-  left: 0; 
+  left: 0;
   top: 0;
-  width: auto; 
-  height: auto; 
-  overflow: visible; 
+  width: auto;
+  height: auto;
+  overflow: visible;
   display: block;
 }
 
@@ -184,143 +217,157 @@ a.skip:hover {
   text-align: left;
   overflow: hidden;
 }
+
 #keyword-search-submit {
-  border-radius:0;
-  }
+  border-radius: 0;
+}
 
 #keyword-search-form.input-group {
-  width:100%;
-}
-#homepage-container {
-  text-align:center;
-  padding-top:4em;
+  width: 100%;
 }
 
-#content {
+#homepage-container {
+  text-align: center;
+  padding-top: 4em;
 }
+
+#content {}
+
 .update-dataset-link {
-  padding-top:.5em;
-  padding-bottom:1em;
+  padding-top: .5em;
+  padding-bottom: 1em;
 }
+
 .update-dataset-link a,
 .entity-add-link,
 .entity-remove-link {
-  color:rgb(224, 101, 101);
+  color: rgb(224, 101, 101);
 }
+
 .entity-remove-link:hover {
-  color:red;
+  color: red;
 }
+
 .entities-list-item {
-  margin:.7em 0em;
+  margin: .7em 0em;
 }
 
 .add-new-entity-link {
-    float:left;
+  float: left;
 }
+
 .view-archived-datasets-link {
-    float:right;
+  float: right;
 }
+
 #facets-pane {
-  padding:.5em;
-  border-right:1px solid lightgray;
-  border-bottom:1px solid lightgray;
-  max-width:300px;  
+  padding: .5em;
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  max-width: 300px;
 }
+
 .facet-section {
-  padding:.5em;
+  padding: .5em;
 }
+
 .facetBreadcrumb {
-  margin:.25em;
+  margin: .25em;
 }
 
 .facetBreadcrumb:hover .facetRemove {
-  color:white;
-  font-weight:bold;
+  color: white;
+  font-weight: bold;
 }
-  
+
 #internal-only-filter-container {
-    padding-top:1.5em;
-    padding-left:1em;
-    font-size:.9em;
+  padding-top: 1.5em;
+  padding-left: 1em;
+  font-size: .9em;
 }
+
 .internal-dataset-badge {
-    margin-bottom:.75em;
-    display:inline-block;
-    font-size:.7em;
-    color:white;
-    background:#59228e;
-    padding:.3em .7em;
-    border-radius:3px;
-    vertical-align:top;
+  margin-bottom: .75em;
+  display: inline-block;
+  font-size: .7em;
+  color: white;
+  background: #59228e;
+  padding: .3em .7em;
+  border-radius: 3px;
+  vertical-align: top;
 }
+
 .internal-dataset-badge.details-page {
-    vertical-align:text-top;
+  vertical-align: text-top;
 }
 
 
 button.nextPage {
- float:right;
+  float: right;
 }
+
 button.prevPage {
- float:left;
+  float: left;
 }
 
 #pagerContainer {
- margin:0 auto;
-margin-top:1.5em;
-margin-bottom:10em;
- width:70%;
+  margin: 0 auto;
+  margin-top: 1.5em;
+  margin-bottom: 10em;
+  width: 70%;
 }
 
 li.dataset-summary h4 {
-    margin-bottom:.75rem;
+  margin-bottom: .75rem;
 }
 
 #results-list {
-  padding-left:1.25em;
+  padding-left: 1.25em;
 }
 
 #results-list li {
-  padding:1.25em 0em;
-  border-bottom:1px solid lightgray;
+  padding: 1.25em 0em;
+  border-bottom: 1px solid lightgray;
 }
 
 #results-list dt {
-  text-align:right;
+  text-align: right;
 }
+
 #results-list dd {
-  padding-left:1.5em;
+  padding-left: 1.5em;
 }
+
 #facets-list {
-  font-size:.9em;
-  padding-left:.25em;
+  font-size: .9em;
+  padding-left: .25em;
 }
 
 
 .facet-header {
-  padding:.25em 0em;
-  border-bottom:1px solid lightgray;
-  color:rgb(100,100,100);
+  padding: .25em 0em;
+  border-bottom: 1px solid lightgray;
+  color: rgb(100, 100, 100);
 }
 
 li.facet-item {
-  padding:.5em 0em;
-  overflow:auto;
-  font-size:.9em;
+  padding: .5em 0em;
+  overflow: auto;
+  font-size: .9em;
 }
 
 
 li span.facet-name {
-  float:left;
+  float: left;
 }
 
 li span.facet-numresults {
-  float:right;
-  color:rgb(121,121,121);
+  float: right;
+  color: rgb(121, 121, 121);
 }
 
 .search-box-description {
-color:gray;
+  color: gray;
 }
 
 /*********************************
@@ -329,106 +376,121 @@ color:gray;
  *
  ********************************/
 #frontpage-search-container {
-  text-align:center;
-  background:black;
-  width:100%;
-  border-bottom:1px solid lightgray;
-  padding:2em 15px;
-  margin-bottom:3em;
+  text-align: center;
+  background: black;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  padding: 2em 15px;
+  margin-bottom: 3em;
 }
 
 #frontpage-search-form-container {
-    width: 550px;
-    margin:auto;
-    margin-bottom:-78px;
+  width: 550px;
+  margin: auto;
+  margin-bottom: -78px;
 }
+
 #frontpage-search-form-container #keyword-search-input {
-  padding:.5em;
-  height:auto;
-  font-size:1.25em;
-  background:#f7f7f7;
+  padding: .5em;
+  height: auto;
+  font-size: 1.25em;
+  background: #f7f7f7;
 }
+
 #frontpage-search-form-container #keyword-search-submit {
-  border-radius:0;
-  padding:.5em 1em;
+  border-radius: 0;
+  padding: .5em 1em;
   background: #580f8b;
-  background-image:none;
-  color:white;
-  text-shadow:none;
-  border:1px solid #580f8b;
-  font-size:1.25em;
-  margin-left:0px;
+  background-image: none;
+  color: white;
+  text-shadow: none;
+  border: 1px solid #580f8b;
+  font-size: 1.25em;
+  margin-left: 0px;
 }
+
 #frontpage-search-form-container #keyword-search-submit:hover {
-  background:#692d96;
+  background: #692d96;
 }
+
 #frontpage-search-form-container .input-group-btn {
-  font-size:inherit;
+  font-size: inherit;
 }
+
 #frontpage-search-hints {
-  text-align:left;
+  text-align: left;
 }
+
 .search-hint {
-  text-decoration:underline;
-  padding:0em .3em;
+  text-decoration: underline;
+  padding: 0em .3em;
 }
+
 #frontpage-submit-dataset {
-  background:#279989;
-  width:95px;
-  height:95px;
-  border-radius:50%;
-  display:inline-block;
-  float:right;
-  padding-top:27px;
-  color:white;
-  font-size:.9em;
-  margin-top:-14px;
-  margin-right:8em;
+  background: #279989;
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  display: inline-block;
+  float: right;
+  padding-top: 27px;
+  color: white;
+  font-size: .9em;
+  margin-top: -14px;
+  margin-right: 8em;
 }
+
 #frontpage-submit-dataset:hover {
-  text-decoration:none;
-  background:#40C1AC;
+  text-decoration: none;
+  background: #40C1AC;
 }
+
 /**********
  * interior page search container
  *********/
 #interior-page-search-container {
-  overflow:hidden;
-  padding:1em;
-  background:black;
+  overflow: hidden;
+  padding: 1em;
+  background: black;
 }
+
 .interior-page-sitename-container {
-  float:left;
+  float: left;
 }
+
 .interior-page-sitename {
-  margin:0;
-  color:white;
+  margin: 0;
+  color: white;
 }
+
 #interior-page-search-form-container {
-  width:40%;
-  float:right;
-  margin-right:5em;
+  width: 40%;
+  float: right;
+  margin-right: 5em;
 }
-#interior-page-search-form-container .input-group-btn {
-}
+
+#interior-page-search-form-container .input-group-btn {}
+
 #interior-page-search-form-container #keyword-search-submit {
-  border-radius:0;
-  padding:.25em .75em;
+  border-radius: 0;
+  padding: .25em .75em;
   background: #580f8b;
-  background-image:none;
-  color:white;
-  text-shadow:none;
-  border:1px solid #580f8b;
-  margin-left:0px;
+  background-image: none;
+  color: white;
+  text-shadow: none;
+  border: 1px solid #580f8b;
+  margin-left: 0px;
 }
+
 #interior-page-search-form-container #keyword-search-submit:hover {
-  background:#692d96;
+  background: #692d96;
 }
+
 #interior-page-search-form-container #keyword-search-input {
-  padding:.25em;
-  height:auto;
-  font-size:1em;
-  background:#f7f7f7;
+  padding: .25em;
+  height: auto;
+  font-size: 1em;
+  background: #f7f7f7;
 }
 
 
@@ -439,198 +501,223 @@ color:gray;
  **/
 a.btn-success,
 a.btn-remove {
-  cursor:pointer;
-  color:white;
-  font-weight:bold;
-  padding:.25em .75em;
-  font-size:.6em;
-  border-radius:3px;
-  vertical-align:top;
-}
-a.btn-success:hover,
-a.btn-remove:hover {
-  color:white;
-}
-form .visual-break {
-  margin-top:3em !important;
-  border-top:1px solid rgb(140, 0, 197);
-  padding-top:3em !important;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  padding: .25em .75em;
+  font-size: .6em;
+  border-radius: 3px;
+  vertical-align: top;
 }
 
-.select2-container, .select2-drop, .select2-search, .select2-search input {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
+a.btn-success:hover,
+a.btn-remove:hover {
+  color: white;
 }
+
+form .visual-break {
+  margin-top: 3em !important;
+  border-top: 1px solid rgb(140, 0, 197);
+  padding-top: 3em !important;
+}
+
+.select2-container,
+.select2-drop,
+.select2-search,
+.select2-search input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}
+
 .select2-container .select2-choice {
-    height: 34px;
+  height: 34px;
 }
+
 .select2-container .select2-choice .select2-arrow {
-    display: none;
+  display: none;
 }
+
 form.input-group {
-  width:50%;
-  margin:0 auto;
-  vertical-align:middle;
+  width: 50%;
+  margin: 0 auto;
+  vertical-align: middle;
 }
+
 .form-group {
-  margin:2.5em 0em;
+  margin: 2.5em 0em;
 }
-.form-horizontal .form-group  {
-  clear:both;
-  padding:1.25em 0em;
-  margin:0em;
-/*  border-top:1px dotted lightgray;*/
-  
+
+.form-horizontal .form-group {
+  clear: both;
+  padding: 1.25em 0em;
+  margin: 0em;
+  /*  border-top:1px dotted lightgray;*/
+
 }
+
 fieldset {
- margin-bottom:5em;
+  margin-bottom: 5em;
 }
+
 legend.section-header {
- border-bottom:2px solid #59008D;
- padding:.5em;
- color:#59008D;
+  border-bottom: 2px solid #59008D;
+  padding: .5em;
+  color: #59008D;
 }
+
 .form-group.multiple:first {
-  margin-top:3em;
+  margin-top: 3em;
 }
+
 .form-group.multiple div[class^="col-sm-"] {
-  padding-top:7px;
+  padding-top: 7px;
 }
+
 .form-group .control-label,
 .form-group .col-form-label {
-  text-align:right;
-  padding-right:3em;
-  padding-top:0em;
+  text-align: right;
+  padding-right: 3em;
+  padding-top: 0em;
 }
-:not(.radio) > label.required:not(.no-asterisk):before {
+
+:not(.radio)>label.required:not(.no-asterisk):before {
   content: "* ";
 }
 
 .remove-entity-warning {
-  color:red;
+  color: red;
 }
 
 #pager-wrapper {
-  text-align:right;
-  font-size:.9em;
-  float:right;
-  clear:both;
+  text-align: right;
+  font-size: .9em;
+  float: right;
+  clear: both;
 }
+
 #pagenum-input {
-  border-radius:3px;
-  border:1px solid darkgray;
-  text-align:right;
+  border-radius: 3px;
+  border: 1px solid darkgray;
+  text-align: right;
 }
 
 #pager-wrapper .pager-text {
-  margin:.25em .5em;
+  margin: .25em .5em;
 }
-  
+
 
 #search-stats-header {
-padding:.5em 0em;
-overflow:auto;
+  padding: .5em 0em;
+  overflow: auto;
 }
+
 #sort-and-results select {
-  font-size:.8em;
+  font-size: .8em;
 }
 
 #sort-and-results {
-  font-size:.8em;
+  font-size: .8em;
 }
 
 #sort-and-results #dropdowns-wrapper {
-float:right;
-font-size:.9em;
-text-align:right;
-clear:both;
-margin-top:.25em;
+  float: right;
+  font-size: .9em;
+  text-align: right;
+  clear: both;
+  margin-top: .25em;
 }
 
-#sort-dropdown-wrapper, #results-dropdown-wrapper {
-  display:inline-block;
+#sort-dropdown-wrapper,
+#results-dropdown-wrapper {
+  display: inline-block;
 }
 
 #sort-and-results .dropdown-label {
-font-size:.9em;
+  font-size: .9em;
 }
 
 #numresults-wrapper {
-float:right;
-clear:both;
-text-align:right;
-color:gray;
-font-size:.95em;
-margin-top:-5px;
+  float: right;
+  clear: both;
+  text-align: right;
+  color: gray;
+  font-size: .95em;
+  margin-top: -5px;
 }
+
 #number-of-results {
-font-size:1.1em;
+  font-size: 1.1em;
 }
 
 div[data-prototype] div[data-content] {
-  padding:.25em;
-  clear:both;
-  border-radius:5px;
-  position:relative;
-  margin-top:1em;
+  padding: .25em;
+  clear: both;
+  border-radius: 5px;
+  position: relative;
+  margin-top: 1em;
   display: flex;
   justify-content: flex-end;
-  width:100%;
+  width: 100%;
 }
 
 div[data-prototype],
-.dynamic-form-element-container > div {
-  width:100%;
+.dynamic-form-element-container>div {
+  width: 100%;
 }
 
 div[data-prototype] div[data-content] .form-group {
-  border-top:none;
-  padding:0em;
-  margin-bottom:1.5em;
-  margin-top:0em;
-  justify-content:flex-end;
+  border-top: none;
+  padding: 0em;
+  margin-bottom: 1.5em;
+  margin-top: 0em;
+  justify-content: flex-end;
 }
+
 div[data-prototype] div[data-content] .form-group .col-sm-8 {
-  width:100% !important;
+  width: 100% !important;
 }
+
 div[data-prototype] div[data-content] .btn-remove {
-  position:absolute;
-  right:19px;
-  bottom:0px;
+  position: absolute;
+  right: 19px;
+  bottom: 0px;
 }
 
 form.remove-form button {
-  background:rgb(255, 62, 62);
+  background: rgb(255, 62, 62);
 }
 
 .form-group.has-error .help-block,
 .form-group.has-error label {
-  color:red;
+  color: red;
 }
 
 
 .modal-success.icon-ok-circle {
-  font-size:4em;
-  color:green;
+  font-size: 4em;
+  color: green;
 }
+
 #added-entity-name {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 #dataset-edits-panel {
-  font-size:.9em;
-  padding-left:2em;
+  font-size: .9em;
+  padding-left: 2em;
 }
+
 .dataset-created-by {
-    margin-bottom:.5em;
-    display:inline-block;
+  margin-bottom: .5em;
+  display: inline-block;
 }
+
 .dataset-edit-notes {
-    border-left:1px solid lightgray;
-    margin-left:2em;
-    padding-left:11px;
+  border-left: 1px solid lightgray;
+  margin-left: 2em;
+  padding-left: 11px;
 }
 
 /**************
@@ -639,19 +726,21 @@ form.remove-form button {
  *
  *************/
 #dataset-full-view-container {
-    padding-top:2em;
+  padding-top: 2em;
 }
+
 #dataset-detail-titlebox {
-  margin-bottom:1.5em;
+  margin-bottom: 1.5em;
   border-bottom: 1px solid lightgray;
 }
+
 #dataset-detail-description dd,
 #dataset-detail-sidebar dd {
-  margin-bottom:1em;
+  margin-bottom: 1em;
 }
 
 #dataset-detail-description {
-  padding-right:35px;
+  padding-right: 35px;
 }
 
 
@@ -660,111 +749,118 @@ form.remove-form button {
 .dataset-detail-authors,
 .dataset-detail-projects,
 .dataset-detail-issued {
-  color:gray;
-  font-size:.8em;
+  color: gray;
+  font-size: .8em;
 }
+
 .dataset-detail-alttitle p {
-  margin-bottom:.5em;
-  }
+  margin-bottom: .5em;
+}
 
 #dataset-detail-accesspanel {
-  border:1px solid black;
-  margin-bottom:2em;
+  border: 1px solid black;
+  margin-bottom: 2em;
 }
 
 #accesspanel-titlebox {
-  border-bottom:1px solid black;
-  padding:.5em;
-  text-align:center;
+  border-bottom: 1px solid black;
+  padding: .5em;
+  text-align: center;
 }
+
 #accesspanel-titlebox h4 {
-  margin-bottom:0;
-  font-weight:bold;
+  margin-bottom: 0;
+  font-weight: bold;
 }
 
 #accesspanel-details {
-  padding:1em;
+  padding: 1em;
 }
 
 #accesspanel-details dd {
-  margin-bottom:2em;
+  margin-bottom: 2em;
 }
+
 #access-buttons-container dd {
-  margin-bottom:0;
-  text-align:center;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 #access-buttons-container a.btn {
-  background-color:#b18cdb;
-  border-color:#b18cdb;
+  background-color: #b18cdb;
+  border-color: #b18cdb;
 }
+
 #access-buttons-container a.btn:hover {
-  background-color:#c2a0e9;
-  border-color:#c2a0e9;
+  background-color: #c2a0e9;
+  border-color: #c2a0e9;
 }
+
 .dataset-detail-access-instructions {
-  font-size:.9em;
+  font-size: .9em;
 }
 
 .dataset-detail-authors {
- margin-bottom:0em;
+  margin-bottom: 0em;
 }
 
 .dataset-authors-section {
- margin-bottom:0em;
+  margin-bottom: 0em;
 }
+
 .corresponding-author-note {
-  font-size:.75em;
-  display:block;
+  font-size: .75em;
+  display: block;
 }
+
 .data-location-description {
-  font-size:.85em;
-  color:rgb(110,110,110);
-  margin-bottom:14px;
+  font-size: .85em;
+  color: rgb(110, 110, 110);
+  margin-bottom: 14px;
 }
+
 .data-location-title {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .related-dataset-note,
 .other-resource-description {
-  padding-left:1em;
-  border-left:1px solid lightgray;
-  color:rgb(77,77,77);
+  padding-left: 1em;
+  border-left: 1px solid lightgray;
+  color: rgb(77, 77, 77);
 }
 
 #other-resources,
 #equipment-used,
 #software-used,
 #related-datasets {
- font-size:.9em;
+  font-size: .9em;
 }
 
 #subject-of-study .related-dataset-note {
-  font-size:0.9em;
+  font-size: 0.9em;
 }
 
 #equipment-used .multiple-item-list,
 #software-used .multiple-item-list {
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
+
 .internal-dataset {
-  color:orange;
-  font-weight:bold;
-  font-size:45%;
+  color: orange;
+  font-weight: bold;
+  font-size: 45%;
 }
 
 .assoc-publication {
- font-size:85%;
- margin-bottom:1em;
+  font-size: 85%;
+  margin-bottom: 1em;
 }
 
-.assoc-publication-link {
- 
-}
+.assoc-publication-link {}
 
 .grant-item {
- margin-bottom:.75em;
+  margin-bottom: .75em;
 }
 
 .dataset-detail-authors .author-name {
@@ -772,12 +868,12 @@ form.remove-form button {
 }
 
 #suggest-dataset-link {
-  margin-top:10em;
+  margin-top: 10em;
 }
 
 a.authors-collapse {
-  font-size:11px;
-  margin-left:2em;
+  font-size: 11px;
+  margin-left: 2em;
 
 }
 
@@ -786,25 +882,29 @@ a.authors-collapse {
  *   CONTACT FORM
  *****************/
 .reason-list {
-  height:100px;
+  height: 100px;
 }
-#contact-form {
-}
+
+#contact-form {}
+
 .contact-form-copy {
-  margin:2.5em 0em 4em 0em;
-  width:50%;
+  margin: 2.5em 0em 4em 0em;
+  width: 50%;
 }
+
 .button-centerer {
-  width:50%;
-  text-align:center;
-  margin-top:2em;
-  margin-bottom:8em;
+  width: 50%;
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 8em;
 }
+
 .alert-success {
-  text-align:center;
+  text-align: center;
 }
+
 #contact_form_email .checker {
-  display:none;
+  display: none;
 }
 
 
@@ -812,7 +912,7 @@ a.authors-collapse {
  * ABOUT PAGE
  * **************/
 .about-page-title {
-  margin:1em 0em;
+  margin: 1em 0em;
 }
 
 /*****************
@@ -821,9 +921,9 @@ a.authors-collapse {
 
 .tak-expired {
 
-	color: red;
-	margin: 0 1em;
-	font-weight: bold;
+  color: red;
+  margin: 0 1em;
+  font-weight: bold;
 
 }
 
@@ -832,157 +932,189 @@ a.authors-collapse {
  * FOOTER
  * **************/
 .login-link {
-  margin:2em 5em;
-  color:gray;
-  display:inline-block;
+  margin: 2em 5em;
+  color: gray;
+  display: inline-block;
 
 }
+
 #footer {
-        background-color: #333;
-        background: url(../img/background_gradient.gif) repeat-x 0 0 #333;
-        margin-top:7em;
-        clear:both;
-        width:100%;
+  background-color: #333;
+  background: url(../img/background_gradient.gif) repeat-x 0 0 #333;
+  margin-top: 7em;
+  clear: both;
+  width: 100%;
 }
+
 div.footer-wrapper {
-        margin: 1em auto 0 auto;
-        position: relative;
-        min-height: 150px;
-        height: 175px;
-        padding: 40px 0 30px 0;
-        background: transparent;
+  margin: 1em auto 0 auto;
+  position: relative;
+  min-height: 150px;
+  height: 175px;
+  padding: 40px 0 30px 0;
+  background: transparent;
 }
 
 #footer_logo {
-    float: right;
-    padding: 5px 0 0;
-    position: relative;
-    right: 1em;
+  float: right;
+  padding: 5px 0 0;
+  position: relative;
+  right: 1em;
 }
+
 p#phone_number {
-        position: absolute;
-        top: 42px;
-        right: 0;
-        color: #fff;
-        text-align: right;
-        padding-right: 20px;
-        background: url(../img/icon_phone.gif) no-repeat right top;
+  position: absolute;
+  top: 42px;
+  right: 0;
+  color: #fff;
+  text-align: right;
+  padding-right: 20px;
+  background: url(../img/icon_phone.gif) no-repeat right top;
 }
+
 p#phone_number strong {
-        font-family: SortsMillGoudy, Georgia, "Times New Roman", Times, Serif;
-        display: block;
-        font-weight: bold;
-        font-size: 28px;
-        line-height: 24px;
-        letter-spacing: 2px;
-        *padding-bottom: 10px;
+  font-family: SortsMillGoudy, Georgia, "Times New Roman", Times, Serif;
+  display: block;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  *padding-bottom: 10px;
 }
+
 /* style to make the phone number white
 on mobile devices that convert this to a link */
 p#phone_number strong a {
-        color: #fff;
+  color: #fff;
 }
 
 #footer_primary,
 #footer_secondary {
-        /*display: block;*/
-        /*ORIGINAL WIDTH width: 760px;*/
-        width: 85%;
-        zoom: 1;
-        clear: none;
-        margin: 0 0 15px 0;
+  /*display: block;*/
+  /*ORIGINAL WIDTH width: 760px;*/
+  width: 85%;
+  zoom: 1;
+  clear: none;
+  margin: 0 0 15px 0;
 
 }
+
 #footer_primary:after,
 #footer_secondary:after {
-        content: '.';
-        display: block;
-        height: 0px;
-        visibility: hidden;
-        clear: both;
+  content: '.';
+  display: block;
+  height: 0px;
+  visibility: hidden;
+  clear: both;
 }
+
 #footer_primary li,
 #footer_secondary li {
-        list-style: none;
-        float: left;
-        *display: inline;
-        padding: 0 15px 0 0;
-        font-size: 11px;
-        color: #ccc;
+  list-style: none;
+  float: left;
+  *display: inline;
+  padding: 0 15px 0 0;
+  font-size: 11px;
+  color: #ccc;
 }
+
 #footer_primary li {
-        padding: 0 15px 0 19px;
-        background: url(../img/bullet.gif) no-repeat left 8px;
+  padding: 0 15px 0 19px;
+  background: url(../img/bullet.gif) no-repeat left 8px;
 }
+
 #footer_primary li:first-child,
 #footer_primary li.first {
-        padding: 0 15px 0 0;
-        background: none;
+  padding: 0 15px 0 0;
+  background: none;
 }
+
 #footer_primary li a,
 #footer_secondary li a {
-        color: #a5a5a5;
-        font-size: 16px;
-        border-bottom: 1px solid #333;
-        *zoom: 1;
-        background: transparent;
+  color: #a5a5a5;
+  font-size: 16px;
+  border-bottom: 1px solid #333;
+  *zoom: 1;
+  background: transparent;
 }
+
 #footer_secondary li a {
-        color: #ccc;
-        font-size: 12px;
+  color: #ccc;
+  font-size: 12px;
 }
+
 #footer_primary li a:hover,
 #footer_secondary li a:hover {
-        text-decoration: none;
-        border-bottom: 1px dotted #999;
+  text-decoration: none;
+  border-bottom: 1px dotted #999;
 }
-#footer_logo { background-color: transparent; }
-#footer-copyright { position: absolute; left: 20px; bottom: 40px; }
+
+#footer_logo {
+  background-color: transparent;
+}
+
+#footer-copyright {
+  position: absolute;
+  left: 20px;
+  bottom: 40px;
+}
 
 
 @media print {
-  *{transition:none!important;}
+  * {
+    transition: none !important;
+  }
 
   body {
-    font-size:18px;
-    width:100%;
+    font-size: 18px;
+    width: 100%;
   }
+
   nav.nav-links {
-    display:none !important;
+    display: none !important;
   }
+
   a[href]:after {
     content: none !important;
   }
+
   #page-header {
-    margin:1em 4em;
+    margin: 1em 4em;
     margin-bottom: 2em;
   }
+
   #search-header {
-    display:none !important;
+    display: none !important;
   }
+
   #dataset-full-view-container {
-    width:85% !important;
-    margin-left:7em !important;
-    margin-bottom:5em;
+    width: 85% !important;
+    margin-left: 7em !important;
+    margin-bottom: 5em;
   }
+
   dt {
-    margin-top:2em;
+    margin-top: 2em;
   }
+
   span.pagetitle {
-    display:inline-block;
-    background:white;
-    margin-left:3em;
+    display: inline-block;
+    background: white;
+    margin-left: 3em;
   }
+
   div.update-dataset-link {
-    display:none;
+    display: none;
   }
+
   div#suggest-dataset-link {
-    display:none;
+    display: none;
   }
 
 }
+
 @media only screen and (max-width: 1020px) {
   #frontpage-submit-dataset {
-  display:none;
+    display: none;
   }
 }
