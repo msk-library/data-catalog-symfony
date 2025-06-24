@@ -21,6 +21,7 @@ $nav-menu-bg-color: #fbf9f7;
 $search-facet-color: #296896;
 $search-facet-link-color: #000000;
 $msk-foundation-teal: #78e2da;
+$msk-light-blue: #c3e2ff;
 
 
 $msk-site-navigation__item-border-color: transparent;
@@ -750,7 +751,9 @@ footer,
 .popover-header {
   font-weight: bold;
   font-size: 1em;
+  background-color: $msk-light-blue;
 }
+
 
 .nextPage {
   background-color: $msk-foundation-teal;
