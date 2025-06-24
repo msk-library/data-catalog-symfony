@@ -437,11 +437,34 @@ form.input-group {
 }
 
 /* Facets */
-#facets-pane {
-  //margin-left: 1em;
-  padding-left: 2em;
-  max-width: none;
+// #facets-pane {
+//   //margin-left: 1em;
+//   padding-left: 2em;
+//   max-width: none;
+// }
+/* Facet header - Filter By */
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: 350;
 }
+
+#facets-pane {
+  padding-left: 2em;
+  max-width: none; // Default width: 100%
+
+  @media (min-width: 576px) {}
+
+  @media (min-width: 768px) {}
+
+  @media (min-width: 992px) {}
+
+  @media (min-width: 1200px) {
+    margin-top: -4em;
+  }
+
+  // @media (min-width: 1400px) {}
+}
+
 
 .facetBreadcrumb {
   color: black;
@@ -633,7 +656,8 @@ footer,
 
 /* Facets */
 .facet-header {
-  color: black;
+  color: $msk-global__link-color;
+  font-size: 2rem;
 }
 
 .show_more {
