@@ -20,6 +20,7 @@ $bs-btn-bg: #0073e0;
 $nav-menu-bg-color: #fbf9f7;
 $search-facet-color: #296896;
 $search-facet-link-color: #000000;
+$msk-foundation-teal: #78e2da;
 
 
 $msk-site-navigation__item-border-color: transparent;
@@ -405,6 +406,18 @@ form.input-group {
   font-size: 1.8rem;
 }
 
+.btn-secondary {
+  background-color: #308229;
+  font-size: 1.6rem;
+  border-color: #008937
+}
+
+.btn-secondary:hover {
+  background-color: #5dcc6f;
+  font-size: 1.6rem;
+  border-color: #e4ffe3;
+}
+
 .navbar-default .navbar-nav>li>a {
   color: #002569;
   font-size: 1.7rem !important;
@@ -731,4 +744,10 @@ footer,
 .popover-header {
   font-weight: bold;
   font-size: 1em;
+}
+
+.nextPage {
+  background-color: $msk-foundation-teal;
+  color: $msk-global__text-color;
+  font-size: 1.6rem;
 }
