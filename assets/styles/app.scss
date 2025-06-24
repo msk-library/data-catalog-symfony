@@ -693,7 +693,7 @@ footer,
 
 .about-page-column {
   padding-top: 2em;
-  height: 1900px;
+  // height: 1900px;
 }
 
 .about-page-section {
@@ -750,4 +750,15 @@ footer,
   background-color: $msk-foundation-teal;
   color: $msk-global__text-color;
   font-size: 1.6rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $bs-nav-link-color;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: $bs-nav-link-color;
+  text-decoration: underline;
 }
