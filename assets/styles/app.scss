@@ -591,6 +591,31 @@ footer,
   }
 }
 
+.footer-col-copyright {
+  width: 100%; // Default width: 100%
+  padding-top: 1em;
+
+  @media (min-width: 576px) {
+    width: 100%; // Width on small screens and up: 75%
+  }
+
+  @media (min-width: 768px) {
+    width: 25%; // Width on medium screens and up: 50%
+  }
+
+  @media (min-width: 992px) {
+    width: 25%; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1200px) {
+    width: 40%; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1400px) {
+    width: 30%; // Width on large screens and up: 25%
+  }
+}
+
 .block--msk-radix-mskfooter {
   padding-left: 1em; // Default width: 100%
 
