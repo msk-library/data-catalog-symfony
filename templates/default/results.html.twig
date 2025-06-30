@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block page_scripts %}
+
 {% endblock %}
 
 {% block results_JSONLD_output %}
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type":"ItemList",
 "mainEntityOfPage":"{{ url('homepage') }}",
@@ -24,212 +25,192 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-<div class="row">
-
-<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" id="facets-pane">
-{# <h4 class="facet-pane-header">Filter by</h4> #}
-<nav class="navbar navbar-expand-sm navbar-light flex-column align-items-start d-block">
-<h4 class="navbar-brand facet-pane-header">Filter by</h4>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#facetToggle">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-collapse collapse flex-column" id="facetToggle">
-
-  {% for category,facets in results.facets %}
-    {% if (category != 'Origin' and category != 0) %}
-      {% set facetSection = [] %}
-      {% for facet in facets %} 
-      {% set fullFacet = results.facetMappings[category] ~ ':"' ~ facet.facetItem ~ '"' %}
-      {% if fullFacet not in currentSearch.facets %}
-        {% set facetSection = facetSection|merge([facet]) %}
-      {% endif %}
-      {% endfor %}
-      {% if facetSection|length > 0 %}
-      <div class="facet-section w-100 d-block">
-        <h5 class="facet-header">{{ category }}</h5>
-          <ul class="facets-list list-unstyled">
-        {% for facet in facetSection %}
-          {% if facet.facetItem != '' and facet.facetCount is defined and facet.facetCount > 0 %}
-            <li class="facet-item">
-              <span class="facet-name">
-                <a href="#" data-solrfacetcategory="{{ results.facetMappings[category] }}" data-solrfacetvalue="{{ facet.facetItem }}">{{ facet.facetItem }}</a>
-              </span>
-              <span class="facet-numresults">
-                {{ facet.facetCount }}
-              </span>
-            </li>
-            {% endif %}
-        {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-      {% endif %}
-   {% endfor %}
-   </div><!-- end facetToggle -->
-   </nav><!-- end nav container for collapsible -->
-</div>
-
-<div class="col-12 col-sm-6 col-md-8 col-lg-8 col-xl-9 right-pane clearfix">
-<div class="row">
-<div class="col-sm-8" id="facet-breadcrumbs">
- {% if currentSearch.keyword %}
-   {% if ':' in currentSearch.keyword %}
-    {# {% set keyword = currentSearch.keyword|split(':')[1] %} #}
-   <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm">
-     {{ currentSearch.keyword }}
-   </button>
-   {% else %}
-   <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm">
-     Keyword: {{ currentSearch.keyword }}
-   </button>
-   {% endif %}  
-  {% endif %} 
- {% for facet in currentSearch.facets %}
-   {% set facetSplit = facet|split(':') %}
-   {% if facetSplit[0] != "origin_fq" %} 
-     <button data-machine-name="{{ facet }}" class="facetBreadcrumb btn btn-outline-secondary btn-sm">
-       {{ results.facetMappings[facetSplit[0]] }}:{{ facetSplit[1] }} 
-     </button>
-   {% endif %}
- {% endfor %}
-</div>
-<div class="col-sm-4" id="sort-and-results">
- <div id="pager-wrapper">
-  {% set maxPages = (results.numResults/currentSearch.resultsPP)|round(0,'ceil') %}
-  {% if currentSearch.page == 0 %}
-    {% set pageCounter = 1 %}
-  {% else %}
-    {% set pageCounter = currentSearch.page %}
-  {% endif %}
-  {% if currentSearch.page > 1 %}
-    <span class="pager-previous"><a href="#">< Prev</a></span>
-  {% endif %}
-  <span class="pager-text"><label for="pagenum-input">Page</label> <input size="2" min="1" max="{{ maxPages }}" id="pagenum-input" name="skip-to-page" value="{{ pageCounter }}" /> of {{ maxPages }}</span>
-  {% if (currentSearch.page == 0 and currentSearch.resultsPP < results.numResults) or  
-      ((currentSearch.page * currentSearch.resultsPP) < results.numResults) %}
-    <span class="pager-next"><a href="#">Next ></a></span>
-  {% endif %}
- </div>
- {% if (results.numResults) %}
-   <div id="numresults-wrapper">
-   Results Found: <span id="number-of-results">{{ results.numResults }}</span>
-   </div>
-{% endif %}
- <div id="dropdowns-wrapper">
-   <div id="sort-dropdown-wrapper">
-    <span class="dropdown-label"><label for="sort-dropdown">Sort by</label>:</span>
-    <select class="option-dropdown" name="results_sort" id="sort-dropdown" >
-      {% set sort_opts = ['name', 'relevance', 'date added'] %}
-      {% for opt in sort_opts %}
-       {% if (opt == currentSearch.sort) %} 
-         <option selected>{{ opt }}</option>
-       {% else %} 
-         <option>{{ opt }}</option>
-       {% endif %}
-      {% endfor %}
-    </select>
-  </div>
-  <div id="results-dropdown-wrapper">
-   <span class="dropdown-label"><label for="results_pp-dropdown">Per page</label>:</span>
-   <select name="results_pp" class="option-dropdown" id="results_pp-dropdown">
-     {% set results_opts = ['10','25','50'] %}
-     {% for opt in results_opts %}
-       {% if (opt == currentSearch.resultsPP) %}
-         <option selected>{{ opt }}</option>
-       {% else %}
-         <option>{{ opt }}</option>
-       {% endif %}
-      {% endfor %}
-   </select>
-  </div>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-11" id="results-container">
-  <ul id="results-list" class="list-unstyled">
-   {% for item in results.resultItems %}
-    <li class="dataset-summary"> 
-    <h4 class="dataset-title"><a class="dataset-title-link" href="{{ path("view_dataset", {"uid":item.id}) }}">{{ item.dataset_title }}</a>
-    </h4>
-            <dl class="row">
-
-              {% if item.dataset_alt_title is defined and item.dataset_alt_title[0] %}
-               <dt class="col-sm-3">Alternate Title(s)</dt>
-               <dd class="col-sm-9"> {{ item.dataset_alt_title|join(', ') }} </dd>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" id="facets-pane">
+        {# <h4 class="facet-pane-header">Filter by</h4> #}
+        <nav class="navbar navbar-expand-sm navbar-light flex-column align-items-start d-block">
+          <h4 class="navbar-brand facet-pane-header">Filter by</h4>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#facetToggle"><span class="navbar-toggler-icon"></span></button>
+          <div class="navbar-collapse collapse flex-column" id="facetToggle">
+            {% for category, facets in results.facets %}
+              {% if category != 'Origin' and category != 0 %}
+                {% set facetSection = [] %}
+                {% for facet in facets %}
+                  {% set fullFacet = results.facetMappings[category] ~ ':"' ~ facet.facetItem ~ '"' %}
+                  {% if fullFacet not in currentSearch.facets %}
+                    {% set facetSection = facetSection|merge([facet]) %}
+                  {% endif %}
+                {% endfor %}
+                {% if (facetSection|length) > 0 %}
+                  <div class="facet-section w-100 d-block">
+                    <h5 class="facet-header">{{ category }}</h5>
+                    <ul class="facets-list list-unstyled">
+                      {% for facet in facetSection %}
+                        {% if facet.facetItem != '' and facet.facetCount is defined and facet.facetCount > 0 %}
+                          <li class="facet-item">
+                            <span class="facet-name"><a href="#" data-solrfacetcategory="{{ results.facetMappings[category] }}" data-solrfacetvalue="{{ facet.facetItem }}">{{ facet.facetItem }}</a></span>
+                            <span class="facet-numresults">{{ facet.facetCount }}</span>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
               {% endif %}
+            {% endfor %}
+          </div>
+          <!-- end facetToggle -->
+        </nav>
+        <!-- end nav container for collapsible -->
+      </div>
 
-             {% if item.authors is defined and item.authors[0] %}
-             <dt class="col-sm-3">Authors</dt><dd class="col-sm-9">{% for author in item.authors|slice(0,4) %}
-               <div class="multiple-item-list">
-                   {{ author }}
-                 </div>
-                 {% endfor %}
-                 {% if item.authors|length > 4 %}
-                   <div class="multiple-item-list" style="font-size:.9em;color:#9c9c9c;margin-bottom:.7em;">
-                     {{ (item.authors|length - 4) }} more author(s)...
-                   </div>
-                 {% endif %}
+      <div class="col-12 col-sm-6 col-md-8 col-lg-8 col-xl-9 right-pane clearfix">
+        <div class="row">
+          <div class="col-sm-8" id="facet-breadcrumbs">
+            {% if currentSearch.keyword %}
+              {% if ':' in currentSearch.keyword %}
+                {# {% set keyword = currentSearch.keyword|split(':')[1] %} #}
+                <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm">{{ currentSearch.keyword }}</button>
+              {% else %}
+                <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm">Keyword: {{ currentSearch.keyword }}</button>
+              {% endif %}
+            {% endif %}
+            {% for facet in currentSearch.facets %}
+              {% set facetSplit = facet|split(':') %}
+              {% if facetSplit[0] != 'origin_fq' %}
+                <button data-machine-name="{{ facet }}" class="facetBreadcrumb btn btn-outline-secondary btn-sm">{{ results.facetMappings[facetSplit[0]] }}:{{ facetSplit[1] }}</button>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="col-sm-4" id="sort-and-results">
+            <div id="pager-wrapper">
+              {% set maxPages = (results.numResults / currentSearch.resultsPP)|round(0, 'ceil') %}
+              {% if currentSearch.page == 0 %}
+                {% set pageCounter = 1 %}
+              {% else %}
+                {% set pageCounter = currentSearch.page %}
+              {% endif %}
+              {% if currentSearch.page > 1 %}
+                <span class="pager-previous"><a href="#">< Prev</a></span>
+              {% endif %}
+              <span class="pager-text"><label for="pagenum-input">Page</label> <input size="2" min="1" max="{{ maxPages }}" id="pagenum-input" name="skip-to-page" value="{{ pageCounter }}" />of {{ maxPages }}</span>
+              {% if (currentSearch.page == 0 and currentSearch.resultsPP < results.numResults) or currentSearch.page * currentSearch.resultsPP < results.numResults %}
+                <span class="pager-next"><a href="#">Next ></a></span>
+              {% endif %}
+            </div>
+            {% if results.numResults %}
+              <div id="numresults-wrapper">
+                Results Found: <span id="number-of-results">{{ results.numResults }}</span>
+              </div>
+            {% endif %}
+            <div id="dropdowns-wrapper">
+              <div id="sort-dropdown-wrapper">
+                <span class="dropdown-label"><label for="sort-dropdown">Sort by</label>:</span>
+                <select class="option-dropdown" name="results_sort" id="sort-dropdown">
+                  {% set sort_opts = ['name', 'relevance', 'date added'] %}
+                  {% for opt in sort_opts %}
+                    {% if opt == currentSearch.sort %}
+                      <option selected>{{ opt }}</option>
+                    {% else %}
+                      <option>{{ opt }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div id="results-dropdown-wrapper">
+                <span class="dropdown-label"><label for="results_pp-dropdown">Per page</label>:</span>
+                <select name="results_pp" class="option-dropdown" id="results_pp-dropdown">
+                  {% set results_opts = ['10', '25', '50'] %}
+                  {% for opt in results_opts %}
+                    {% if opt == currentSearch.resultsPP %}
+                      <option selected>{{ opt }}</option>
+                    {% else %}
+                      <option>{{ opt }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-11" id="results-container">
+            <ul id="results-list" class="list-unstyled">
+              {% for item in results.resultItems %}
+                <li class="dataset-summary">
+                  <h4 class="dataset-title"><a class="dataset-title-link" href="{{ path('view_dataset', { uid: item.id }) }}">{{ item.dataset_title }}</a></h4>
+                  <dl class="row">
+                    {% if item.dataset_alt_title is defined and item.dataset_alt_title[0] %}
+                      <dt class="col-sm-3">Alternate Title(s)</dt>
+                      <dd class="col-sm-9">{{ item.dataset_alt_title|join(', ') }}</dd>
+                    {% endif %}
 
-             </dd>
-             {% endif %}
+                    {% if item.authors is defined and item.authors[0] %}
+                      <dt class="col-sm-3">Authors</dt><dd class="col-sm-9">
+                        {% for author in item.authors|slice(0, 4) %}
+                          <div class="multiple-item-list">{{ author }}</div>
+                        {% endfor %}
+                        {% if (item.authors|length) > 4 %}
+                          <div class="multiple-item-list" style="font-size:.9em;color:#9c9c9c;margin-bottom:.7em;">{{ (item.authors|length) - 4 }} more author(s)...</div>
+                        {% endif %}
+                      </dd>
+                    {% endif %}
 
-             <dt class="col-sm-3">Description</dt><dd class="col-sm-9"><p>{{ item.description[0]|striptags|u.truncate(400, '...', false) }}</p></dd>
+                    <dt class="col-sm-3">Description</dt><dd class="col-sm-9"><p>{{ item.description[0]|striptags|u.truncate(400, '...', false) }}</p></dd>
 
-             {% if item.subject_domain is defined and item.subject_domain[0] %}
-               <dt class="col-sm-3">Subject</dt><dd class="col-sm-9">{% for subject in item.subject_domain %} 
-                 <div class="multiple-item-list">{{ subject }}</div>
-               {% endfor %}</dd>
-             {% endif %}
+                    {% if item.subject_domain is defined and item.subject_domain[0] %}
+                      <dt class="col-sm-3">Subject</dt><dd class="col-sm-9">
+                        {% for subject in item.subject_domain %}
+                          <div class="multiple-item-list">{{ subject }}</div>
+                        {% endfor %}
+                      </dd>
+                    {% endif %}
 
+                    {% if item.dataset_start_date is defined and (item.dataset_start_date|length) and item.dataset_end_date is defined and (item.dataset_end_date|length) and item.dataset_start_date == item.dataset_end_date %}
+                      <dt class="col-sm-3">Timeframe</dt>
+                      <dd class="col-sm-9">{{ item.dataset_start_date }}</dd>
+                    {% elseif tem.dataset_start_date is defined and (item.dataset_start_date|length) and item.dataset_end_date is defined and (item.dataset_end_date|length) %}
+                      <dt class="col-sm-3">Timeframe</dt>
+                      <dd class="col-sm-9">{{ item.dataset_start_date }} - {{ item.dataset_end_date }}</dd>
+                    {% endif %}
 
-							{% if item.dataset_start_date is defined and item.dataset_start_date|length and item.dataset_end_date is defined and item.dataset_end_date|length and item.dataset_start_date == item.dataset_end_date %}
-							<dt class="col-sm-3">Timeframe</dt>
-							 <dd class="col-sm-9">{{ item.dataset_start_date }}</dd>
-							{% elseif tem.dataset_start_date is defined and item.dataset_start_date|length and item.dataset_end_date is defined and item.dataset_end_date|length %}
-							<dt class="col-sm-3">Timeframe</dt>
-							 <dd class="col-sm-9">{{ item.dataset_start_date }} - {{ item.dataset_end_date }}</dd>
-							{% endif %} 
+                    {% if item.access_restrictions is defined and item.access_restrictions[0] %}
+                      <dt class="col-sm-3">Access Rights</dt><dd class="col-sm-9">
+                        {% for restrict in item.access_restrictions %}
+                          <div class="multiple-item-list">{{ restrict }}</div>
+                        {% endfor %}
+                      </dd>
+                    {% endif %}
 
-
-             {% if item.access_restrictions is defined and item.access_restrictions[0] %}
-             <dt class="col-sm-3">Access Rights</dt><dd class="col-sm-9">{% for restrict in item.access_restrictions %} <div class="multiple-item-list">{{ restrict }}</div>{% endfor %} </dd>
-             {% endif %}
-
-             {% if item.local_experts is defined and item.local_experts[0] %}
-             <dt class="col-sm-3">{{ local_expert_display }}</dt><dd class="col-sm-9">{% for index,expert in item.local_experts %}
-               <div class="multiple-item-list">
-                 {% if item.local_expert_biosketch[index] is defined %}
-                   <a href="{{ item.local_expert_biosketch[index] }}">{{ expert }}</a>
-                 {% else %}
-                   {{ expert }}
-                 {% endif %}
-                 </div>
-                 {% endfor %}
-
-             </dd>
-             {% endif %}
-
-            </dl>
-</li>
-{% endfor %}
-<div id="pagerContainer">
-{% if currentSearch.page > 1 %}
-  <button id="prevPage-button" type="button" class="prevPage btn btn-info btn-sm">
-    Previous Page
-  </button>
-{% endif %}
-{% if (currentSearch.page == 0 and currentSearch.resultsPP < results.numResults) or  
-      ((currentSearch.page * currentSearch.resultsPP) < results.numResults) %}
-  <button id="nextPage-button" type="button" class="nextPage btn btn-info btn-sm">
-    Next Page
-  </button>
-{% endif %}
-</div>    
-</div>
-</div>
-</div>
-</div>
-</div>
+                    {% if item.local_experts is defined and item.local_experts[0] %}
+                      <dt class="col-sm-3">{{ local_expert_display }}</dt><dd class="col-sm-9">
+                        {% for index, expert in item.local_experts %}
+                          <div class="multiple-item-list">
+                            {% if item.local_expert_biosketch[index] is defined %}
+                              <a href="{{ item.local_expert_biosketch[index] }}">{{ expert }}</a>
+                            {% else %}
+                              {{ expert }}
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                      </dd>
+                    {% endif %}
+                  </dl>
+                </li>
+              {% endfor %}
+            </ul>
+            <div id="pagerContainer">
+              {% if currentSearch.page > 1 %}
+                <button id="prevPage-button" type="button" class="prevPage btn btn-info btn-sm">Previous Page</button>
+              {% endif %}
+              {% if (currentSearch.page == 0 and currentSearch.resultsPP < results.numResults) or currentSearch.page * currentSearch.resultsPP < results.numResults %}
+                <button id="nextPage-button" type="button" class="nextPage btn btn-info btn-sm">Next Page</button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -7,6 +7,28 @@ $navbar-dark-active-color: white;
 $nav-tabs-link-active-bg: white;
 $nav-tabs-border-radius: 2px 2px 0px 0px;
 $nav-tabs-link-hover-border-color: none;
+
+/* MSK Theme 2025 Variables */
+$font-family-sans-serif: 'MSK Sans Web', 'Helvetica Neue', helvetica, arial, sans-serif;
+$light: white;
+$link-color: #064785;
+$msk-global__link-color: #002569;
+$msk-global__text-color: #272524;
+$bs-nav-link-color: #002569;
+$bs-navbar-color: #002569;
+$bs-btn-bg: #0073e0;
+$nav-menu-bg-color: #fbf9f7;
+$search-facet-color: #296896;
+$search-facet-link-color: #000000;
+$msk-foundation-teal: #78e2da;
+$msk-light-blue: #c3e2ff;
+
+
+$msk-site-navigation__item-border-color: transparent;
+
+
+
+
 //$navbar-light-hover-color:
 
 @import "~bootstrap/scss/bootstrap";
@@ -15,6 +37,7 @@ $nav-tabs-link-hover-border-color: none;
 // custom css/scss
 html {
   -ms-overflow-style: scrollbar;
+  font-size: 62.5%;
 }
 
 .page-wrapper {
@@ -27,33 +50,248 @@ html {
 }
 
 body {
-  font-family: 'Lato', 'Helvetica', 'Arial', 'Verdana', 'sans-serif';
-  font-size: 14px;
+  // font-family: 'Lato', 'Helvetica', 'Arial', 'Verdana', 'sans-serif';
+  font-family: $font-family-sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.page-title {
+  font-size: 3rem;
+  color: #002569;
+  padding-bottom: 1em;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+li.dataset-summary h4 {
+  margin-bottom: 0;
+  padding-bottom: 1em;
 }
 
 /* Header */
-#page-header {
-  color: white;
-  background-color: #1c75cd;
-  height: 100%;
-  //padding: 1rem;
-  padding: 1em 1em 2em 1em;
+/* Custom styles for the banner */
+.site-banner {
+  background-color: #fff;
+  /* Light background */
+  padding-top: 15px;
+  padding-bottom: 5px;
+  border-bottom: 3px solid #002569;
 }
 
-#logo-container {
-  height: 70px;
+.banner-logo {
+  max-height: 58px;
+  /* Limit logo height */
+  margin-right: 15px;
+  /* Space between logo and title */
+  vertical-align: middle;
+  /* Align logo vertically with text */
+  /* min-width: 270px; */
 }
 
-#logo {
-  height: 5em;
+.site-title {
+  color: #002569;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.2;
+  /* font-size: 1.8rem;
+            font-weight: bold; */
+  /* color: #343a40; */
+  /*margin-bottom: 0; */
+  /* Remove default paragraph margin */
+  display: inline-block;
+  /* Allows text to align with floated logo */
+  vertical-align: middle;
+}
+
+.site-title:before {
+  border-left: 1px solid #272524;
+  content: "";
+  margin-top: 1.4rem;
+  padding-left: 1.6rem;
+}
+
+.banner-nav .nav-link {
+  color: #007bff;
+  /* Bootstrap primary blue for links */
+  font-weight: 500;
+  padding: 10px 15px;
+  /* Standard Bootstrap 3 nav-link padding */
+  display: block;
+  /* Ensure links take full width in list items */
+}
+
+.banner-nav .nav-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/*
+         * Bootstrap 3 specific adjustments for layout.
+         * Using floats and text-align for alignment instead of flexbox.
+         */
+.site-branding {
+  /* On medium and larger screens, this will be left-aligned by default due to col-md-6 */
+}
+
+.banner-navigation {
+  /* On medium and larger screens, push navigation to the right */
+  text-align: right;
+}
+
+.banner-navigation .nav {
+  margin: 0;
+  /* Remove default ul margin */
+  padding: 0;
+  /* Remove default ul padding */
+  list-style: none;
+  /* Remove list bullets */
+  display: inline-block;
+  /* Allow the ul to center itself on small screens */
+  float: right;
+  /* Push nav items to the right within their container on larger screens */
   margin-top: 1em;
-  margin-left: 1em;
 }
 
-#msk-logo {
-  height: 4em;
-  //margin-top: 2.5em;
-  margin-right: 2.5em;
+.banner-navigation .nav>li {
+  display: inline-block;
+  /* Make list items horizontal */
+  /*margin-left: 15px;*/
+  /* Spacing between links */
+  font-size: 1.4rem;
+  color: #002569;
+  letter-spacing: 0;
+  font-weight: 300;
+  height: 100%;
+  min-height: 45px;
+  text-transform: none;
+
+}
+
+.banner-navigation .nav>li>a {
+  display: inline-flex;
+  vertical-align: bottom;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: #002569;
+  display: inline;
+}
+
+/*icons*/
+.mskchaticon,
+.mskhelpicon,
+.mskemailicon,
+.mskpersonicon {
+  align-items: center;
+  display: inline-flex;
+}
+
+.mskchaticon:before {
+  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/chat.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 2rem;
+  margin-right: 5px;
+  width: 2rem;
+}
+
+.mskhelpicon:before {
+  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/help.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 2.5rem;
+  margin-right: 5px;
+  width: 2.5rem;
+}
+
+.mskemailicon:before {
+  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/email.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 2rem;
+  margin-right: 5px;
+  width: 2rem;
+}
+
+.mskpersonicon:before {
+  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/person.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 2rem;
+  margin-right: 5px;
+  width: 2rem;
+}
+
+/* Adjustments for smaller screens (less than md breakpoint: 992px in B3) */
+@media (max-width: 991.98px) {
+
+  /* Bootstrap 3 'md' breakpoint is 992px */
+  .site-branding,
+  .banner-navigation {
+    text-align: center;
+    /* Center content when stacked */
+    margin-bottom: 15px;
+    /* Add some space between stacked sections */
+  }
+
+  .site-branding .d-flex-like {
+    /* Custom class to mimic d-flex alignment */
+    display: block;
+    /* Make it a block element to center its content */
+  }
+
+  .site-branding .banner-logo,
+  .site-branding .site-title {
+    display: inline-block;
+    /* Keep logo and title inline for centering */
+    float: none;
+    /* Remove float for centering */
+  }
+
+  .banner-navigation .nav {
+    float: none;
+    /* Remove float for centering */
+    width: 100%;
+    /* Take full width */
+    text-align: center;
+    /* Center the links within the nav */
+  }
+
+  .banner-navigation .nav>li {
+    margin-left: 5px;
+    /* Reduce spacing for smaller screens */
+    margin-right: 5px;
+  }
+}
+
+
+/* LibChat Widget/Button styling */
+#libchat_8403b9d38f84123c0b0cf39dd565e719c114529150410740433530c2ea22916f button {
+  display: inline-block;
+  padding: 0;
+  font-weight: 300;
+  margin-bottom: 0;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #002569;
 }
 
 .global-links {
@@ -70,24 +308,11 @@ body {
   margin-right: 15px;
 }
 
-/* 
-// Not using Nav Tabs
-.nav-tabs>li:not(.active) {
-  background: #1c75cd;
-}
 
-.nav-tabs {
-  border-bottom: none;
+#sort-and-results {
+  font-size: .8em;
+  padding-right: 5em;
 }
-.nav-tabs li {
-  margin-bottom: 0px;
-}
-.nav-tabs>li>a {
-  //color: white;
-  padding: 5px 15px;
-  height: 32px;
-}
-*/
 
 .nav-tabs>li.privileged-nav-link>a {
   color: rgb(236, 161, 108);
@@ -132,7 +357,30 @@ body {
 
 #keyword-search-input {
   max-width: 500px;
-  min-width: 280px;
+  min-width: 245px;
+  font-size: 1.8rem;
+  height: 4rem;
+
+
+  @media (min-width: 576px) {
+    width: 280px; // Width on small screens and up: 75%
+  }
+
+  @media (min-width: 768px) {
+    width: 280px; // Width on medium screens and up: 50%
+  }
+
+  @media (min-width: 992px) {
+    width: 350px; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1200px) {
+    width: 400px; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1400px) {
+    width: 400px; // Width on large screens and up: 25%
+  }
 }
 
 /* Search Box */
@@ -146,7 +394,46 @@ form.input-group {
   margin-left: 10px;
   // margin-bottom: 5px;
   margin-top: .5em;
+  color: $bs-btn-bg;
   font-weight: bold;
+}
+
+.search-help-circle {
+  vertical-align: top;
+  color: #0073e0;
+  cursor: help;
+  font-size: 2rem;
+
+}
+
+.btn-primary {
+  background-color: #0073e0;
+  border-color: #0073e0;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.btn-secondary {
+  background-color: #308229;
+  font-size: 1.6rem;
+  border-color: #008937
+}
+
+.btn-secondary:hover {
+  background-color: #5dcc6f;
+  font-size: 1.6rem;
+  border-color: #e4ffe3;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #002569;
+  font-size: 1.7rem !important;
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.6rem;
+  font-weight: 500;
 }
 
 .modal-body {
@@ -170,10 +457,54 @@ form.input-group {
 }
 
 /* Facets */
+// #facets-pane {
+//   //margin-left: 1em;
+//   padding-left: 2em;
+//   max-width: none;
+// }
+/* Facet header - Filter By */
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: 350;
+}
+
 #facets-pane {
-  //margin-left: 1em;
   padding-left: 2em;
-  max-width: none;
+  max-width: none; // Default width: 100%
+
+  @media (min-width: 576px) {}
+
+  @media (min-width: 768px) {}
+
+  @media (min-width: 992px) {}
+
+  @media (min-width: 1200px) {
+    margin-top: -4em;
+  }
+
+  // @media (min-width: 1400px) {}
+}
+
+
+.facetBreadcrumb {
+  color: black;
+  background-color: #78e2da;
+  font-size: 1.4rem;
+}
+
+.keyword-breadcrumb {
+  color: black;
+  background-color: #70bcff;
+  font-size: 1.4rem;
+}
+
+.btn-outline-secondary {
+  border-color: #002569;
+}
+
+#keyword-search-form {
+  padding-top: 1em;
+  padding-bottom: 1em
 }
 
 /* Footer */
@@ -193,35 +524,119 @@ footer,
   clear: both;
 }
 
-#footer {
-  position: absolute;
-  margin-top: 0px;
+// Footer
+.page__footer {
+  background-color: $msk-global__link-color;
+  color: $light;
+  padding: 3rem 0;
 }
 
-div.footer-wrapper {
+.footer-top-section {
+  border-bottom: 1px solid $light;
+  padding-bottom: 2em;
+}
+
+.footer-bottom-section {
+  padding-top: 0em;
+}
+
+.footer-col h2 {
+  font-weight: 400;
+}
+
+.footer-link-list {
+  color: $light;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 1em;
+  font-size: 1.4rem;
+}
+
+.footer-link-list li {
+  margin-bottom: .3em;
+}
+
+.footer-link-list li a {
+  color: $light;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+.footer-link-list li a:hover {
+  text-decoration: underline;
+}
+
+.footer-col {
+  width: 100%; // Default width: 100%
+  padding-top: 1em;
+
+  @media (min-width: 576px) {
+    width: 100%; // Width on small screens and up: 75%
+  }
+
+  @media (min-width: 768px) {
+    width: 25%; // Width on medium screens and up: 50%
+  }
+
+  @media (min-width: 992px) {
+    width: 25%; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1200px) {
+    width: 25%; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1400px) {
+    width: 25%; // Width on large screens and up: 25%
+  }
+}
+
+.block--msk-radix-mskfooter {
+  padding-left: 1em; // Default width: 100%
+
+  @media (min-width: 576px) {
+    padding-left: 0em; // Width on small screens and up: 75%
+  }
+
+  @media (min-width: 768px) {
+    padding-left: 0em; // Width on medium screens and up: 50%
+  }
+
+  @media (min-width: 992px) {
+    padding-left: 0em; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1200px) {
+    padding-left: 0em; // Width on large screens and up: 25%
+  }
+
+  @media (min-width: 1400px) {
+    padding-left: 0em; // Width on large screens and up: 25%
+  }
+}
+
+.footer-separator {
+  border-top: 1px solid $light;
+  margin-top: 1em;
+}
+
+.footer-logo {
+  width: 250px;
+  margin-top: 1em;
+}
+
+.copyright-link {
   color: white;
-  line-height: 30px;
-  text-align: center;
-  padding: 2px 0 2px 0;
-  height: auto;
-  /* Another override to make footer content fully display on mobile devices */
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 1.4rem;
 }
 
-div.footer-wrapper a {
-  color: white;
-  line-height: 30px;
-  text-align: center;
+.footer-icon {
+  width: 25px;
+  padding-right: .5em;
 }
 
-#msk-social-footer img {
-  width: 30px;
-  margin-top: -3px;
-  padding-left: 4px;
-}
-
-.insta_color {
-  width: 30px;
-}
 
 /* Detailed Record View */
 .msk-author {}
@@ -261,7 +676,8 @@ div.footer-wrapper a {
 
 /* Facets */
 .facet-header {
-  color: black;
+  color: $msk-global__link-color;
+  font-size: 2rem;
 }
 
 .show_more {
@@ -284,7 +700,7 @@ div.footer-wrapper a {
 
 .about-page-column {
   padding-top: 2em;
-  height: 1900px;
+  // height: 1900px;
 }
 
 .about-page-section {
@@ -324,4 +740,34 @@ div.footer-wrapper a {
 
 #contact_form_email .checker {
   display: none;
+}
+
+
+.popover {
+  max-width: 400px;
+  font-size: 1em;
+}
+
+.popover-header {
+  font-weight: bold;
+  font-size: 1em;
+  background-color: $msk-light-blue;
+}
+
+
+.nextPage {
+  background-color: $msk-foundation-teal;
+  color: $msk-global__text-color;
+  font-size: 1.6rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $bs-nav-link-color;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: $bs-nav-link-color;
+  text-decoration: underline;
 }
