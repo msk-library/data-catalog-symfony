@@ -113,6 +113,11 @@ li.dataset-summary h4 {
   padding-left: 1.6rem;
 }
 
+.site-branding a:hover {
+  text-decoration: none;
+  /* Remove underline on hover */
+}
+
 .banner-nav .nav-link {
   color: #007bff;
   /* Bootstrap primary blue for links */
