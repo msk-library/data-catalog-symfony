@@ -426,16 +426,23 @@ form.input-group {
   font-size: 1.8rem;
 }
 
+.btn-primary:hover {
+  background-color: #002569;
+  border-color: #002569;
+  color: white;
+  font-size: 1.8rem;
+}
+
 .btn-secondary {
-  background-color: #308229;
+  background-color: #0073e0;
   font-size: 1.6rem;
-  border-color: #008937
+  border-color: #0073e0;
 }
 
 .btn-secondary:hover {
-  background-color: #5dcc6f;
+  background-color: #002569;
   font-size: 1.6rem;
-  border-color: #e4ffe3;
+  border-color: #002569;
 }
 
 .navbar-default .navbar-nav>li>a {
