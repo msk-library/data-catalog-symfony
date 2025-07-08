@@ -107,10 +107,17 @@ li.dataset-summary h4 {
 }
 
 .site-title:before {
-  border-left: 1px solid #272524;
-  content: "";
-  margin-top: 1.4rem;
-  padding-left: 1.6rem;
+  max-width: 500px;
+  min-width: 245px;
+  font-size: 1.8rem;
+  height: 4rem;
+
+  @media (min-width: 768px) {
+    border-left: 1px solid #272524;
+    content: "";
+    margin-top: 1.4rem;
+    padding-left: 1.6rem;
+  }
 }
 
 .site-header-home-link:hover,
