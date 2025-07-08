@@ -74,18 +74,20 @@
           <div class="container">
             <div class="row">
               <!-- Left Column: Logo and Site Title -->
-              <div class="col-md-6 site-branding">
-                <!-- Using a custom class 'd-flex-like' to apply styles for mimicking d-flex -->
-                <a href="/">
-                  <div class="d-flex-like">
+              <div class="col-lg-6 site-branding">
+                  <div class="d-flex flex-column flex-md-row align-items-center">
+                  <a class="msk-logo-link" href="https://mskcc.org" target="_blank">
                     <img src="https://library.mskcc.org/themes/custom/msk_radix/build/assets/images/logo.svg" alt="MSK Logo" class="banner-logo" />
+                  </a>
+                  <a class="site-title-link" href="/">
                     <h1 class="site-title">Data Catalog</h1>
+                  </a>
                   </div>
-                </a>
+
               </div>
 
               <!-- Right Column: Navigation Links -->
-              <div class="col-md-6 banner-navigation">
+              <div class="col-lg-6 banner-navigation">
                 <!--                         
                     In Bootstrap 3, a simple `nav` wrapper around `ul.nav` is sufficient.
                     `navbar-expand-md` and `p-0` are Bootstrap 4/5 specific.
@@ -110,7 +112,7 @@
               </div>
             </div>
           </div>
-          <div class="container">
+          <div class="container mt-2">
             <!-- Bootstrap 4 Navbar -->
             <nav class="navbar navbar-light navbar-expand-lg bg-light mx-4">
               <!-- Toggler button for small screens -->
