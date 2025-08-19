@@ -1,8 +1,10 @@
 {
     "devDependencies": {
+        "@babel/core": "^7.28.3",
+        "@babel/preset-env": "^7.28.3",
         "@popperjs/core": "^2.11.6",
         "@symfony/stimulus-bridge": "^2.0.0",
-        "@symfony/webpack-encore": "^1.0.0",
+        "@symfony/webpack-encore": "^5.0.0",
         "bootstrap": "4.6.2",
         "core-js": "^3.0.0",
         "jquery": "^3.6.1",
@@ -13,6 +15,8 @@
         "sass-loader": "^11.0.0",
         "select2": "^4.1.0-rc.0",
         "stimulus": "^2.0.0",
+        "webpack": "^5.101.3",
+        "webpack-cli": "^6.0.1",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
