@@ -131,6 +131,12 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/contact-us">Contact</a>
                   </li>
+                  {% if is_granted('ROLE_USER') %}
+                      <li class="nav-item privileged-nav-link admin-page-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('admin_panel') }}">Admin</a></li>
+                  {% endif %}
+                  {% if is_granted('ROLE_USER') %}
+                      <li class="nav-item privileged-nav-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('app_logout') }}">Logout</a></li>
+                  {% endif %}
                 </ul>
               </div>
             </nav>
