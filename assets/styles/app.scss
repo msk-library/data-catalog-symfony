@@ -198,7 +198,8 @@ li.dataset-summary h4 {
 .mskchaticon,
 .mskhelpicon,
 .mskemailicon,
-.mskpersonicon {
+.mskpersonicon,
+.calendarmonthicon {
   align-items: center;
   display: inline-flex;
 }
@@ -227,6 +228,17 @@ li.dataset-summary h4 {
 
 .mskemailicon:before {
   background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/email.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 2rem;
+  margin-right: 5px;
+  width: 2rem;
+}
+
+.calendarmonthicon:before {
+  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/calendar_month.svg);
   background-repeat: no-repeat;
   background-size: contain;
   content: "";
