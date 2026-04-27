@@ -80,7 +80,7 @@ var trackOutboundLink = function(url, label) {
 								{% set authorClass = authorClass ~ ' corresponding-author' %}
 							{% endif %}
 
-							{% if popoverContent %}<a tabindex="0" class="author-name" role="button" data-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{% endif %}<span class="{{ authorClass }} ">{{ author.getPerson.getFullName }}</span><span class="author-note">{{ authorNote }}</span>{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
+							{% if popoverContent %}<a tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{% endif %}<span class="{{ authorClass }} ">{{ author.getPerson.getFullName }}</span><span class="author-note">{{ authorNote }}</span>{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
 
 						{% endfor %}
 						
@@ -101,7 +101,7 @@ var trackOutboundLink = function(url, label) {
       {% else %}
         {% set popoverContent = "<p><a href='/search?keyword=publishers:#{ publisher.publisherName }' target='_blank'>View other datasets</a></p>" %}
       {% endif %}
-        {% if popoverContent %}<a tabindex="0" class="publisher-link" role="button" data-toggle="popover" title="{{ publisher.publisherName }}" data-content="{{ popoverContent }}"> {% endif %}{{ publisher.publisherName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
+        {% if popoverContent %}<a tabindex="0" class="publisher-link" role="button" data-bs-toggle="popover" title="{{ publisher.publisherName }}" data-content="{{ popoverContent }}"> {% endif %}{{ publisher.publisherName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
        {% endfor %}
 
       {% endif %}
@@ -119,7 +119,7 @@ var trackOutboundLink = function(url, label) {
       {% else %}
         {% set popoverContent = "<p><a href='/search?keyword=core_facilities:#{ coreFacility.coreFacilityName }' target='_blank'>View other datasets</a></p>" %}
       {% endif %}
-        {% if popoverContent %}<a tabindex="0" class="publisher-link" role="button" data-toggle="popover" title="{{ coreFacility.coreFacilityName }}" data-content="{{ popoverContent }}"> {% endif %}{{ coreFacility.coreFacilityName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
+        {% if popoverContent %}<a tabindex="0" class="publisher-link" role="button" data-bs-toggle="popover" title="{{ coreFacility.coreFacilityName }}" data-content="{{ popoverContent }}"> {% endif %}{{ coreFacility.coreFacilityName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
        {% endfor %}
 
       {% endif %}
@@ -159,7 +159,7 @@ var trackOutboundLink = function(url, label) {
              </div>
            {% endfor %}
          </div>
-         <a class="btn btn-sm btn-link collapsed-toggle" data-toggle="collapse" href="#collapsed-areas" aria-expanded="false" aria-controls="collapsed-areas">
+         <a class="btn btn-sm btn-link collapsed-toggle" data-bs-toggle="collapse" href="#collapsed-areas" aria-expanded="false" aria-controls="collapsed-areas">
             See all...
          </a>
         {% else %}
@@ -229,7 +229,7 @@ var trackOutboundLink = function(url, label) {
          <dd><span class="oncotree-list">
           {% for oncoTree in dataset.getOncoTrees %}
             {% set popoverContent = "#{ oncoTree.getOncoTreeMetadata }" %}
-            {% if popoverContent %}<a tabindex="0" href="/search?keyword=onco_trees_fq:{{ oncoTree.getDisplayName }}" class="oncotree-link" role="button" data-toggle="popover" title="{{ oncoTree.oncoTreeName }}" data-content="{{ popoverContent }}"> {% endif %}{{ oncoTree.oncoTreeName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}<br /> {% endif %}
+            {% if popoverContent %}<a tabindex="0" href="/search?keyword=onco_trees_fq:{{ oncoTree.getDisplayName }}" class="oncotree-link" role="button" data-bs-toggle="popover" title="{{ oncoTree.oncoTreeName }}" data-content="{{ popoverContent }}"> {% endif %}{{ oncoTree.oncoTreeName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}<br /> {% endif %}
           {% endfor %}
           </span></dd>
         {% endif %}

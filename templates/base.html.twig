@@ -68,7 +68,7 @@
   </head>
   <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLXCGKK"
+  <noscript><iframe sandbox="allow-same-origin allow-scripts" src="https://www.googletagmanager.com/ns.html?id=GTM-TLXCGKK"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
     <div class="container-fluid">
@@ -117,17 +117,17 @@
             </div>
           </div>
           <div class="container mt-2">
-            <!-- Bootstrap 4 Navbar -->
+            <!-- Bootstrap 5 Navbar -->
             <nav class="navbar navbar-light navbar-expand-lg bg-light mx-4">
               <!-- Toggler button for small screens -->
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
               <!-- Navbar content that collapses -->
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <!-- Navigation Links -->
                 <ul class="navbar-nav d-flex w-100 justify-content-between">
                   <li class="nav-item">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home <span class="visually-hidden">(current)</span></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
@@ -150,7 +150,7 @@
           <form id="keyword-search-form" class="form-inline my-2 my-lg-0">
             <input id="keyword-search-input" class="form-control mr-sm-2" type="search" placeholder="Find datasets used in research at MSK " aria-label="Search" />
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-            <span class="search-tips-link"><a data-toggle="modal" role="button" href="#searchTips"><i class="fas fa-info-circle search-help-circle"></i></a></span>
+            <span class="search-tips-link"><a data-bs-toggle="modal" role="button" href="#searchTips"><i class="fas fa-info-circle search-help-circle"></i></a></span>
           </form>
         </div>
         <!-- Modal -->
@@ -160,7 +160,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title">Search Tips</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                   <ul>
@@ -180,7 +180,7 @@
                   </ul>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               </div>
             </div>
           </div>

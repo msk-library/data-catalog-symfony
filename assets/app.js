@@ -11,7 +11,7 @@ import './styles/app.scss';
 // start the Stimulus application
 //import './bootstrap';
 
-// require jQuery normally - needed by Bootstrap 4
+// require jQuery normally - also needed by Bootstrap 5 for compatibility
 const $ = require('jquery');
 
 /* create global $ and jQuery variables - enable if you have js not handled by WebPack (in templates).
@@ -35,7 +35,7 @@ require('./libchat.js');
 //require('./add_form.js'); // select2 has to be loaded before this
 //require('./respond.js');
 
-//Initialize boostrap popovers on all pages
-$(document).ready(function() {
-  $('[data-toggle="popover"]').popover();
+//Initialize bootstrap popovers on all pages (Bootstrap 5)
+$(document).ready(function () {
+  $('[data-bs-toggle="popover"]').popover();
 });
