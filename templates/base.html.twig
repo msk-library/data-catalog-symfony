@@ -1,4 +1,5 @@
 {% set route_name = app.request.attributes.get('_route') %}
+{% if show_template_names is defined and show_template_names %}<!-- BEGIN: base.html.twig -->{% endif %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -71,7 +72,7 @@
   <noscript><iframe sandbox="allow-same-origin allow-scripts" src="https://www.googletagmanager.com/ns.html?id=GTM-TLXCGKK"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-    <div class="container-fluid">
+    <main class="container-fluid">
       <a href="#maincontent" class="skip">Skip to content</a>
       <div class="page-wrapper">
         <header class="site-banner">
@@ -147,9 +148,9 @@
           </div>
         </header>
         <div class="container d-flex justify-content-center align-items-center">
-          <form id="keyword-search-form" class="form-inline my-2 my-lg-0">
+          <form id="keyword-search-form" class="form-inline d-flex justify-content-centermy-2 my-lg-0">
             <input id="keyword-search-input" class="form-control mr-sm-2" type="search" placeholder="Find datasets used in research at MSK " aria-label="Search" />
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-primary" type="submit">Search</button>
             <span class="search-tips-link"><a data-bs-toggle="modal" role="button" href="#searchTips"><i class="fas fa-info-circle search-help-circle"></i></a></span>
           </form>
         </div>
@@ -201,6 +202,7 @@
         {# Use the file 'institution/footer.html.twig' for your institution-specific footer content #}
         {% include ['institution/footer.html.twig', 'footer.html.twig'] %}
       </footer>
-    </div> <!-- container-fluid -->
+    </main> <!-- container-fluid -->
   </body>
 </html>
+{% if show_template_names is defined and show_template_names %}<!-- END: base.html.twig -->{% endif %}
