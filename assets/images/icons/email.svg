@@ -1,0 +1,12 @@
+
+<svg width="20px" height="16px" viewBox="0 0 20 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Home-White" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="global-nav-email-icon" transform="translate(-842.1017, -24.2016)" fill="#064785" fill-rule="nonzero">
+            <g id="Email-Global" transform="translate(842.1017, 24)">
+                <g id="Email" transform="translate(0, 0.2016)">
+                    <path d="M17,0 L3,0 C1.34314575,0 0,1.34314575 0,3 L0,13 C0,14.6568542 1.34314575,16 3,16 L17,16 C18.6568542,16 20,14.6568542 20,13 L20,3 C20,1.34314575 18.6568542,0 17,0 L17,0 Z M16.33,2 L10,6.75 L3.67,2 L16.33,2 Z M17,14 L3,14 C2.44771525,14 2,13.5522847 2,13 L2,3.25 L9.4,8.8 C9.57309617,8.92982213 9.78362979,9 10,9 C10.2163702,9 10.4269038,8.92982213 10.6,8.8 L18,3.25 L18,13 C18,13.5522847 17.5522847,14 17,14 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
