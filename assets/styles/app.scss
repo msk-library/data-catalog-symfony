@@ -34,6 +34,9 @@ $msk-site-navigation__item-border-color: transparent;
 @import "~bootstrap/scss/bootstrap";
 @import "~select2";
 
+// Component imports
+@import "components/header";
+
 // custom css/scss
 html {
   -ms-overflow-style: scrollbar;
@@ -194,70 +197,6 @@ li.dataset-summary h4 {
   display: inline;
 }
 
-/*icons*/
-.mskchaticon,
-.mskhelpicon,
-.mskemailicon,
-.mskpersonicon,
-.calendarmonthicon {
-  align-items: center;
-  display: inline-flex;
-}
-
-.mskchaticon:before {
-  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/chat.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: inline-block;
-  height: 2rem;
-  margin-right: 5px;
-  width: 2rem;
-}
-
-.mskhelpicon:before {
-  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/help.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: inline-block;
-  height: 2.5rem;
-  margin-right: 5px;
-  width: 2.5rem;
-}
-
-.mskemailicon:before {
-  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/email.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: inline-block;
-  height: 2rem;
-  margin-right: 5px;
-  width: 2rem;
-}
-
-.calendarmonthicon:before {
-  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/calendar_month.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: inline-block;
-  height: 2rem;
-  margin-right: 5px;
-  width: 2rem;
-}
-
-.mskpersonicon:before {
-  background-image: url(https://library.mskcc.org/themes/custom/msk_radix/build/assets/icons/person.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: inline-block;
-  height: 2rem;
-  margin-right: 5px;
-  width: 2rem;
-}
 
 /* Adjustments for smaller screens (less than md breakpoint: 992px in B3) */
 @media (max-width: 991.98px) {
@@ -854,4 +793,82 @@ h3.footer-col-heading {
 
 .form-check-input {
   position: relative;
+}
+
+/* New Header */
+.header-logo {
+  width: 270px;
+}
+
+.site-title:before {
+  height: 0px;
+  border-left: none;
+  padding-left: 0;
+  margin-top: 0;
+  position: absolute;
+
+  @media (min-width: 576px) {
+    height: 0px;
+    border-left: none;
+    padding-left: 0;
+    margin-top: 0;
+
+  }
+
+  @media (min-width: 768px) {
+    content: "";
+    // display: block;
+    width: 0;
+    height: 25px;
+    border-left: 1px solid #272524;
+    padding-left: 1.6rem;
+    // margin-top:.8rem;
+
+  }
+
+  @media (min-width: 992px) {
+    content: "";
+    // display: block;
+    width: 0;
+    height: 25px;
+    border-left: 1px solid #272524;
+    padding-left: 1.6rem;
+    margin-top: 0rem;
+  }
+
+  @media (min-width: 1200px) {
+    content: "";
+    // display: block;
+    width: 0;
+    height: 25px;
+    border-left: 1px solid #272524;
+    padding-left: 1.6rem;
+    // margin-top:.8rem;
+  }
+
+  @media (min-width: 1400px) {
+    content: "";
+    // display: block;
+    width: 0;
+    height: 25px;
+    border-left: 1px solid #272524;
+    padding-left: 1.6rem;
+    // margin-top:.8rem;
+  }
+}
+
+.msk-global-nav {
+  justify-content: space-evenly;
+  margin: 0;
+}
+
+.navbar>.container.brand-nav-container {
+  justify-content: space-around;
+}
+
+.nav-item a {
+  color: $msk-global__link-color;
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-size: 1.4rem;
 }
