@@ -260,25 +260,6 @@ a.skip:hover {
   float: right;
 }
 
-#facets-pane {
-  padding: .5em;
-  border-right: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-  max-width: 300px;
-}
-
-.facet-section {
-  padding: .5em;
-}
-
-.facetBreadcrumb {
-  margin: .25em;
-}
-
-.facetBreadcrumb:hover .facetRemove {
-  color: white;
-  font-weight: bold;
-}
 
 #internal-only-filter-container {
   padding-top: 1.5em;
@@ -330,9 +311,9 @@ li.dataset-summary h4 {
   border-bottom: 1px solid lightgray;
 }
 
-#results-list dt {
+/* #results-list dt {
   text-align: right;
-}
+} */
 
 #results-list dd {
   padding-left: 1.5em;
@@ -357,14 +338,13 @@ li.facet-item {
 }
 
 
-li span.facet-name {
+/* li span.facet-name {
   float: left;
-}
+} */
 
-li span.facet-numresults {
-  float: right;
+/* li span.facet-numresults {
   color: rgb(121, 121, 121);
-}
+} */
 
 .search-box-description {
   color: gray;
@@ -590,12 +570,12 @@ legend.section-header {
   color: red;
 }
 
-#pager-wrapper {
+/* #pager-wrapper {
   text-align: right;
   font-size: .9em;
   float: right;
   clear: both;
-}
+} */
 
 #pagenum-input {
   border-radius: 3px;
@@ -638,18 +618,18 @@ legend.section-header {
   font-size: .9em;
 }
 
-#numresults-wrapper {
+/* #numresults-wrapper {
   float: right;
   clear: both;
   text-align: right;
   color: gray;
   font-size: .95em;
   margin-top: -5px;
-}
+} */
 
-#number-of-results {
+/* #number-of-results {
   font-size: 1.1em;
-}
+} */
 
 div[data-prototype] div[data-content] {
   padding: .25em;

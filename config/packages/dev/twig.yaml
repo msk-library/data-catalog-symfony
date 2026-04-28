@@ -1,0 +1,10 @@
+twig:
+    # Enable auto-reload for development
+    auto_reload: true
+    
+    # Enable debug mode
+    debug: true
+    
+    # Add template debugging globals - you can use these in templates
+    globals:
+        show_template_names: true

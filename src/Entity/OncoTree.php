@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,44 +33,45 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Table(name: 'onco_trees')]
 #[ORM\Entity(repositoryClass: \App\Repository\OncoTreeRepository::class)]
 #[UniqueEntity('onco_tree_code')]
-class OncoTree {
-#[ORM\Column(type: 'integer', name: 'onco_tree_id')]
-  #[ORM\Id]
-  #[ORM\GeneratedValue(strategy: 'AUTO')]
-  protected $id;
+class OncoTree
+{
+    #[ORM\Column(type: 'integer', name: 'onco_tree_id')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    protected $id;
 
-#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', unique: true)]
-  protected $onco_tree_code;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', unique: true)]
+    protected $onco_tree_code;
 
-#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', length: 255)]
-  protected $onco_tree_name;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Name cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', length: 255)]
+    protected $onco_tree_name;
 
-  #[ORM\Column(type: 'string', length: 512)]
-  protected $slug;
+    #[ORM\Column(type: 'string', length: 512)]
+    protected $slug;
 
-#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', length: 256, nullable: true)]
-  protected $onco_tree_main_type;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
+    protected $onco_tree_main_type;
 
-#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', length: 256, nullable: true)]
-  protected $onco_tree_tissue;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
+    protected $onco_tree_tissue;
 
- #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', length: 256, nullable: true)]
-  protected $onco_tree_parent;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
+    protected $onco_tree_parent;
 
- #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', length: 256, nullable: true)]
-  protected $onco_tree_nci;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
+    protected $onco_tree_nci;
 
-#[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', length: 256, nullable: true)]
-  protected $onco_tree_umls;
-  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'onco_trees')]
-  protected $datasets;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'URL cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
+    protected $onco_tree_umls;
+    #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'onco_trees')]
+    protected $datasets;
 
 
     /**
@@ -103,14 +105,15 @@ class OncoTree {
     }
 
 
-  /**
-   * Get name for display
-   *
-   * @return string
-   */
-  public function getDisplayName() {
-    return $this->onco_tree_name;
-  }
+    /**
+     * Get name for display
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->onco_tree_name;
+    }
 
     /**
      * Get id
@@ -145,7 +148,7 @@ class OncoTree {
         return $this->onco_tree_name;
     }
 
-        /**
+    /**
      * Set onco_tree_code
      *
      * @param string $oncoTreeCode
@@ -235,7 +238,7 @@ class OncoTree {
     public function getOncoTreeParent()
     {
         return $this->onco_tree_parent;
-    }  
+    }
 
     /**
      * Set onco_tree_nci
@@ -282,7 +285,7 @@ class OncoTree {
     {
         return $this->onco_tree_umls;
     }
-    
+
     /**
      * Constructor
      */
@@ -319,15 +322,16 @@ class OncoTree {
      *
      * @return string
      */
-    public function getOncoTreeMetadata() {
-      $html =  "<p><strong>Code:</strong> {$this->onco_tree_code}</p>";
-      $html .= "<p><strong>Main Type:</strong> {$this->onco_tree_main_type}</p>";
-      $html .= "<p><strong>Tissue:</strong> {$this->onco_tree_tissue}</p>";
-      $html .= "<p><strong>Parent:</strong> {$this->onco_tree_parent}</p>";
-      $html .= "<p><strong>NCI #:</strong> {$this->onco_tree_nci}</p>";
-      $html .= "<p><strong>UMLS #:</strong> {$this->onco_tree_umls}</p>";
-      $html .= "<p><a href='http://oncotree.mskcc.org' target='_blank'>More at OncoTree</a></p>";
-      return $html;
+    public function getOncoTreeMetadata()
+    {
+        $html =  "<p><strong>Code:</strong> " . htmlspecialchars($this->onco_tree_code, ENT_QUOTES, 'UTF-8') . "</p>";
+        $html .= "<p><strong>Main Type:</strong> " . htmlspecialchars($this->onco_tree_main_type, ENT_QUOTES, 'UTF-8') . "</p>";
+        $html .= "<p><strong>Tissue:</strong> " . htmlspecialchars($this->onco_tree_tissue, ENT_QUOTES, 'UTF-8') . "</p>";
+        $html .= "<p><strong>Parent:</strong> " . htmlspecialchars($this->onco_tree_parent, ENT_QUOTES, 'UTF-8') . "</p>";
+        $html .= "<p><strong>NCI #:</strong> " . htmlspecialchars($this->onco_tree_nci, ENT_QUOTES, 'UTF-8') . "</p>";
+        $html .= "<p><strong>UMLS #:</strong> " . htmlspecialchars($this->onco_tree_umls, ENT_QUOTES, 'UTF-8') . "</p>";
+        $html .= "<p><a href='http://oncotree.mskcc.org' target='_blank'>More at OncoTree</a></p>";
+        return $html;
     }
 
     /**
@@ -335,7 +339,8 @@ class OncoTree {
      *
      * @return array
      */
-    public function getAllProperties() {
-        return ['onco_tree_name'=>$this->onco_tree_name, 'onco_tree_code'=>$this->onco_tree_code, 'onco_tree_main_type'=>$this->onco_tree_main_type, 'onco_tree_tissue'=>$this->onco_tree_tissue, 'onco_tree_parent'=>$this->onco_tree_parent, 'onco_tree_nci'=>$this->onco_tree_nci, 'onco_tree_umls'=>$this->onco_tree_umls];
+    public function getAllProperties()
+    {
+        return ['onco_tree_name' => $this->onco_tree_name, 'onco_tree_code' => $this->onco_tree_code, 'onco_tree_main_type' => $this->onco_tree_main_type, 'onco_tree_tissue' => $this->onco_tree_tissue, 'onco_tree_parent' => $this->onco_tree_parent, 'onco_tree_nci' => $this->onco_tree_nci, 'onco_tree_umls' => $this->onco_tree_umls];
     }
 }

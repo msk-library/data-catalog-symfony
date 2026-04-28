@@ -1,0 +1,20 @@
+// Fonts Component 
+// MSK Sans Web font declarations
+
+@font-face {
+  font-family: 'MSK Sans Web';
+  src: url('../../fonts/MSKSans-Upright-VF-Web.woff2') format('woff2'),
+    url('../../fonts/MSKSans-Upright-VF-Web.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MSK Sans Web';
+  src: url('../../fonts/MSKSans-Italic-VF-Web.woff2') format('woff2'),
+    url('../../fonts/MSKSans-Italic-VF-Web.woff') format('woff');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
