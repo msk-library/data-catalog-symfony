@@ -96,10 +96,10 @@
     <a href="https://mskcc.libanswers.com/" target="_blank" class="mskhelpicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">Help</a>
   </li>
   <li class="nav-item">
-    <a href="/contact-us" class="mskemailicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">Contact</a>
+    <a href="/contact-us" class="mskemailicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">Contact Us</a>
   </li>
     <li class="nav-item">
-    <a href="/about" class="mskinfoicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">About</a>
+    <a href="/about" class="mskinfoicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">About the Data Catalog</a>
   </li>
 </ul>
       </div>
@@ -155,18 +155,9 @@
         <nav role="navigation" aria-label="Data Catalog navigation">
   <div id="app-nav-wrap" class="collapse navbar-collapse show">
     <ul id="navigation" class="d-flex flex-column flex-md-row justify-content-between w-100">
-      <li class="nav-item">
-        <a href="{{ path('homepage') }}" class="nav-link {% if route_name == 'homepage' %}active{% endif %}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ path('about') }}" class="nav-link {% if route_name == 'about' %}active{% endif %}">About</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ path('contact') }}" class="nav-link {% if route_name == 'contact' %}active{% endif %}">Contact Us</a>
-      </li>
-              <li id="search-box" style="margin-right: 24px;">
+              <li id="search-box" class="w-100 d-flex justify-content-center">
         <form id="search-form" class="search-form" action="{{ path('user_search_results') }}" method="get" accept-charset="UTF-8" aria-label="Search" >
-          <input id="search-input" type="search" name="q" size="21" class="app_search_box" placeholder="Search">
+          <input id="search-input" type="search" name="q" size="35" class="app_search_box" placeholder="Search">
             <button type="submit" class="search-button">
       <svg focusable="false" enable-background="new 0 0 20 20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Search" class="coveo-search-button-svg">
         <title>Search</title>
