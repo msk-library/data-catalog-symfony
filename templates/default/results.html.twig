@@ -48,9 +48,9 @@
                     <ul class="facets-list list-unstyled">
                       {% for facet in facetSection %}
                         {% if facet.facetItem != '' and facet.facetCount is defined and facet.facetCount > 0 %}
-                          <li class="facet-item">
+                          <li class="facet-item d-flex justify-content-between align-items-center">
                             <span class="facet-name"><a href="#" data-solrfacetcategory="{{ results.facetMappings[category] }}" data-solrfacetvalue="{{ facet.facetItem }}">{{ facet.facetItem }}</a></span>
-                            <span class="facet-numresults">{{ facet.facetCount }}</span>
+                            <span class="facet-numresults text-end text-secondary">{{ facet.facetCount }}</span>
                           </li>
                         {% endif %}
                       {% endfor %}
@@ -71,15 +71,15 @@
             {% if currentSearch.keyword %}
               {% if ':' in currentSearch.keyword %}
                 {# {% set keyword = currentSearch.keyword|split(':')[1] %} #}
-                <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm">{{ currentSearch.keyword }}</button>
+                <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm rounded-pill">{{ currentSearch.keyword }}</button>
               {% else %}
-                <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm">Keyword: {{ currentSearch.keyword }}</button>
+                <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm rounded-pill">Keyword: {{ currentSearch.keyword }}</button>
               {% endif %}
             {% endif %}
             {% for facet in currentSearch.facets %}
               {% set facetSplit = facet|split(':') %}
               {% if facetSplit[0] != 'origin_fq' %}
-                <button data-machine-name="{{ facet }}" class="facetBreadcrumb btn btn-outline-secondary btn-sm">{{ results.facetMappings[facetSplit[0]] }}:{{ facetSplit[1] }}</button>
+                <button data-machine-name="{{ facet }}" class="facetBreadcrumb btn btn-outline-secondary btn-sm rounded-pill">{{ results.facetMappings[facetSplit[0]] }}:{{ facetSplit[1] }}</button>
               {% endif %}
             {% endfor %}
           </div>
@@ -107,7 +107,7 @@
             <div id="dropdowns-wrapper">
               <div id="sort-dropdown-wrapper">
                 <span class="dropdown-label"><label class="fs-4" for="sort-dropdown">Sort by</label>:</span>
-                <select class="option-dropdown fs-4" name="results_sort" id="sort-dropdown">
+                <select class="option-dropdown fs-4 me-2 rounded-pill" name="results_sort" id="sort-dropdown">
                   {% set sort_opts = ['name', 'relevance', 'date added'] %}
                   {% for opt in sort_opts %}
                     {% if opt == currentSearch.sort %}
@@ -120,7 +120,7 @@
               </div>
               <div id="results-dropdown-wrapper">
                 <span class="dropdown-label"><label class="fs-4" for="results_pp-dropdown">Per page</label>:</span>
-                <select name="results_pp" class="option-dropdown fs-4" id="results_pp-dropdown">
+                <select name="results_pp" class="option-dropdown fs-4 rounded-pill" id="results_pp-dropdown">
                   {% set results_opts = ['10', '25', '50'] %}
                   {% for opt in results_opts %}
                     {% if opt == currentSearch.resultsPP %}

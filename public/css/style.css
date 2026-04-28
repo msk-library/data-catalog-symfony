@@ -338,14 +338,13 @@ li.facet-item {
 }
 
 
-li span.facet-name {
+/* li span.facet-name {
   float: left;
-}
+} */
 
-li span.facet-numresults {
-  float: right;
+/* li span.facet-numresults {
   color: rgb(121, 121, 121);
-}
+} */
 
 .search-box-description {
   color: gray;
