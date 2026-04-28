@@ -71,7 +71,8 @@
     var url = $(this).attr('href');
     $.get(url, function(data) {
       $("#addEntityFormModalContent").html(data);
-      $("#addEntityFormModal").modal({show:true,backdrop:'static'});
+      var modal = new bootstrap.Modal(document.getElementById('addEntityFormModal'), {backdrop: 'static'});
+      modal.show();
     });
   });
 
