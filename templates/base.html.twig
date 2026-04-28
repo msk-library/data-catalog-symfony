@@ -68,120 +68,113 @@
     {% endblock %}
   </head>
   <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe sandbox="allow-same-origin allow-scripts" src="https://www.googletagmanager.com/ns.html?id=GTM-TLXCGKK"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe sandbox="allow-same-origin allow-scripts" src="https://www.googletagmanager.com/ns.html?id=GTM-TLXCGKK" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <main class="container-fluid">
       <a href="#maincontent" class="skip">Skip to content</a>
       <div class="page-wrapper">
-      <div id="header" class="site-header">
-    <div class="container-lg brand-nav-container">
-      <div class="navbar justify-content-around justify-content-lg-between navbar-expand-lg bg-white msk-top-navbar">
-        <div class="navbar-brand d-flex flex-column flex-wrap flex-md-row flex-md-nowrap align-items-center">
-          <img class="header-logo me-4" alt="Memorial Sloan Kettering Cancer Center Logo" target="_blank" src="{{ asset('img/msk-logo.svg') }}">
-          <a href="https://library.mskcc.org" target="_blank" class="site-title" >
-            <div class="navbar-brand__text">
-                <span class="msk-site-navigation__logo-subtitle mt-4 mb-4 mt-md-0 mb-md-0">Library & Archives</span>
+        <div id="header" class="site-header">
+          <div class="container-lg brand-nav-container">
+            <div class="navbar justify-content-around justify-content-lg-between navbar-expand-lg bg-white msk-top-navbar">
+              <div class="navbar-brand d-flex flex-column flex-wrap flex-md-row flex-md-nowrap align-items-center">
+                <img class="header-logo me-4" alt="Memorial Sloan Kettering Cancer Center Logo" target="_blank" src="{{ asset('img/msk-logo.svg') }}" />
+                <a href="https://library.mskcc.org" target="_blank" class="site-title">
+                  <div class="navbar-brand__text">
+                    <span class="msk-site-navigation__logo-subtitle mt-4 mb-4 mt-md-0 mb-md-0">Library & Archives</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="header-global-nav">
+                <ul id="global-nav" class="nav msk-global-nav align-items-md-center">
+                  <li class="nav-item">
+                    <a href="https://mskcc.libanswers.com" id="libchat_8403b9d38f84123c0b0cf39dd565e719c114529150410740433530c2ea22916f" target="_blank" class="mskchaticon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2" data-uw-rm-brl="PR" data-uw-original-href="https://mskcc.libanswers.com" aria-label="Chat - open in a new tab" data-uw-rm-ext-link="" uw-rm-external-link-id="https://mskcc.libanswers.com/$chat"><button class="libchat_online">Chat</button></a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://mskcc.libanswers.com/" target="_blank" class="mskhelpicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">Help</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/contact-us" class="mskemailicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">Contact Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/about" class="mskinfoicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">About the Data Catalog</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </a>
+            <nav id="library_navigation" class="navbar navbar-expand-md" aria-label="Library navigation">
+              <div class="flex-fill justify-content-between">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#library-nav-wrap" aria-controls="library-nav-wrap" aria-expanded="false" aria-label="Toggle Library navigation"><span class="navbar-toggler-icon"></span></button>
+                <div id="library-nav-wrap" class="collapse navbar-collapse">
+                  <ul id="library-navigation" class="d-flex flex-md-row justify-content-between w-100">
+                    <li class="library-nav-item">
+                      <a href="https://library.mskcc.org/find-request" target="_blank" rel="noopener">Find & Request</a>
+                    </li>
+                    <li class="library-nav-item">
+                      <a href="https://library.mskcc.org/research-authorship" target="_blank" rel="noopener">Research & Authorship</a>
+                    </li>
+                    <li class="library-nav-item">
+                      <a href="https://library.mskcc.org/classes-guides" target="_blank" rel="noopener">Classes & Guides</a>
+                    </li>
+                    <li class="library-nav-item">
+                      <a href="https://library.mskcc.org/about-us" target="_blank" rel="noopener">About Us</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
         </div>
 
-      <div class="header-global-nav">
-<ul id="global-nav" class="nav msk-global-nav align-items-md-center">
-  <li class="nav-item">
-    <a href="https://mskcc.libanswers.com" id="libchat_8403b9d38f84123c0b0cf39dd565e719c114529150410740433530c2ea22916f" target="_blank" class="mskchaticon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2" data-uw-rm-brl="PR" data-uw-original-href="https://mskcc.libanswers.com" aria-label="Chat - open in a new tab" data-uw-rm-ext-link="" uw-rm-external-link-id="https://mskcc.libanswers.com/$chat"><button class="libchat_online">Chat</button></a>
-  </li>
-  <li class="nav-item">
-    <a href="https://mskcc.libanswers.com/" target="_blank" class="mskhelpicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">Help</a>
-  </li>
-  <li class="nav-item">
-    <a href="/contact-us" class="mskemailicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">Contact Us</a>
-  </li>
-    <li class="nav-item">
-    <a href="/about" class="mskinfoicon nav-link msk-site-navigation__primary-link my-0 mx-0 my-lg-o mx-lg-2">About the Data Catalog</a>
-  </li>
-</ul>
-      </div>
-    </div>
-        <nav id="library_navigation" class="navbar navbar-expand-md" aria-label="Library navigation">
-  <div class="flex-fill justify-content-between">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#library-nav-wrap" aria-controls="library-nav-wrap" aria-expanded="false" aria-label="Toggle Library navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="library-nav-wrap" class="collapse navbar-collapse">
-      <ul id="library-navigation" class="d-flex flex-md-row justify-content-between w-100">
-        <li class="library-nav-item">
-          <a href="https://library.mskcc.org/find-request" target="_blank" rel="noopener">
-            Find & Request
-          </a>
-        </li>
-        <li class="library-nav-item">
-          <a href="https://library.mskcc.org/research-authorship" target="_blank" rel="noopener">
-            Research & Authorship  
-          </a>
-        </li>
-        <li class="library-nav-item">
-          <a href="https://library.mskcc.org/classes-guides" target="_blank" rel="noopener">
-            Classes & Guides
-          </a>
-        </li>
-        <li class="library-nav-item">
-          <a href="https://library.mskcc.org/about-us" target="_blank" rel="noopener">
-            About Us
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-    </div>
-  </div>
+        <div class="title-hero-banner">
+          <div class="title-hero-text container-lg ps-5 ps-lg-4">
+            <h3><a href="/">MSK Data Catalog</a></h3>
+            <h4>Discover. Share. Reuse.</h4>
+          </div>
+        </div>
 
-<div class="title-hero-banner">
-  <div class="title-hero-text container-lg ps-5 ps-lg-4">
-     <h3><a href="/">MSK Data Catalog</a></h3>
-    <h4>Discover. Share. Reuse.</h4>
-  </div>
-</div>
-
-<div class="app-menu-container">
-  <div class="container-lg">
-    <nav id="site_navigation" class="navbar navbar-expand-md">
-      <div class="flex-fill justify-content-between">
-        <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse" data-bs-target="#app-nav-wrap" aria-controls="app-nav-wrap" aria-expanded="false" aria-label="Toggle Data Catalog navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <nav role="navigation" aria-label="Data Catalog navigation">
-  <div id="app-nav-wrap" class="collapse navbar-collapse show">
-    <ul id="navigation" class="d-flex flex-column flex-md-row justify-content-between w-100">
-              <li id="search-box" class="w-100 d-flex justify-content-center">
-        <form id="search-form" class="search-form" action="{{ path('user_search_results') }}" method="get" accept-charset="UTF-8" aria-label="Search" >
-          <input id="search-input" type="search" name="q" size="35" class="app_search_box" placeholder="Search">
-            <button type="submit" class="search-button">
-      <svg focusable="false" enable-background="new 0 0 20 20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Search" class="coveo-search-button-svg">
-        <title>Search</title>
-        <g fill="currentColor">
-          <path class="coveo-magnifier-circle-svg" d="m8.368 16.736c-4.614 0-8.368-3.754-8.368-8.368s3.754-8.368 8.368-8.368 8.368 3.754 8.368 8.368-3.754 8.368-8.368 8.368m0-14.161c-3.195 0-5.793 2.599-5.793 5.793s2.599 5.793 5.793 5.793 5.793-2.599 5.793-5.793-2.599-5.793-5.793-5.793"></path>
-          <path d="m18.713 20c-.329 0-.659-.126-.91-.377l-4.552-4.551c-.503-.503-.503-1.318 0-1.82.503-.503 1.318-.503 1.82 0l4.552 4.551c.503.503.503 1.318 0 1.82-.252.251-.581.377-.91.377"></path>
-        </g>
-      </svg>
-    </button>
-      </li>
-      {% if is_granted('ROLE_USER') %}
-          <li class="nav-item privileged-nav-link admin-page-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('admin_panel') }}">Admin</a></li>
-      {% endif %}
-      {% if is_granted('ROLE_USER') %}
-          <li class="nav-item privileged-nav-link"><a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage==true %}active{% endif %}" href="{{ path('app_logout') }}">Logout</a></li>
-      {% endif %}
-    </ul>
-  </div>
-</nav>
-      </div>
-    </nav>
-  </div>
-</div>
-  
+        <div class="app-menu-container">
+          <div class="container-lg">
+            <nav id="site_navigation" class="navbar navbar-expand-md">
+              <div class="flex-fill justify-content-between">
+                <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse" data-bs-target="#app-nav-wrap" aria-controls="app-nav-wrap" aria-expanded="false" aria-label="Toggle Data Catalog navigation"><span class="navbar-toggler-icon"></span></button>
+                <nav role="navigation" aria-label="Data Catalog navigation">
+                  <div id="app-nav-wrap" class="collapse navbar-collapse show">
+                    <ul id="navigation" class="d-flex flex-column flex-md-row justify-content-between w-100">
+                      <li id="search-box" class="w-100 d-flex justify-content-center">
+                        <form id="search-form" class="search-form" action="{{ path('user_search_results') }}" method="get" accept-charset="UTF-8" aria-label="Search">
+                          <input id="search-input" type="search" name="q" size="35" class="app_search_box" placeholder="Search" />
+                          <button type="submit" class="search-button">
+                            <svg focusable="false" enable-background="new 0 0 20 20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Search" class="coveo-search-button-svg">
+                              <title>Search</title>
+                              <g fill="currentColor">
+                                <path class="coveo-magnifier-circle-svg" d="m8.368 16.736c-4.614 0-8.368-3.754-8.368-8.368s3.754-8.368 8.368-8.368 8.368 3.754 8.368 8.368-3.754 8.368-8.368 8.368m0-14.161c-3.195 0-5.793 2.599-5.793 5.793s2.599 5.793 5.793 5.793 5.793-2.599 5.793-5.793-2.599-5.793-5.793-5.793"></path>
+                                <path d="m18.713 20c-.329 0-.659-.126-.91-.377l-4.552-4.551c-.503-.503-.503-1.318 0-1.82.503-.503 1.318-.503 1.82 0l4.552 4.551c.503.503.503 1.318 0 1.82-.252.251-.581.377-.91.377"></path>
+                              </g>
+                            </svg>
+                          </button>
+                        </form>
+                      </li>
+                      {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item privileged-nav-link admin-page-link">
+                          <a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage == true %}{% endif %}" href="{{ path('admin_panel') }}">Admin</a>
+                        </li>
+                      {% endif %}
+                      {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item privileged-nav-link">
+                          <a class="nav-link {% if is_granted('ROLE_USER') and adminPage is defined and adminPage == true %}{% endif %}" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </nav>
+          </div>
+        </div>
 
         {# Modal 
         <div class="modal fade" id="searchTips" role="dialog" tabindex="-1" aria-labelledby="searchTipsLabel" aria-hidden="true">

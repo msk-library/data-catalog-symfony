@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-{% form_theme form with ['bootstrap_5_horizontal_layout.html.twig', _self] %}
+{% form_theme form with ['bootstrap_4_horizontal_layout.html.twig', _self] %}
 {% from 'default/_widget_prototype_macro.html.twig' import widget_prototype %}
 
 {% block page_title %}
-<title>Update a Dataset</title>
+<title>Add a Dataset</title>
 {% endblock %}
 
 {% block page_stylesheets %}
@@ -33,19 +33,10 @@ col-sm-4
 {% include 'default/_admin-sidebar-menu.html.twig' %}
 <div class="col-12 col-md-9" >
 <div class="page-header">
-<div class="update-dataset-link">
- <a href="{{ path('view_dataset',{'uid':uid}) }}">
-  View entry for this dataset
- </a>
+<h1>Add a new dataset</h1>
+<p class="text-muted"><small>Note: Any Local Experts or Authors associated with this dataset <a href="{{ path('add_new_entity', {'entityName':'Person'}) }}">must be in the system</a> before filling out this form.</small></p>
 </div>
-<h1>
-  Update dataset
-  {% if form.children.archived.vars.data == true %} 
-    <small>[ARCHIVED]</small>
-  {% endif %}
-</h1>
-</div>
-  {{ form_start(form, {'action': path('update_dataset', {'uid': uid})}) }}
+  {{ form_start(form) }}
   {% if form.vars.valid == false %}
     <div class="alert alert-danger"><strong>There was an error in this form</strong>. Please scroll down for more information.</div>
   {% endif %}

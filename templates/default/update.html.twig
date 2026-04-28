@@ -17,6 +17,20 @@
 {# <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script> #}
 {{ encore_entry_script_tags('select2') }}
 {{ encore_entry_script_tags('add_form') }}
+<script>
+console.log('UPDATE PAGE SCRIPT LOADED!!!');
+alert('UPDATE PAGE LOADED - Check form action');
+
+// Check if the form exists and log its attributes
+var updateForm = document.getElementById('dataset-update-form');
+if (updateForm) {
+    console.log('FORM FOUND:', updateForm.action);
+    alert('Form action: ' + updateForm.action);
+} else {
+    console.log('FORM NOT FOUND!');
+    alert('Form not found!');
+}
+</script>
 {% endblock %}
 
 
@@ -32,14 +46,21 @@ col-sm-3
 
 
 {% block content %}
+<!-- DEBUG: This is update.html.twig template -->
 <div class="container">
 <div class="row">
 {% include 'default/_admin-sidebar-menu.html.twig' %}
 <div class="col-7" >
 <div class="page-header">
 <h1>Update a {{ displayName }}</h1>
+<div style="background: yellow; padding: 10px; margin: 10px 0;">
+  <strong>DEBUG:</strong> Template: update.html.twig | Entity: {{ entityName }} | Slug: {{ slug }}
 </div>
-  {{ form_start(form) }}
+</div>
+  {{ form_start(form, {
+    'attr': {'id': 'dataset-update-form'},
+    'action': path('update_entity', {'entityName': entityName, 'slug': slug})
+  }) }}
   {{ form_errors(form) }}
   {% for child in form.children %}
     {% if child.vars.prototype is defined %}
@@ -61,7 +82,7 @@ col-sm-3
 
 {% endfor %}
 
-</form>
+  {{ form_end(form) }}
 <div class="spacer50"></div>
 <p>
 or <a class="entity-remove-link" href="{{ path('remove_entity', {'entityName':entityName,'slug':slug}) }}">Remove this item</a>
