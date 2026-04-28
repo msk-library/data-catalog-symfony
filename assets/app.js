@@ -14,6 +14,10 @@ import './styles/app.scss';
 // require jQuery normally - also needed by Bootstrap 5 for compatibility
 const $ = require('jquery');
 
+// Require Bootstrap and expose it globally for template scripts
+const bootstrap = require('bootstrap');
+window.bootstrap = bootstrap;
+
 /* create global $ and jQuery variables - enable if you have js not handled by WebPack (in templates).
   global.$ = global.jQuery = $;
 */
@@ -23,7 +27,6 @@ const $ = require('jquery');
     defer: true
 */
 require('jquery-ui');
-require('bootstrap');
 require('./dataset_details');
 require('./scripts.js');
 require('./searching.js');
@@ -37,5 +40,15 @@ require('./libchat.js');
 
 //Initialize bootstrap popovers on all pages (Bootstrap 5)
 $(document).ready(function () {
-  $('[data-bs-toggle="popover"]').popover();
+  // Initialize all popovers using Bootstrap 5 API
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl, {
+      html: true,
+      trigger: 'hover focus',
+      placement: 'auto'
+    });
+  });
+
+  console.log('Bootstrap popovers initialized:', popoverList.length);
 });
