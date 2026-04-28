@@ -28,10 +28,10 @@ col-sm-4
 
 
 {% block content %}
-<div class="container-fluid">
-<div class="row">
+<div class="container mb-5">
+<div class="d-flex flex-wrap justify-content-between align-items-start">
 {% include 'default/_admin-sidebar-menu.html.twig' %}
-<div class="col-7" >
+<div class="col-12 col-md-9" >
 <div class="page-header">
 <h1>Add a new dataset</h1>
 <p class="text-muted"><small>Note: Any Local Experts or Authors associated with this dataset <a href="{{ path('add_new_entity', {'entityName':'Person'}) }}">must be in the system</a> before filling out this form.</small></p>
@@ -51,7 +51,7 @@ col-sm-4
           {{ form.dataset_alternate_titles.vars.label }}
         </label>
         <div class="col-sm-8">
-          <a class="btn-success label label-success" data-target="add-{{ form.dataset_alternate_titles.vars.name}}" role="button">Add item</a>
+          <a class="btn btn-success btn-sm" data-target="add-{{ form.dataset_alternate_titles.vars.name}}" role="button">Add item</a>
         </div>
         <div class="add-{{ form.dataset_alternate_titles.vars.name}}" data-prototype="{{ widget_prototype(form.dataset_alternate_titles, 'Remove item')|escape }}">
         {% for widget in form.dataset_alternate_titles %}
@@ -75,11 +75,11 @@ col-sm-4
     <legend class="section-header">Author Information</legend>
     {# AUTHORS #}
       <div class="form-group row multiple">
-        <label class="col-sm-4 control-label" for="{{ form.authorships.vars.name }}">
+        <label class="col-sm-4 col-form-label" for="{{ form.authorships.vars.name }}">
           {{ form.authorships.vars.label }}
         </label>
         <div class="col-sm-8">
-          <a class="btn-success label label-success" data-target="add-{{ form.authorships.vars.name}}">Add item</a>
+          <a class="btn btn-success btn-sm" data-target="add-{{ form.authorships.vars.name}}">Add item</a>
         </div>
         <div class="add-{{ form.authorships.vars.name}}" data-prototype="{{ widget_prototype(form.authorships, 'Remove item')|escape }}">
         {% for widget in form.authorships %}
@@ -96,11 +96,11 @@ col-sm-4
     <legend class="section-header">Data Location Information</legend>
       {# DATA LOCATION URLS #}
       <div class="form-group row multiple">
-        <label class="col-sm-4 control-label" for="{{ form.data_locations.vars.name }}">
+        <label class="col-sm-4 col-form-label" for="{{ form.data_locations.vars.name }}">
           {{ form.data_locations.vars.label }}
         </label>
         <div class="col-sm-8">
-          <a class="btn-success label label-success" data-target="add-{{ form.data_locations.vars.name}}">Add item</a>
+          <a class="btn btn-success btn-sm" data-target="add-{{ form.data_locations.vars.name}}">Add item</a>
         </div>
         <div class="add-{{ form.data_locations.vars.name}}" data-prototype="{{ widget_prototype(form.data_locations, 'Remove item')|escape }}">
         {% for widget in form.data_locations %}
@@ -113,11 +113,11 @@ col-sm-4
       {% endif %}
       {# OTHER RESOURCES #}
       <div class="form-group row multiple">
-        <label class="col-sm-4 control-label" for="{{ form.other_resources.vars.name }}">
+        <label class="col-sm-4 col-form-label" for="{{ form.other_resources.vars.name }}">
           {{ form.other_resources.vars.label }}
         </label>
         <div class="col-sm-8">
-          <a class="btn-success label label-success" data-target="add-{{ form.other_resources.vars.name}}">Add item</a>
+          <a class="btn btn-success btn-sm" data-target="add-{{ form.other_resources.vars.name}}">Add item</a>
         </div>
         <div class="add-{{ form.other_resources.vars.name}}" data-prototype="{{ widget_prototype(form.other_resources, 'Remove item')|escape }}">
         {% for widget in form.other_resources %}
@@ -159,11 +159,11 @@ col-sm-4
       {% if userIsAdmin %}
       {# RELATED DATASETS #}
       <div class="form-group row multiple">
-        <label class="col-sm-4 control-label" for="{{ form.related_datasets.vars.name }}">
+        <label class="col-sm-4 col-form-label" for="{{ form.related_datasets.vars.name }}">
           {{ form.related_datasets.vars.label }}
         </label>
         <div class="col-sm-8">
-          <a class="btn-success label label-success" data-target="add-{{ form.related_datasets.vars.name}}">Add item</a>
+          <a class="btn btn-success btn-sm" data-target="add-{{ form.related_datasets.vars.name}}">Add item</a>
         </div>
         <div class="add-{{ form.related_datasets.vars.name}}" data-prototype="{{ widget_prototype(form.related_datasets, 'Remove item')|escape }}">
         {% for widget in form.related_datasets %}
@@ -189,10 +189,6 @@ col-sm-4
   </fieldset>
   {% endif %}
   {{ form_widget(form.save, {'attr':{'class':'btn btn-primary'}}) }}
-    </form> 
-
-
-
 </form>
 </div>
 </div>

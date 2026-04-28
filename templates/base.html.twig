@@ -165,7 +165,7 @@
         <a href="{{ path('contact') }}" class="nav-link {% if route_name == 'contact' %}active{% endif %}">Contact Us</a>
       </li>
               <li id="search-box" style="margin-right: 24px;">
-        <form id="search-form" class="search-form" accept-charset="UTF-8" aria-label="Search" >
+        <form id="search-form" class="search-form" action="{{ path('user_search_results') }}" method="get" accept-charset="UTF-8" aria-label="Search" >
           <input id="search-input" type="search" name="q" size="21" class="app_search_box" placeholder="Search">
             <button type="submit" class="search-button">
       <svg focusable="false" enable-background="new 0 0 20 20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Search" class="coveo-search-button-svg">

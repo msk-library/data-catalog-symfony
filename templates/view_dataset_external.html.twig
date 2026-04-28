@@ -46,7 +46,7 @@ var trackOutboundLink = function(url, label) {
 				{% if dataset.datasetAlternateTitles.count > 0 %}
 				 <h5>Alternate Titles(s): 
 					{% for title in dataset.datasetAlternateTitles %}
-					{{ title.getDisplayName|trim }}{% if not loop.last %}, {% endif %}
+					{{ title.getDisplayName()|trim }}{% if not loop.last %}, {% endif %}
 					{% endfor %}
 					</h5>
 				{% endif %}
@@ -54,33 +54,33 @@ var trackOutboundLink = function(url, label) {
 			<p>
 				<span class="dataset-detail-id">UID: {{ dataset.id }}</span>
 			</p>
- 	 {% if dataset.getAuthorships is not empty %}
+ 	 {% if dataset.getAuthorships() is not empty %}
 				<div class="dataset-authors-section">
 					<span class="dataset-detail-authors">Author(s):
 						{% set correspondingAuthorExists = false %}
             {% set hasMskAuthor = false %}
-						{% for author in dataset.getAuthorships %}
+						{% for author in dataset.getAuthorships() %}
 							{% set popoverContent = '' %}
 							{% set authorNote = '' %}
 							{% set authorClass = '' %}
-							{% if author.getPerson.getBioUrl %}
+							{% if author.getPerson().getBioUrl() %}
                 {% set hasMskAuthor = true %}
                 {% set authorClass = authorClass ~ ' msk-author' %}
                 {% set authorNote = authorNote ~ '*' %}
-								{% set popoverContent = popoverContent ~ '<p class="zzz"><a href="' ~ author.getPerson.getBioUrl ~ '" >Synapse</a></p>' %}
+								{% set popoverContent = popoverContent ~ '<p class="zzz"><a href="' ~ author.getPerson().getBioUrl() ~ '" >Synapse</a></p>' %}
 							{% endif %}
-							{% if author.getPerson.getOrcidId %}
-								{% set popoverContent = popoverContent ~ '<p><a href="' ~ author.getPerson.getOrcidId ~ '" >ORCID</a></p>' %}
+							{% if author.getPerson().getOrcidId() %}
+								{% set popoverContent = popoverContent ~ '<p><a href="' ~ author.getPerson().getOrcidId() ~ '" >ORCID</a></p>' %}
 							{% endif %}
-							{% if author.getPerson.getDatasetAssociations|length > 1 %}
-								{% set popoverContent = popoverContent ~ '<p><a href="/search?keyword=authors:%22' ~ author.getPerson.getFullName ~ '%22" >View other datasets</a></p>' %}
+							{% if author.getPerson().getDatasetAssociations()|length > 1 %}
+								{% set popoverContent = popoverContent ~ '<p><a href="/search?keyword=authors:%22' ~ author.getPerson().getFullName() ~ '%22" >View other datasets</a></p>' %}
 							{% endif %}
 							{% if author.isCorrespondingAuthor %}
 								{% set correspondingAuthorExists = true %}
 								{% set authorClass = authorClass ~ ' corresponding-author' %}
 							{% endif %}
 
-							{% if popoverContent %}<a tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{% endif %}<span class="{{ authorClass }} ">{{ author.getPerson.getFullName }}</span><span class="author-note">{{ authorNote }}</span>{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
+							{% if popoverContent %}<a tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-content="{{ popoverContent }}">{% endif %}<span class="{{ authorClass }} ">{{ author.getPerson().getFullName() }}</span><span class="author-note">{{ authorNote }}</span>{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
 
 						{% endfor %}
 						
@@ -107,9 +107,9 @@ var trackOutboundLink = function(url, label) {
       {% endif %}
       </span>
       <p></p>
-     {% if dataset.getCoreFacilities is not empty %}
+     {% if dataset.getCoreFacilities() is not empty %}
      <span class="core_facilities-list">Core Facilities:
-         {% for coreFacility in dataset.getCoreFacilities %}
+         {% for coreFacility in dataset.getCoreFacilities() %}
       {% if (coreFacility.coreFacilityUrl and coreFacility.coreFacilityEmail) %}
         {% set popoverContent = "<p><a href='#{ coreFacility.coreFacilityUrl }' target='_blank'>View Core Facility website</a></p><p><a href='mailto:#{ coreFacility.coreFacilityEmail }' target='_blank'>Email Core Facility</a></p><p><a href='/search?keyword=core_facilities:#{ coreFacility.coreFacilityName }' target='_blank'>View other datasets</a></p>" %}
       {% elseif coreFacility.coreFacilityUrl %}
@@ -128,7 +128,7 @@ var trackOutboundLink = function(url, label) {
   </div>
 </div>
 <div class="row">
-   <div class="col-sm-7 col-sm-pull-0" id="dataset-detail-description">
+   <div class="col-12 col-sm-7" id="dataset-detail-description">
    <dl>
      <dt>Description</dt>
        <dd>{{ dataset.description|raw }}</dd>
@@ -149,13 +149,13 @@ var trackOutboundLink = function(url, label) {
        {% if dataset.subjectGeographicAreaDetails.count > 5 %}
          {% for area in dataset.subjectGeographicAreaDetails|slice(0,5) %}
            <div class="multiple-item-list">
-             {{ area.getDisplayName }}
+             {{ area.getDisplayName() }}
            </div>
          {% endfor %}
          <div class="collapse" id="collapsed-areas">
            {% for area in dataset.subjectGeographicAreaDetails|slice(5,dataset.subjectGeographicAreaDetails.count) %}
              <div class="multiple-item-list">
-               {{ area.getDisplayName }}
+               {{ area.getDisplayName() }}
              </div>
            {% endfor %}
          </div>
@@ -166,7 +166,7 @@ var trackOutboundLink = function(url, label) {
           
           {% for area in dataset.subjectGeographicAreaDetails %}
            <div class="multiple-item-list">
-            {{ area.getDisplayName }}
+            {{ area.getDisplayName() }}
            </div>
           {% endfor %}
         {% endif %}
@@ -187,7 +187,7 @@ var trackOutboundLink = function(url, label) {
     {% if dataset.subjectOfStudy is not empty %}
      <dt>Subject of Study</dt>
       <dd id="subject-of-study">{% for subject in dataset.subjectOfStudy %}
-         <div class="multiple-item-list"><a href="/search?keyword=subject_of_study:{{ subject.getDisplayName }}">{{ subject.getDisplayName }}</a></div>
+         <div class="multiple-item-list"><a href="/search?keyword=subject_of_study:{{ subject.getDisplayName() }}">{{ subject.getDisplayName() }}</a></div>
          {% if subject.species is not empty %}
            <p class="related-dataset-note">{{ subject.species }}</p>
          {% endif %}
@@ -198,7 +198,7 @@ var trackOutboundLink = function(url, label) {
     {% if dataset.subjectDomains is not empty %}
      <dt>Subject(s)</dt>
       <dd>{% for domain in dataset.subjectDomains %}
-         <div class="multiple-item-list"><a href="/search?keyword=subject_domain:{{ domain.getDisplayName }}">{{ domain.getDisplayName }}</a></div>
+         <div class="multiple-item-list"><a href="/search?keyword=subject_domain:{{ domain.getDisplayName() }}">{{ domain.getDisplayName() }}</a></div>
        {% endfor %}
       </dd>
      {% endif %}
@@ -206,30 +206,30 @@ var trackOutboundLink = function(url, label) {
      {% if (dataset.subjectPopulationAges.count > 0) %}
         <dt>Population Age</dt>
           <dd>{% for ageGroup in dataset.subjectPopulationAges %}
-           <div class="multiple-item-list">{{ ageGroup.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ ageGroup.getDisplayName() }}</div>
            {% endfor %}</dd>
        {% endif %}
 
      {% if (dataset.subjectGenders is not empty ) %}
         <dt>Subject Gender</dt>
           <dd>{% for gender in dataset.subjectGenders %}
-           <div class="multiple-item-list">{{ gender.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ gender.getDisplayName() }}</div>
            {% endfor %}</dd>
        {% endif %}
      
      {% if (dataset.subjectSexes is not empty ) %}
         <dt>Subject Sex</dt>
           <dd>{% for sex in dataset.subjectSexes %}
-           <div class="multiple-item-list">{{ sex.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ sex.getDisplayName() }}</div>
            {% endfor %}</dd>
        {% endif %}
 
      {% if (dataset.oncoTrees.count > 0) %}
         <dt>OncoTree Cancer Type(s)</dt>
          <dd><span class="oncotree-list">
-          {% for oncoTree in dataset.getOncoTrees %}
-            {% set popoverContent = "#{ oncoTree.getOncoTreeMetadata }" %}
-            {% if popoverContent %}<a tabindex="0" href="/search?keyword=onco_trees_fq:{{ oncoTree.getDisplayName }}" class="oncotree-link" role="button" data-bs-toggle="popover" title="{{ oncoTree.oncoTreeName }}" data-content="{{ popoverContent }}"> {% endif %}{{ oncoTree.oncoTreeName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}<br /> {% endif %}
+          {% for oncoTree in dataset.getOncoTrees() %}
+            {% set popoverContent = "#{ oncoTree.getOncoTreeMetadata() }" %}
+            {% if popoverContent %}<a tabindex="0" href="/search?keyword=onco_trees_fq:{{ oncoTree.getDisplayName() }}" class="oncotree-link" role="button" data-bs-toggle="popover" title="{{ oncoTree.oncoTreeName }}" data-content="{{ popoverContent }}"> {% endif %}{{ oncoTree.oncoTreeName }}{% if popoverContent %}</a>{% endif %}{% if not loop.last %}<br /> {% endif %}
           {% endfor %}
           </span></dd>
         {% endif %}
@@ -243,12 +243,12 @@ var trackOutboundLink = function(url, label) {
           <dd>
            {% for location in dataset.dataLocations %}
               <div class="multiple-item-list">
-                {% if location.getDataAccessUrl is not null %}
-                  <a class="btn btn-secondary"  href="{{ location.getDataAccessUrl }}" onclick="trackOutboundLink('{{ location.getDataAccessUrl }}', '{{ dataset.title }} (via {{ location.getDataLocation }})');">Access via {{ location.getDataLocation }}</a>
+                {% if location.getDataAccessUrl() is not null %}
+                  <a class="btn btn-secondary"  href="{{ location.getDataAccessUrl() }}" onclick="trackOutboundLink('{{ location.getDataAccessUrl() }}', '{{ dataset.title }} (via {{ location.getDataLocation() }})');">Access via {{ location.getDataLocation() }}</a>
                 {% endif %}
-                <p class="data-location-description"><span class="data-location-title"></span> <span class="data-location-content">{{ location.getLocationContent }}</span>
-               {% if location.getAccessionNumber %}
-                 <br/><span class="data-location-accession-number">Accession #: {{ location.getAccessionNumber  }}</span>
+                <p class="data-location-description"><span class="data-location-title"></span> <span class="data-location-content">{{ location.getLocationContent() }}</span>
+               {% if location.getAccessionNumber() %}
+                 <br/><span class="data-location-accession-number">Accession #: {{ location.getAccessionNumber() }}</span>
                {% endif %}
                </p>
               </div>
@@ -259,7 +259,7 @@ var trackOutboundLink = function(url, label) {
        <dt>Access Restrictions</dt>
          <dd class="dataset-detail-access-restrictions">
           {% for restriction in dataset.accessRestrictions %}
-           <div class="multiple-item-list">{{ restriction.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ restriction.getDisplayName() }}</div>
           {% endfor %}
          </dd>
       {% endif %}
@@ -290,7 +290,7 @@ var trackOutboundLink = function(url, label) {
        <dt>Data Type</dt>
        <dd>
       {% for type in dataset.dataTypes %}
-        <div class="multiple-item-list"><a href="/search?keyword=data_types:{{ type.getDisplayName }}">{{ type.getDisplayName }}</a></div>
+        <div class="multiple-item-list"><a href="/search?keyword=data_types:{{ type.getDisplayName() }}">{{ type.getDisplayName() }}</a></div>
       {% endfor %}
       </dd>
       {% endif %}
@@ -301,9 +301,9 @@ var trackOutboundLink = function(url, label) {
       {% for equip in dataset.relatedEquipment %}
         <div class="multiple-item-list">
           {% if equip.equipmentUrl is not empty %}
-            <a href="{{ equip.equipmentUrl }}" >{{ equip.getDisplayName }}</a>
+            <a href="{{ equip.equipmentUrl }}" >{{ equip.getDisplayName() }}</a>
           {% else %}
-            {{ equip.getDisplayName }}
+            {{ equip.getDisplayName() }}
           {% endif %}
           {% if equip.equipmentDescription is not empty %}
             <p class="related-dataset-note">{{ equip.equipmentDescription }}</p>
@@ -319,9 +319,9 @@ var trackOutboundLink = function(url, label) {
       {% for sw in dataset.relatedSoftware %}
         <div class="multiple-item-list">
           {% if sw.softwareUrl is not empty %}
-            <a href="{{sw.softwareUrl}}" >{{ sw.getDisplayName }}</a>
+            <a href="{{sw.softwareUrl}}" >{{ sw.getDisplayName() }}</a>
           {% else %}
-            {{ sw.getDisplayName }}
+            {{ sw.getDisplayName() }}
           {% endif %}
           {% if sw.softwareDescription is not empty %}
             <p class="related-dataset-note">{{ sw.softwareDescription }}</p>
@@ -335,7 +335,7 @@ var trackOutboundLink = function(url, label) {
        <dt>Study Type</dt>
        <dd>
       {% for type in dataset.studyTypes %}
-        <div class="multiple-item-list">{{ type.getDisplayName }}</div>
+        <div class="multiple-item-list">{{ type.getDisplayName() }}</div>
       {% endfor %}
       </dd>
       {% endif %}
@@ -344,7 +344,7 @@ var trackOutboundLink = function(url, label) {
       <dt>Dataset Format(s)</dt>
        <dd>
         {% for format in dataset.datasetFormats %}
-        {{ format.getDisplayName|trim }}{% if not loop.last %}, {% endif %}
+        {{ format.getDisplayName()|trim }}{% if not loop.last %}, {% endif %}
         {% endfor %}
        </dd>
       {% endif %}
@@ -353,7 +353,7 @@ var trackOutboundLink = function(url, label) {
        <dt>Data Tool(s)</dt>
          <dd>
       {% for instrument in dataset.dataCollectionInstruments %}
-        <div class="multiple-item-list">{{ instrument.getDisplayName }}</div>
+        <div class="multiple-item-list">{{ instrument.getDisplayName() }}</div>
       {% endfor %}
          </dd>
       {% endif %}
@@ -377,7 +377,7 @@ var trackOutboundLink = function(url, label) {
            <dd id="other-resources">
            {% for resource in dataset.otherResources %}
               <div class="other-resource multiple-item-list">
-               <a class="other-resource-link"  href="{{ resource.getResourceUrl }}">{{ resource.getResourceName }}</a><p class="other-resource-description">{{ resource.getResourceDescription }}</p>
+               <a class="other-resource-link"  href="{{ resource.getResourceUrl() }}">{{ resource.getResourceName() }}</a><p class="other-resource-description">{{ resource.getResourceDescription() }}</p>
               </div>
            {% endfor %} 
            </dd>       
