@@ -66,8 +66,8 @@
       </div>
 
       <div class="col-12 col-sm-6 col-md-8 col-lg-8 col-xl-9 right-pane clearfix">
-        <div class="row">
-          <div class="col-sm-8" id="facet-breadcrumbs">
+        <div class="d-flex align-items-end flex-wrap">
+          <div class="col-12 mt-3" id="facet-breadcrumbs">
             {% if currentSearch.keyword %}
               {% if ':' in currentSearch.keyword %}
                 {# {% set keyword = currentSearch.keyword|split(':')[1] %} #}
@@ -83,8 +83,8 @@
               {% endif %}
             {% endfor %}
           </div>
-          <div class="col-sm-4" id="sort-and-results">
-            <div id="pager-wrapper">
+          <div class="d-flex justify-content-between flex-wrap mt-5 w-100" id="sort-and-results">
+            <div id="pager-wrapper" class="fs-4">
               {% set maxPages = (results.numResults / currentSearch.resultsPP)|round(0, 'ceil') %}
               {% if currentSearch.page == 0 %}
                 {% set pageCounter = 1 %}
@@ -100,14 +100,14 @@
               {% endif %}
             </div>
             {% if results.numResults %}
-              <div id="numresults-wrapper">
-                Results Found: <span id="number-of-results">{{ results.numResults }}</span>
+              <div id="numresults-wrapper" class="fs-4">
+                Results Found: <span id="number-of-results" class="fw-bold">{{ results.numResults }}</span>
               </div>
             {% endif %}
             <div id="dropdowns-wrapper">
               <div id="sort-dropdown-wrapper">
-                <span class="dropdown-label"><label for="sort-dropdown">Sort by</label>:</span>
-                <select class="option-dropdown" name="results_sort" id="sort-dropdown">
+                <span class="dropdown-label"><label class="fs-4" for="sort-dropdown">Sort by</label>:</span>
+                <select class="option-dropdown fs-4" name="results_sort" id="sort-dropdown">
                   {% set sort_opts = ['name', 'relevance', 'date added'] %}
                   {% for opt in sort_opts %}
                     {% if opt == currentSearch.sort %}
@@ -119,8 +119,8 @@
                 </select>
               </div>
               <div id="results-dropdown-wrapper">
-                <span class="dropdown-label"><label for="results_pp-dropdown">Per page</label>:</span>
-                <select name="results_pp" class="option-dropdown" id="results_pp-dropdown">
+                <span class="dropdown-label"><label class="fs-4" for="results_pp-dropdown">Per page</label>:</span>
+                <select name="results_pp" class="option-dropdown fs-4" id="results_pp-dropdown">
                   {% set results_opts = ['10', '25', '50'] %}
                   {% for opt in results_opts %}
                     {% if opt == currentSearch.resultsPP %}
@@ -135,19 +135,19 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-11" id="results-container">
+          <div class="col-12" id="results-container">
             <ul id="results-list" class="list-unstyled">
               {% for item in results.resultItems %}
                 <li class="dataset-summary">
                   <h4 class="dataset-title"><a class="dataset-title-link" href="{{ path('view_dataset', { uid: item.id }) }}">{{ item.dataset_title }}</a></h4>
                   <dl class="row">
                     {% if item.dataset_alt_title is defined and item.dataset_alt_title[0] %}
-                      <dt class="col-sm-3">Alternate Title(s)</dt>
+                      <dt class="col-sm-3 text-md-end">Alternate Title(s)</dt>
                       <dd class="col-sm-9">{{ item.dataset_alt_title|join(', ') }}</dd>
                     {% endif %}
 
                     {% if item.authors is defined and item.authors[0] %}
-                      <dt class="col-sm-3">Authors</dt><dd class="col-sm-9">
+                      <dt class="col-sm-3 text-md-end">Authors</dt><dd class="col-sm-9">
                         {% for author in item.authors|slice(0, 4) %}
                           <div class="multiple-item-list">{{ author }}</div>
                         {% endfor %}
@@ -157,10 +157,10 @@
                       </dd>
                     {% endif %}
 
-                    <dt class="col-sm-3">Description</dt><dd class="col-sm-9"><p>{{ item.description[0]|striptags|u.truncate(400, '...', false) }}</p></dd>
+                    <dt class="col-sm-3 text-md-end">Description</dt><dd class="col-sm-9"><p>{{ item.description[0]|striptags|u.truncate(400, '...', false) }}</p></dd>
 
                     {% if item.subject_domain is defined and item.subject_domain[0] %}
-                      <dt class="col-sm-3">Subject</dt><dd class="col-sm-9">
+                      <dt class="col-sm-3 text-md-end">Subject</dt><dd class="col-sm-9">
                         {% for subject in item.subject_domain %}
                           <div class="multiple-item-list">{{ subject }}</div>
                         {% endfor %}
@@ -168,15 +168,15 @@
                     {% endif %}
 
                     {% if item.dataset_start_date is defined and (item.dataset_start_date|length) and item.dataset_end_date is defined and (item.dataset_end_date|length) and item.dataset_start_date == item.dataset_end_date %}
-                      <dt class="col-sm-3">Timeframe</dt>
+                      <dt class="col-sm-3 text-md-end">Timeframe</dt>
                       <dd class="col-sm-9">{{ item.dataset_start_date }}</dd>
                     {% elseif tem.dataset_start_date is defined and (item.dataset_start_date|length) and item.dataset_end_date is defined and (item.dataset_end_date|length) %}
-                      <dt class="col-sm-3">Timeframe</dt>
+                      <dt class="col-sm-3 text-md-end">Timeframe</dt>
                       <dd class="col-sm-9">{{ item.dataset_start_date }} - {{ item.dataset_end_date }}</dd>
                     {% endif %}
 
                     {% if item.access_restrictions is defined and item.access_restrictions[0] %}
-                      <dt class="col-sm-3">Access Rights</dt><dd class="col-sm-9">
+                      <dt class="col-sm-3 text-md-end">Access Rights</dt><dd class="col-sm-9">
                         {% for restrict in item.access_restrictions %}
                           <div class="multiple-item-list">{{ restrict }}</div>
                         {% endfor %}
@@ -184,7 +184,7 @@
                     {% endif %}
 
                     {% if item.local_experts is defined and item.local_experts[0] %}
-                      <dt class="col-sm-3">{{ local_expert_display }}</dt><dd class="col-sm-9">
+                      <dt class="col-sm-3 text-md-end">{{ local_expert_display }}</dt><dd class="col-sm-9">
                         {% for index, expert in item.local_experts %}
                           <div class="multiple-item-list">
                             {% if item.local_expert_biosketch[index] is defined %}

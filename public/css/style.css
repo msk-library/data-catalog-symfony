@@ -311,9 +311,9 @@ li.dataset-summary h4 {
   border-bottom: 1px solid lightgray;
 }
 
-#results-list dt {
+/* #results-list dt {
   text-align: right;
-}
+} */
 
 #results-list dd {
   padding-left: 1.5em;
@@ -571,12 +571,12 @@ legend.section-header {
   color: red;
 }
 
-#pager-wrapper {
+/* #pager-wrapper {
   text-align: right;
   font-size: .9em;
   float: right;
   clear: both;
-}
+} */
 
 #pagenum-input {
   border-radius: 3px;
@@ -619,18 +619,18 @@ legend.section-header {
   font-size: .9em;
 }
 
-#numresults-wrapper {
+/* #numresults-wrapper {
   float: right;
   clear: both;
   text-align: right;
   color: gray;
   font-size: .95em;
   margin-top: -5px;
-}
+} */
 
-#number-of-results {
+/* #number-of-results {
   font-size: 1.1em;
-}
+} */
 
 div[data-prototype] div[data-content] {
   padding: .25em;

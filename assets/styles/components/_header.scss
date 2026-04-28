@@ -25,6 +25,11 @@ $msk-global__link-color: #002569;
   padding-left: 1.2rem
 }
 
+.nav-link {
+  color: #002569;
+  // display: inline;
+}
+
 .site-title {
   // margin-left: 1rem !important;
 }
@@ -324,7 +329,7 @@ h3 a:hover,
 }
 
 #navigation a.active {
-  text-decoration: underline;
+  font-weight: 550;
 }
 
 

@@ -205,11 +205,6 @@ li.dataset-summary h4 {
   text-decoration: none;
 }
 
-.nav-link {
-  color: #002569;
-  display: inline;
-}
-
 
 /* Adjustments for smaller screens (less than md breakpoint: 992px in B3) */
 @media (max-width: 991.98px) {
@@ -894,4 +889,12 @@ h3.footer-col-heading {
   font-size: 1.6rem;
   font-weight: 300;
   font-size: 1.4rem;
+}
+
+dt {
+  font-weight: 500;
+}
+
+dd {
+  font-weight: 375;
 }
