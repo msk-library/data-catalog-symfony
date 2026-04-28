@@ -50,5 +50,14 @@ $(document).ready(function () {
     });
   });
 
+  // Initialize all collapse components (hamburger menus) using Bootstrap 5 API
+  var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'));
+  var collapseList = collapseElementList.map(function (collapseEl) {
+    return new bootstrap.Collapse(collapseEl, {
+      toggle: false
+    });
+  });
+
   console.log('Bootstrap popovers initialized:', popoverList.length);
+  console.log('Bootstrap collapse components initialized:', collapseList.length);
 });
