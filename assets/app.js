@@ -60,4 +60,24 @@ $(document).ready(function () {
 
   console.log('Bootstrap popovers initialized:', popoverList.length);
   console.log('Bootstrap collapse components initialized:', collapseList.length);
+  
+  // Initialize facet "More" functionality
+  $('ul.facets-list').each(function(){
+    var $list = $(this);
+    var max = 4;
+    var $items = $list.find('li.facet-item');
+    var itemCount = $items.length;
+    
+    // console.log('Facet list found with', itemCount, 'items');
+    
+    if (itemCount > max) {
+        // Hide items beyond the max (5th item and beyond) with !important
+        $items.slice(max).each(function() {
+            $(this).attr('style', ($(this).attr('style') || '') + '; display: none !important;');
+        });
+        // Add the "More" button
+        $list.append('<li class="more_facets" style="cursor: pointer;">More <i class="fas fa-chevron-down"></i></li>');
+        // console.log('Added "More" button to facet list with', itemCount, 'items');
+    }
+  });
 });

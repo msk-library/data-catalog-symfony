@@ -43,22 +43,36 @@ $('.oncotree-list [data-toggle="popover"]').popover({
 });
 
 
-// Only show first n number (max+ 1) of results for each facet on results page
-$('ul.facets-list').each(function(){
-  var max = 4;
-  if ($(this).find('li').length > max+1) {
-      $(this).find('li:gt('+max+')').hide().end().append('<li class="more_facets">More <i class="fas fa-chevron-down"></i></li>');
-  };
-});
+// Facet expansion functionality - moved to app.js document.ready block
 
-$('.more_facets').click( function(){
+$(document).on('click', '.more_facets', function(){
+  var $button = $(this);
+  var $list = $button.parent();
   var max = 4;
-  $(this).siblings(':gt('+max+')').toggle();
-  if ( $(this).is(':contains("More") ')) {
-      $(this).html('Less <i class="fas fa-chevron-up"></i>');
+  var $hiddenItems = $list.find('li.facet-item').slice(max);
+  
+  // Check current state
+  var isCurrentlyHidden = $hiddenItems.first().is(':hidden') || 
+                         $hiddenItems.first().css('display') === 'none';
+  
+  if (isCurrentlyHidden) {
+    // Show items with slide animation
+    $hiddenItems.each(function() {
+      var $item = $(this);
+      var style = $item.attr('style') || '';
+      $item.attr('style', style.replace(/display\s*:\s*none\s*!important\s*;?\s*/gi, ''));
+      $item.hide().slideDown(300);
+    });
+    $button.html('Less <i class="fas fa-chevron-up"></i>');
   } else {
-      $(this).html('More <i class="fas fa-chevron-down"></i>');
-  };
+    // Hide items with slide animation
+    $hiddenItems.slideUp(300, function() {
+      $(this).attr('style', ($(this).attr('style') || '') + '; display: none !important;');
+    });
+    $button.html('More <i class="fas fa-chevron-down"></i>');
+  }
+  
+  // console.log('Toggled facets, now expanded:', !isCurrentlyHidden);
 });
 
 
