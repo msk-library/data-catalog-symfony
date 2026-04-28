@@ -20,8 +20,16 @@ class Slugger {
     $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
     // trim
     $text = trim($text, '-');
-    // transliterate
-    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    
+    // transliterate - with error handling for iconv failures
+    $transliterated = iconv('utf-8', 'us-ascii//TRANSLIT//IGNORE', $text);
+    if ($transliterated === false) {
+        // Fallback: remove non-ASCII characters if iconv fails
+        $text = preg_replace('/[^\x00-\x7F]/', '', $text);
+    } else {
+        $text = $transliterated;
+    }
+    
     // lowercase
     $text = strtolower($text);
     // remove unwanted characters
