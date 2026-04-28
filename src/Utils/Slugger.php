@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Utils;
+
 /**
  * A utility class with one method that produces a URL-friendly slug of some given text
  */
-class Slugger {
+class Slugger
+{
   /**
    * Make a URL-friendly slug. Based off of: http://stackoverflow.com/a/2955878
    * which was based off Symfony's Jobeet tutorial: http://symfony.com/legacy/doc/jobeet/1_4/en/05?orm=Doctrine
@@ -20,24 +23,23 @@ class Slugger {
     $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
     // trim
     $text = trim($text, '-');
-    
+
     // transliterate - with error handling for iconv failures
     $transliterated = iconv('utf-8', 'us-ascii//TRANSLIT//IGNORE', $text);
     if ($transliterated === false) {
-        // Fallback: remove non-ASCII characters if iconv fails
-        $text = preg_replace('/[^\x00-\x7F]/', '', $text);
+      // Fallback: remove non-ASCII characters if iconv fails
+      $text = preg_replace('/[^\x00-\x7F]/', '', $text);
     } else {
-        $text = $transliterated;
+      $text = $transliterated;
     }
-    
+
     // lowercase
     $text = strtolower($text);
     // remove unwanted characters
     $text = preg_replace('~[^\-\w]+~', '', $text);
     $text = substr($text, 0, 100);
     $text = $text . '-' . $title_hash;
-    if (empty($text))
-    {
+    if (empty($text)) {
       return 'n-a';
     }
     return $text;
