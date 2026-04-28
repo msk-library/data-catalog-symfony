@@ -319,6 +319,14 @@ h3 a:hover,
   border-bottom: 3px solid #002569;
 }
 
+#header a {
+  text-decoration: none;
+}
+
+#navigation a.active {
+  text-decoration: underline;
+}
+
 
 #search-box {
   display: inline-flex;

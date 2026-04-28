@@ -35,6 +35,7 @@ $msk-site-navigation__item-border-color: transparent;
 @import "~select2";
 
 // Component imports
+@import "components/fonts";
 @import "components/header";
 
 // custom css/scss
@@ -53,10 +54,20 @@ html {
 }
 
 body {
-  // font-family: 'Lato', 'Helvetica', 'Arial', 'Verdana', 'sans-serif';
   font-family: $font-family-sans-serif;
   font-size: 16px;
   line-height: 1.6;
+}
+
+a {
+  color: #0063c2;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.facet-name a {
+  font-weight: 325;
+  font-size: 1.6rem;
 }
 
 .page-title {
@@ -72,6 +83,8 @@ h4 {
 li.dataset-summary h4 {
   margin-bottom: 0;
   padding-bottom: 1em;
+  font-size: 1.8rem;
+  font-weight: 425;
 }
 
 /* Header */
@@ -692,7 +705,7 @@ h3.footer-col-heading {
 
 /* Facets */
 .facet-header {
-  color: $msk-global__link-color;
+  color: #000;
   font-size: 2rem;
 }
 
