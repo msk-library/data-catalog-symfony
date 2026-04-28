@@ -260,25 +260,6 @@ a.skip:hover {
   float: right;
 }
 
-#facets-pane {
-  padding: .5em;
-  border-right: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-  max-width: 300px;
-}
-
-.facet-section {
-  padding: .5em;
-}
-
-.facetBreadcrumb {
-  margin: .25em;
-}
-
-.facetBreadcrumb:hover .facetRemove {
-  color: white;
-  font-weight: bold;
-}
 
 #internal-only-filter-container {
   padding-top: 1.5em;

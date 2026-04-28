@@ -238,6 +238,18 @@ $msk-global__link-color: #002569;
   width: 2.5rem;
 }
 
+h3 a,
+.h3 a {
+  color: white;
+  text-decoration: none;
+}
+
+h3 a:hover,
+.h3 a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
 /* Primary Navigation (e.g. Works | Groups | People | etc.) */
 #navigation,
 #library-navigation {
@@ -307,23 +319,6 @@ $msk-global__link-color: #002569;
   border-bottom: 3px solid #002569;
 }
 
-/* Synapse Search Box */
-// input[type=text].synapse_search_box {
-//   border: 1px solid #272524;
-//   border-radius: 25px;
-//   height: 30px;
-//   line-height: 19px;
-//   background: #fff;
-//   padding:.375rem 2rem;
-//   color: #272524;
-//   font-size: 16px;
-//   margin-top: none;
-//   margin-bottom: none;
-// }
-
-// input[type=text].synapse_search_box::placeholder {
-//   color: #272524;
-// }
 
 #search-box {
   display: inline-flex;
@@ -455,7 +450,7 @@ $msk-global__link-color: #002569;
   font-weight: 450;
 }
 
-.synapse-menu-container {
+.app-menu-container {
   background-color: #f0f7ff;
 }
 
