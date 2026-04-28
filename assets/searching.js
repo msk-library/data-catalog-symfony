@@ -28,11 +28,11 @@
  */
 $('.keyword-breadcrumb.btn').hover(
   function () {
-    $(this).attr('class', 'keyword-breadcrumb btn btn-sm btn-outline-danger');
+    $(this).attr('class', 'keyword-breadcrumb btn btn-sm btn-outline-danger rounded-pill');
     $(this).append('<i class="icon-remove-sign"></i>');
   },
   function () {
-    $(this).attr('class', 'keyword-breadcrumb btn btn-sm btn-outline-secondary');
+    $(this).attr('class', 'keyword-breadcrumb btn btn-sm btn-outline-secondary rounded-pill');
     $(this).children('.icon-remove-sign').remove();
   });
 
@@ -53,11 +53,11 @@ $('.keyword-breadcrumb').on('click', function (e) {
  */
 $('.facetBreadcrumb.btn').on({
   mouseover: function () {
-    $(this).attr('class', 'facetBreadcrumb btn btn-sm btn-outline-danger');
+    $(this).attr('class', 'facetBreadcrumb btn btn-sm btn-outline-danger rounded-pill');
     $(this).append('<i class="icon-remove-sign"></i>');
   },
   mouseout: function () {
-    $(this).attr('class', 'facetBreadcrumb btn btn-sm btn-outline-secondary');
+    $(this).attr('class', 'facetBreadcrumb btn btn-sm btn-outline-secondary rounded-pill');
     $(this).children('.icon-remove-sign').remove();
   }
 });
