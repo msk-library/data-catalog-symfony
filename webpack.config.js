@@ -79,6 +79,13 @@ Encore
         to: 'images/[path][name].[hash:8].[ext]',
         pattern: /\.(png|jpg|jpeg|gif|ico|svg|webp)$/
     })
+
+    // Copy fonts from assets to build directory
+    .copyFiles({
+        from: './assets/fonts',
+        to: 'fonts/[path][name].[hash:8].[ext]',
+        pattern: /\.(woff|woff2|ttf|eot|otf)$/
+    })
     ;
 
 module.exports = Encore.getWebpackConfig();
