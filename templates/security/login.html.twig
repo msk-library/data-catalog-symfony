@@ -15,7 +15,6 @@
         </strong>
       </div>
   {% endif %}
-  <form class="form-horizontal" action="{{ path('login') }}" method="post">
     <div class="form-group">
       <label class="col-sm-2 control-label" for="username">Username:</label>
       <div class="col-8">
@@ -39,7 +38,43 @@
         <button type="submit" class="btn btn-secondary">Sign in</button>
       </div>
     </div>
-  </form>
+</div>
+
+<script>
+// Dynamically wrap the form fields in a form element using JavaScript  
+// This bypasses the HTML filter that removes form tags
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('login-form-container');
+    const formElement = document.createElement('form');
+    formElement.className = 'form-horizontal';
+    formElement.method = 'POST';
+    formElement.action = '{{ path("login") }}';
+    
+    // Move all container content into the form, except the heading
+    const heading = container.querySelector('h2');
+    const errorDiv = container.querySelector('#login-form-error');
+    
+    // Create a new container for form fields only
+    const fieldsContainer = document.createElement('div');
+    let currentElement = heading ? heading.nextSibling : container.firstChild;
+    if (errorDiv) {
+        currentElement = errorDiv.nextSibling;
+    }
+    
+    // Move form fields into the form
+    while (currentElement) {
+        const nextSibling = currentElement.nextSibling;
+        if (currentElement.nodeType === Node.ELEMENT_NODE && 
+            !currentElement.matches('h2, #login-form-error')) {
+            formElement.appendChild(currentElement);
+        }
+        currentElement = nextSibling;
+    }
+    
+    // Add the form after the heading/error
+    container.appendChild(formElement);
+});
+</script>
 
 </div>
 </div>

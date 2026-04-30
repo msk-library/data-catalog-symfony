@@ -1,37 +1,98 @@
 {% extends 'base.html.twig' %}
-{% form_theme form with ['bootstrap_4_horizontal_layout.html.twig',
-_self] %}
 
 {% block page_title %}
  <title>Contact Us</title>
 {% endblock %}
 
-{% block form_group_class -%}
-col-sm-7
-{%- endblock form_group_class %}
-
-{% block form_label_class -%}
-col-sm-5
-{%- endblock form_label_class %}
-
-
-{% block page_stylesheets %}
-{% endblock %}
-
-
-{% block page_scripts %}
-{% endblock %}
-
-
 {% block content %}
-<div class="container-fluid">
-<div class="row">
-<div class="col-sm-6 offset-sm-2" >
-<div class="page-header">
-<h1>Contact Us</h1>
+<div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-2">
+        <div class="page-header">
+          <h1>Contact Us</h1>
+        </div>
+
+<div id="contact-form-container">
+  <div class="row mb-3">
+    <label class="col-sm-5 col-form-label" for="contact_form_email_first_name">* First Name</label>
+    <div class="col-sm-7">
+      {{ form_widget(form.first_name, {'attr': {'class': 'form-control', 'id': 'contact_form_email_first_name'}}) }}
+    </div>
+  </div>
+  
+  <div class="row mb-3">
+    <label class="col-sm-5 col-form-label" for="contact_form_email_last_name">* Last Name</label>
+    <div class="col-sm-7">
+      {{ form_widget(form.last_name, {'attr': {'class': 'form-control', 'id': 'contact_form_email_last_name'}}) }}
+    </div>
+  </div>
+  
+  <div class="row mb-3">
+    <label class="col-sm-5 col-form-label" for="contact_form_email_affiliation">* Affiliation</label>
+    <div class="col-sm-7">
+      {{ form_widget(form.affiliation, {'attr': {'class': 'form-control', 'id': 'contact_form_email_affiliation'}}) }}
+    </div>
+  </div>
+  
+  <div class="row mb-3">
+    <label class="col-sm-5 col-form-label" for="contact_form_email_department">Department</label>
+    <div class="col-sm-7">
+      {{ form_widget(form.department, {'attr': {'class': 'form-control', 'id': 'contact_form_email_department'}}) }}
+    </div>
+  </div>
+  
+  <div class="row mb-3">
+    <label class="col-sm-5 col-form-label" for="contact_form_email_email_address">* E-mail</label>
+    <div class="col-sm-7">
+      {{ form_widget(form.email_address, {'attr': {'class': 'form-control', 'id': 'contact_form_email_email_address'}}) }}
+    </div>
+  </div>
+  
+  <div class="row mb-3">
+    <label class="col-sm-5 col-form-label" for="contact_form_email_reason">* Reason</label>
+    <div class="col-sm-7">
+      {{ form_widget(form.reason, {'attr': {'class': 'form-select fs-3', 'id': 'contact_form_email_reason'}}) }}
+    </div>
+  </div>
+  
+  <div class="row mb-3">
+    <label class="col-sm-5 col-form-label" for="contact_form_email_message_body">* Please provide some details about your question/comment</label>
+    <div class="col-sm-7">
+      {{ form_widget(form.message_body, {'attr': {'class': 'form-control', 'rows': '5', 'id': 'contact_form_email_message_body'}}) }}
+    </div>
+  </div>
+  
+  <div style="display: none;">
+    {{ form_widget(form.checker, {'attr': {'class': 'form-control checker'}}) }}
+  </div>
+  
+  {{ form_widget(form._token) }}
+  <div class="row">
+    <div class="col-sm-7 offset-sm-5">
+      <button type="submit" id="contact-submit-btn" class="btn btn-primary mb-5">Send</button>
+    </div>
+  </div>
 </div>
 
-{{ form(form) }}
+<script>
+// Dynamically wrap the form fields in a form element using JavaScript
+// This bypasses the HTML filter that removes form tags
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('contact-form-container');
+    const formElement = document.createElement('form');
+    formElement.method = 'POST';
+    formElement.action = '{{ path("contact") }}';
+    formElement.name = 'contact_form_email';
+    
+    // Move all container content into the form
+    while (container.firstChild) {
+        formElement.appendChild(container.firstChild);
+    }
+    
+    // Add the form to the container
+    container.appendChild(formElement);
+});
+</script>
 
 </div>
 </div>

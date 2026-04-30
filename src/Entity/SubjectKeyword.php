@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,33 +33,35 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Table(name: 'subject_keywords')]
 #[ORM\Entity(repositoryClass: \App\Repository\SubjectKeywordRepository::class)]
 #[UniqueEntity('keyword')]
-class SubjectKeyword {
-  #[ORM\Column(type: 'integer', name: 'keyword_id')]
-  #[ORM\Id]
-  #[ORM\GeneratedValue(strategy: 'AUTO')]
-  protected $id;
+class SubjectKeyword
+{
+    #[ORM\Column(type: 'integer', name: 'keyword_id')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    protected $id;
 
-  #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Keywords cannot contain HTML or script tags')]
-  #[ORM\Column(type: 'string', length: 255, unique: true)]
-  protected $keyword;
+    #[Assert\Regex(pattern: '/<[a-z][\s\S]*>/i', match: false, message: 'Keywords cannot contain HTML or script tags')]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    protected $keyword;
 
-  #[ORM\Column(type: 'string', length: 256, nullable: true)]
-  protected $mesh_code;
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
+    protected $mesh_code;
 
-  #[ORM\Column(type: 'string', length: 256)]
-  protected $slug;
+    #[ORM\Column(type: 'string', length: 256)]
+    protected $slug;
 
-  #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'subject_keywords')]
-  protected $datasets;
+    #[ORM\ManyToMany(targetEntity: 'Dataset', mappedBy: 'subject_keywords')]
+    protected $datasets;
 
-  /**
-   * get name for display
-   *
-   * @return string
-   */
-  public function getDisplayName() {
-    return $this->keyword;
-  }
+    /**
+     * get name for display
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->keyword;
+    }
 
 
     /**
@@ -123,22 +126,22 @@ class SubjectKeyword {
      *
      * @return string
      */
-    public function getOncoTreeMetadata() {
+    public function getOncoTreeMetadata()
+    {
         $ocode = $this->keyword;
         $api_url = "http://oncotree.mskcc.org/api/tumorTypes/search/code/{$ocode}";
         // Read JSON file
         if (@file_get_contents($api_url) === false) {
-            return;   
+            return;
         } else {
             $json_data = @file_get_contents($api_url);
             $onco_data = json_decode($json_data, null, 512, JSON_THROW_ON_ERROR);
-            $returnhtml =  "<p><strong>Name:</strong> {$onco_data[0]->name}</p>";
-            $returnhtml .= "<p><strong>Main Type:</strong> {$onco_data[0]->mainType}</p>";
-            $returnhtml .= "<p><strong>Tissue:</strong> {$onco_data[0]->tissue}</p>";
-            $returnhtml .= "<p><strong>Parent:</strong> {$onco_data[0]->parent}</p>";
+            $returnhtml =  "<p><strong>Name:</strong> " . htmlspecialchars($onco_data[0]->name ?? '', ENT_QUOTES, 'UTF-8') . "</p>";
+            $returnhtml .= "<p><strong>Main Type:</strong> " . htmlspecialchars($onco_data[0]->mainType ?? '', ENT_QUOTES, 'UTF-8') . "</p>";
+            $returnhtml .= "<p><strong>Tissue:</strong> " . htmlspecialchars($onco_data[0]->tissue ?? '', ENT_QUOTES, 'UTF-8') . "</p>";
+            $returnhtml .= "<p><strong>Parent:</strong> " . htmlspecialchars($onco_data[0]->parent ?? '', ENT_QUOTES, 'UTF-8') . "</p>";
             $returnhtml .= "<p><a href='http://oncotree.mskcc.org' target='_blank'>More at OncoTree</a></p>";
             return $returnhtml;
-    
         }
     }
 
@@ -165,9 +168,10 @@ class SubjectKeyword {
     {
         return $this->slug;
     }
- 
-    public function __construct() {
-      $this->datasets = new \Doctrine\Common\Collections\ArrayCollection();
+
+    public function __construct()
+    {
+        $this->datasets = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -205,8 +209,8 @@ class SubjectKeyword {
      *
      * @return array
      */
-    public function getAllProperties() {
-      return ['keyword'=>$this->keyword, 'mesh_code'=>$this->mesh_code];
+    public function getAllProperties()
+    {
+        return ['keyword' => $this->keyword, 'mesh_code' => $this->mesh_code];
     }
-
 }

@@ -4,7 +4,9 @@
 
 
 {% block page_scripts %}
-
+<script>
+// Page-specific scripts can go here if needed
+</script>
 {% endblock %}
 
 
@@ -24,7 +26,7 @@
 {% block content %}
 <div class="container">
 <div class="row">
-<div id="dataset-full-view-container" class="col-10 offset-1">
+<div id="dataset-full-view-container" class="col-12 col-lg-10 offset-lg-1">
   <div class="" id="dataset-detail-titlebox">
   {% if is_granted('ROLE_ADMIN') %}
   <div class="update-dataset-link">
@@ -41,53 +43,57 @@
       {% if dataset.datasetAlternateTitles.count > 0 %}
        <h6>Alternate Titles(s): 
         {% for title in dataset.datasetAlternateTitles %}
-        {{ title.getDisplayName|trim }}{% if not loop.last %}, {% endif %}
+        {{ title.getDisplayName()|trim }}{% if not loop.last %}, {% endif %}
         {% endfor %}
         </h6>
       {% endif %}
-    {% if dataset.getProjects is not empty %}
-      {% for project in dataset.getProjects %}
-         <div class="dataset-detail-projects">Part of: <a href="{{ project.getProjectUrl }}" target="_blank">{{ project.getProjectName }}</a> | {{ project.getProjectDescription }}</div>
+    {% if dataset.getProjects() is not empty %}
+      {% for project in dataset.getProjects() %}
+         <div class="dataset-detail-projects">Part of: <a href="{{ project.getProjectUrl() }}" target="_blank">{{ project.getProjectName() }}</a> | {{ project.getProjectDescription() }}</div>
        {% endfor %}
     {% endif %}
           <div class="dataset-detail-id">UID: {{ dataset.id }}</div>
-         {% if dataset.getAuthorships is not empty %}
+         {% if dataset.getAuthorships() is not empty %}
           <div class="dataset-authors-section">
           <span class="dataset-detail-authors">Author(s):
             {% set correspondingAuthorExists = false %}
-            {% if dataset.getAuthorships.count > 5 %}
-                {% for author in dataset.getAuthorships|slice(0,5) %}
-                    {% if author.getPerson.getBioUrl %}
-                      {% set popoverContent = '<p><a href="' ~ author.getPerson.getBioUrl ~ '" target="_blank">View profile</a></p><p><a href="/search?keyword=authors:%22' ~ author.getPerson.getFullName ~ '%22" target="_blank">View other datasets</a></p>' %}
+            {% if dataset.getAuthorships().count > 5 %}
+                {% for author in dataset.getAuthorships()|slice(0,5) %}
+                    {% if author.getPerson().getBioUrl() %}
+                      {% set encodedName = author.getPerson().getFullName()|url_encode %}
+                      {% set popoverContent = '<p><a href="' ~ (author.getPerson().getBioUrl()|e('html')) ~ '" target="_blank">View profile</a></p><p><a href="/search?keyword=authors:%22' ~ encodedName ~ '%22" target="_blank">View other datasets</a></p>' %}
 
                      {% else %}
-                    {% set popoverContent = '<p><a href="/search?keyword=authors:%22' ~ author.getPerson.getFullName ~ '%22" target="_blank">View other datasets</a></p>' %}
+                    {% set encodedName = author.getPerson().getFullName()|url_encode %}
+                    {% set popoverContent = '<p><a href="/search?keyword=authors:%22' ~ encodedName ~ '%22" target="_blank">View other datasets</a></p>' %}
 
                    {% endif %}
                    {% if author.isCorrespondingAuthor %}
-                      <a href="#" tabindex="0" class="corresponding-author author-name" role="button" data-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{{ author.getPerson.getFullName }}*</a>{% if not loop.last %},{% endif %}{% if loop.last %}...{% endif %}
+                      <a href="#" tabindex="0" class="corresponding-author author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent|raw }}">{{ author.getPerson().getFullName() }}*</a>{% if not loop.last %},{% endif %}{% if loop.last %}...{% endif %}
                       {% set correspondingAuthorExists = true %}
                    {% else %}
-                      <a href="#" tabindex="0" class="author-name" role="button" data-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{{ author.getPerson.getFullName }}</a>{% if not loop.last %}, {% endif %}{% if loop.last %}...{%endif %}
+                      <a href="#" tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent|raw }}">{{ author.getPerson().getFullName() }}</a>{% if not loop.last %}, {% endif %}{% if loop.last %}...{%endif %}
                    {% endif %}
                {% endfor %}
-                <a class="collapsed-toggle authors-collapse" data-toggle="collapse" href="#collapsed-authors" aria-expanded="false" aria-controls="collapsed-authors">
+                <a class="collapsed-toggle authors-collapse" data-bs-toggle="collapse" href="#collapsed-authors" aria-expanded="false" aria-controls="collapsed-authors">
                    See more...
                 </a>
                <div class="collapse" id="collapsed-authors">
-               {% for author in dataset.getAuthorships|slice(5,dataset.getAuthorships.count) %}
-                    {% if author.getPerson.getBioUrl %}
-                      {% set popoverContent = '<p><a href="' ~ author.getPerson.getBioUrl ~ '" target="_blank">View profile</a></p><p><a href="/search?keyword=authors:%22' ~ author.getPerson.getFullName ~ '%22" target="_blank">View other datasets</a></p>' %}
+               {% for author in dataset.getAuthorships()|slice(5,dataset.getAuthorships().count) %}
+                    {% if author.getPerson().getBioUrl() %}
+                      {% set encodedName = author.getPerson().getFullName()|url_encode %}
+                      {% set popoverContent = '<p><a href="' ~ (author.getPerson().getBioUrl()|e('html')) ~ '" target="_blank">View profile</a></p><p><a href="/search?keyword=authors:%22' ~ encodedName ~ '%22" target="_blank">View other datasets</a></p>' %}
 
                      {% else %}
-                    {% set popoverContent = '<p><a href="/search?keyword=authors:%22' ~ author.getPerson.getFullName ~ '%22" target="_blank">View other datasets</a></p>' %}
+                    {% set encodedName = author.getPerson().getFullName()|url_encode %}
+                    {% set popoverContent = '<p><a href="/search?keyword=authors:%22' ~ encodedName ~ '%22" target="_blank">View other datasets</a></p>' %}
 
                    {% endif %}
                    {% if author.isCorrespondingAuthor %}
-                      <a href="#" tabindex="0" class="corresponding-author author-name" role="button" data-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{{ author.getPerson.getFullName }}*</a>{% if not loop.last %}, {% endif %}
+                      <a href="#" tabindex="0" class="corresponding-author author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent }}">{{ author.getPerson().getFullName() }}*</a>{% if not loop.last %}, {% endif %}
                       {% set correspondingAuthorExists = true %}
                    {% else %}
-                      <a href="#" tabindex="0" class="author-name" role="button" data-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{{ author.getPerson.getFullName }}</a>{% if not loop.last %}, {% endif %}
+                      <a href="#" tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent }}">{{ author.getPerson().getFullName() }}</a>{% if not loop.last %}, {% endif %}
                    {% endif %}
                 {% endfor %}
                 </div>
@@ -95,19 +101,21 @@
                     
 
             {% else %}
-                {% for author in dataset.getAuthorships %}
-                  {% if author.getPerson.getBioUrl %}
-                    {% set popoverContent = '<p><a href="' ~ author.getPerson.getBioUrl ~ '" target="_blank">View profile</a></p><p><a href="/search?keyword=authors:%22' ~ author.getPerson.getFullName ~ '%22" target="_blank">View other datasets</a></p>' %}
+                {% for author in dataset.getAuthorships() %}
+                  {% if author.getPerson().getBioUrl() %}
+                    {% set encodedName = author.getPerson().getFullName()|url_encode %}
+                    {% set popoverContent = '<p><a href="' ~ (author.getPerson().getBioUrl()|e('html')) ~ '" target="_blank">View profile</a></p><p><a href="/search?keyword=authors:%22' ~ encodedName ~ '%22" target="_blank">View other datasets</a></p>' %}
 
                    {% else %}
-                    {% set popoverContent = '<p><a href="/search?keyword=authors:%22' ~ author.getPerson.getFullName ~ '%22" target="_blank">View other datasets</a></p>' %}
+                    {% set encodedName = author.getPerson().getFullName()|url_encode %}
+                    {% set popoverContent = '<p><a href="/search?keyword=authors:%22' ~ encodedName ~ '%22" target="_blank">View other datasets</a></p>' %}
 
                  {% endif %}
                  {% if author.isCorrespondingAuthor %}
-                    <a href="#" tabindex="0" class="corresponding-author author-name" role="button" data-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{{ author.getPerson.getFullName }}*</a>{% if not loop.last %}, {% endif %}
+                    <a href="#" tabindex="0" class="corresponding-author author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent }}">{{ author.getPerson().getFullName() }}*</a>{% if not loop.last %}, {% endif %}
                     {% set correspondingAuthorExists = true %}
                  {% else %}
-                    <a href="#" tabindex="0" class="author-name" role="button" data-toggle="popover" title="{{ author.getPerson.getFullName }}" data-content="{{ popoverContent }}">{{ author.getPerson.getFullName }}</a>{% if not loop.last %}, {% endif %}
+                    <a href="#" tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent }}">{{ author.getPerson().getFullName() }}</a>{% if not loop.last %}, {% endif %}
                  {% endif %}
                {% endfor %}
            {% endif %}
@@ -123,7 +131,7 @@
 </div>
 </div>
 <div class="row">
-   <div class="col-6 offset-1" id="dataset-detail-description">
+   <div class="col-12 col-md-6 offset-md-1" id="dataset-detail-description">
    <dl>
      <dt>Description</dt>
        <dd>{{ dataset.description|raw }}</dd>
@@ -133,11 +141,13 @@
          {% for publisher in dataset.publishers %}
        <div class="multiple-item-list">
       {% if publisher.publisherUrl %}
-        {% set popoverContent = "<p><a href='#{ publisher.publisherUrl }' target='_blank'>View publisher website</a></p><p><a href='/search?keyword=publishers:#{ publisher.publisherName }' target='_blank'>View other datasets</a></p>" %}
+        {% set encodedName = publisher.publisherName|url_encode %}
+        {% set popoverContent = '<p><a href="' ~ (publisher.publisherUrl|e('html')) ~ '" target="_blank">View publisher website</a></p><p><a href="/search?keyword=publishers:' ~ encodedName ~ '" target="_blank">View other datasets</a></p>' %}
       {% else %}
-        {% set popoverContent = "<p><a href='/search?keyword=publishers:#{ publisher.publisherName }' target='_blank'>View other datasets</a></p>" %}
+        {% set encodedName = publisher.publisherName|url_encode %}
+        {% set popoverContent = '<p><a href="/search?keyword=publishers:' ~ encodedName ~ '" target="_blank">View other datasets</a></p>' %}
       {% endif %}
-        <a tabindex="0" class="publisher-link" role="button" data-toggle="popover" title="{{ publisher.publisherName }}" data-content="{{ popoverContent }}">{{ publisher.publisherName }}</a>
+        <a tabindex="0" class="publisher-link" role="button" data-bs-toggle="popover" title="{{ publisher.publisherName }}" data-bs-content="{{ popoverContent }}">{{ publisher.publisherName }}</a>
        </div>
        {% endfor %}
         </dd>
@@ -158,24 +168,24 @@
        {% if dataset.subjectGeographicAreaDetails.count > 5 %}
          {% for area in dataset.subjectGeographicAreaDetails|slice(0,5) %}
            <div class="multiple-item-list">
-             {{ area.getDisplayName }}
+             {{ area.getDisplayName() }}
            </div>
          {% endfor %}
          <div class="collapse" id="collapsed-areas">
            {% for area in dataset.subjectGeographicAreaDetails|slice(5,dataset.subjectGeographicAreaDetails.count) %}
              <div class="multiple-item-list">
-               {{ area.getDisplayName }}
+               {{ area.getDisplayName() }}
              </div>
            {% endfor %}
          </div>
-         <a class="btn btn-sm btn-link collapsed-toggle" data-toggle="collapse" href="#collapsed-areas" aria-expanded="false" aria-controls="collapsed-areas">
+         <a class="btn btn-sm btn-link collapsed-toggle" data-bs-toggle="collapse" href="#collapsed-areas" aria-expanded="false" aria-controls="collapsed-areas">
             See all...
          </a>
         {% else %}
           
           {% for area in dataset.subjectGeographicAreaDetails %}
            <div class="multiple-item-list">
-            {{ area.getDisplayName }}
+            {{ area.getDisplayName() }}
            </div>
           {% endfor %}
         {% endif %}
@@ -185,9 +195,9 @@
         {% if dataset.localExperts|length > 0 %}
          <dt>{{ local_expert_display }}</dt><dd>
          {% for expert in dataset.localExperts %}
-            {% set popoverContent = '<p><a href="' ~ expert.bioUrl ~ '" target="_blank">View profile</a></p><p><a href="https://openredcap.nyumc.org/apps/redcap/surveys/?s=FRAFFH79JM" target="_blank">Contact this Local Expert</a></p>' %}
+            {% set popoverContent = '<p><a href="' ~ (expert.bioUrl|e('html')) ~ '" target="_blank">View profile</a></p><p><a href="https://openredcap.nyumc.org/apps/redcap/surveys/?s=FRAFFH79JM" target="_blank">Contact this Local Expert</a></p>' %}
             <div class="multiple-item-list">
-              <a class="local-expert-popover-link" href="#" data-toggle="popover" data-content="{{ popoverContent }}" data-original-title="{{ expert.fullName }}">{{ expert.fullName }}</a>
+              <a class="local-expert-popover-link" href="#" data-bs-toggle="popover" data-bs-content="{{ popoverContent|raw }}" data-original-title="{{ expert.fullName }}">{{ expert.fullName }}</a>
             </div>
          {% endfor %}
          {% endif %}
@@ -197,7 +207,7 @@
     {% if dataset.subjectOfStudy is not empty %}
      <dt>Subject of Study</dt>
       <dd id="subject-of-study">{% for subject in dataset.subjectOfStudy %}
-         <div class="multiple-item-list"><a href="/search?keyword=subject_of_study:{{ subject.getDisplayName }}">{{ subject.getDisplayName }}</a></div>
+         <div class="multiple-item-list"><a href="/search?keyword=subject_of_study:{{ subject.getDisplayName() }}">{{ subject.getDisplayName() }}</a></div>
          {% if subject.species is not empty %}
            <p class="related-dataset-note">{{ subject.species }}</p>
          {% endif %}
@@ -208,7 +218,7 @@
     {% if dataset.subjectDomains is not empty %}
      <dt>Subject Domain</dt>
       <dd>{% for domain in dataset.subjectDomains %}
-         <div class="multiple-item-list"><a href="/search?keyword=subject_domain:{{ domain.getDisplayName }}">{{ domain.getDisplayName }}</a></div>
+         <div class="multiple-item-list"><a href="/search?keyword=subject_domain:{{ domain.getDisplayName() }}">{{ domain.getDisplayName() }}</a></div>
        {% endfor %}
       </dd>
      {% endif %}
@@ -216,35 +226,35 @@
      {% if (dataset.subjectPopulationAges.count > 0) %}
         <dt>Population Age</dt>
           <dd>{% for ageGroup in dataset.subjectPopulationAges %}
-           <div class="multiple-item-list">{{ ageGroup.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ ageGroup.getDisplayName() }}</div>
            {% endfor %}</dd>
        {% endif %}
 
      {% if (dataset.subjectGenders is not empty ) %}
         <dt>Subject Gender</dt>
           <dd>{% for gender in dataset.subjectGenders %}
-           <div class="multiple-item-list">{{ gender.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ gender.getDisplayName() }}</div>
            {% endfor %}</dd>
        {% endif %}
      
      {% if (dataset.subjectSexes is not empty ) %}
         <dt>Subject Sex</dt>
           <dd>{% for sex in dataset.subjectSexes %}
-           <div class="multiple-item-list">{{ sex.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ sex.getDisplayName() }}</div>
            {% endfor %}</dd>
        {% endif %}
 
      {% if (dataset.subjectKeywords.count > 0) %}
         <dt>Keywords</dt>
          <dd>{% for keyword in dataset.subjectKeywords %}
-          <div class="multiple-item-list"><a href="/search?keyword=subject_keywords:{{ keyword.getDisplayName }}">{{ keyword.getDisplayName }}</a></div>
+          <div class="multiple-item-list"><a href="/search?keyword=subject_keywords:{{ keyword.getDisplayName() }}">{{ keyword.getDisplayName() }}</a></div>
           {% endfor %}
           </dd>
         {% endif %}
      
      </dl>
     </div>
-    <div class="col-4" id="dataset-detail-sidebar">
+    <div class="col-12 col-md-4" id="dataset-detail-sidebar">
       
       <div id="dataset-detail-accesspanel" class="">
        <div id="accesspanel-titlebox">
@@ -257,7 +267,7 @@
        <dt>Restrictions</dt>
          <dd class="dataset-detail-access-restrictions">
           {% for restriction in dataset.accessRestrictions %}
-           <div class="multiple-item-list">{{ restriction.getDisplayName }}</div>
+           <div class="multiple-item-list">{{ restriction.getDisplayName() }}</div>
           {% endfor %}
          </dd>
       {% endif %}
@@ -268,11 +278,11 @@
          <dd>
            {% for location in dataset.dataLocations %}
               <div class="multiple-item-list">
-                {% if location.getDataAccessUrl is not empty %}
-                <a class="btn btn-primary" target="_blank" href="{{ location.getDataAccessUrl }}" onclick="trackOutboundLink('{{ location.getDataAccessUrl }}', '{{ dataset.title }} (via {{ location.getDataLocation }})');">Access via {{ location.getDataLocation }}</a><p class="data-location-description"><span class="data-location-title"></span> <span class="data-location-content">{{ location.getLocationContent }}</span>
+                {% if location.getDataAccessUrl() is not empty %}
+                <a class="btn btn-primary" target="_blank" href="{{ location.getDataAccessUrl() }}" onclick="trackOutboundLink('{{ location.getDataAccessUrl() }}', '{{ dataset.title }} (via {{ location.getDataLocation() }})');">Access via {{ location.getDataLocation() }}</a><p class="data-location-description"><span class="data-location-title"></span> <span class="data-location-content">{{ location.getLocationContent() }}</span>
                 {% endif %}
-               {% if location.getAccessionNumber %}
-                 <br/><span class="data-location-accession-number">Accession #: {{ location.getAccessionNumber  }}</span>
+               {% if location.getAccessionNumber() %}
+                 <br/><span class="data-location-accession-number">Accession #: {{ location.getAccessionNumber() }}</span>
                {% endif %}
                </p>
               </div>
@@ -300,7 +310,7 @@
        <dt>Data Type</dt>
        <dd>
       {% for type in dataset.dataTypes %}
-        <div class="multiple-item-list"><a href="/search?keyword=data_types:{{ type.getDisplayName }}">{{ type.getDisplayName }}</a></div>
+        <div class="multiple-item-list"><a href="/search?keyword=data_types:{{ type.getDisplayName() }}">{{ type.getDisplayName() }}</a></div>
       {% endfor %}
       </dd>
       {% endif %}
@@ -311,9 +321,9 @@
       {% for equip in dataset.relatedEquipment %}
         <div class="multiple-item-list">
           {% if equip.equipmentUrl is not empty %}
-            <a href="{{ equip.equipmentUrl }}" target="_blank">{{ equip.getDisplayName }}</a>
+            <a href="{{ equip.equipmentUrl }}" target="_blank">{{ equip.getDisplayName() }}</a>
           {% else %}
-            {{ equip.getDisplayName }}
+            {{ equip.getDisplayName() }}
           {% endif %}
           {% if equip.equipmentDescription is not empty %}
             <p class="related-dataset-note">{{ equip.equipmentDescription }}</p>
@@ -329,9 +339,9 @@
       {% for sw in dataset.relatedSoftware %}
         <div class="multiple-item-list">
           {% if sw.softwareUrl is not empty %}
-            <a href="{{sw.softwareUrl}}" target="_blank">{{ sw.getDisplayName }}</a>
+            <a href="{{sw.softwareUrl}}" target="_blank">{{ sw.getDisplayName() }}</a>
           {% else %}
-            {{ sw.getDisplayName }}
+            {{ sw.getDisplayName() }}
           {% endif %}
           {% if sw.softwareDescription is not empty %}
             <p class="related-dataset-note">{{ sw.softwareDescription }}</p>
@@ -345,7 +355,7 @@
        <dt>Study Type</dt>
        <dd>
       {% for type in dataset.studyTypes %}
-        <div class="multiple-item-list">{{ type.getDisplayName }}</div>
+        <div class="multiple-item-list">{{ type.getDisplayName() }}</div>
       {% endfor %}
       </dd>
       {% endif %}
@@ -354,7 +364,7 @@
       <dt>Dataset Format(s)</dt>
        <dd>
         {% for format in dataset.datasetFormats %}
-        {{ format.getDisplayName|trim }}{% if not loop.last %}, {% endif %}
+        {{ format.getDisplayName()|trim }}{% if not loop.last %}, {% endif %}
         {% endfor %}
        </dd>
       {% endif %}
@@ -363,7 +373,7 @@
        <dt>Data Collection Instruments</dt>
          <dd>
       {% for instrument in dataset.dataCollectionInstruments %}
-        <div class="multiple-item-list">{{ instrument.getDisplayName }}</div>
+        <div class="multiple-item-list">{{ instrument.getDisplayName() }}</div>
       {% endfor %}
          </dd>
       {% endif %}
@@ -385,7 +395,7 @@
            <dd id="other-resources">
            {% for resource in dataset.otherResources %}
               <div class="other-resource multiple-item-list">
-               <a class="other-resource-link" target="_blank" href="{{ resource.getResourceUrl }}">{{ resource.getResourceName }}</a><p class="other-resource-description">{{ resource.getResourceDescription }}</p>
+               <a class="other-resource-link" target="_blank" href="{{ resource.getResourceUrl() }}">{{ resource.getResourceName() }}</a><p class="other-resource-description">{{ resource.getResourceDescription() }}</p>
               </div>
            {% endfor %} 
            </dd>       
