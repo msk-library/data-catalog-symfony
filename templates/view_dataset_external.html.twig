@@ -79,7 +79,7 @@ var trackOutboundLink = function(url, label) {
 								{% set authorClass = authorClass ~ ' corresponding-author' %}
 							{% endif %}
 
-							{% if popoverContent %}<a tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent }}">{% endif %}<span class="{{ authorClass }} ">{{ author.getPerson().getFullName() }}</span><span class="author-note">{{ authorNote }}</span>{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
+							{% if popoverContent %}<a tabindex="0" class="author-name" role="button" data-bs-toggle="popover" title="{{ author.getPerson().getFullName() }}" data-bs-content="{{ popoverContent }}">{% endif %}<span class="{{ authorClass }} text-nowrap">{{ author.getPerson().getFullName() }}</span><span class="author-note">{{ authorNote }}</span>{% if popoverContent %}</a>{% endif %}{% if not loop.last %}, {% endif %}
 
 						{% endfor %}
 						

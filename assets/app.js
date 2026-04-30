@@ -39,19 +39,10 @@ require('./ask_us_side_tab.js');
 //require('./add_form.js'); // select2 has to be loaded before this
 //require('./respond.js');
 
-//Initialize bootstrap popovers on all pages (Bootstrap 5)
+//Initialize bootstrap popovers on all pages (Bootstrap 5) - DISABLED
+// Popover initialization is handled in specific JS files (dataset_details.js, msk.js)
+// to avoid conflicts with custom hover behavior
 $(document).ready(function () {
-  // Initialize all popovers using Bootstrap 5 API
-  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl, {
-      html: true,
-      trigger: 'hover focus',
-      placement: 'auto'
-    });
-  });
-
-  // Initialize all collapse components (hamburger menus) using Bootstrap 5 API
   var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'));
   var collapseList = collapseElementList.map(function (collapseEl) {
     return new bootstrap.Collapse(collapseEl, {

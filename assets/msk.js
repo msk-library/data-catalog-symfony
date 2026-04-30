@@ -1,46 +1,72 @@
-// initialize Core Facility popovers
+// Initialize Core Facility popovers for Bootstrap 5
 // These custom detailed options make the content area hoverable vs the bootstrap defaults where
 // the popover disappears when you navigate to the content area.
-$('.core_facilities-list [data-toggle="popover"]').popover({
-  'html': true,
-  'animation': false,
-  'trigger': 'manual',
-  'placement': 'bottom',
-}).on("mouseenter", function () {
-  var _this = this;
-  $(this).popover("show");
-  $(".popover").on("mouseleave", function () {
-    $(_this).popover('hide');
-  });
-}).on("mouseleave", function () {
-  var _this = this;
-  setTimeout(function () {
-    if (!$(".popover:hover").length) {
-      $(_this).popover("hide");
-    }
-  }, 200);
-});
+function initCoreFacilityPopovers(selector) {
+  $(selector).each(function () {
+    var popover = new bootstrap.Popover(this, {
+      html: true,
+      animation: false,
+      trigger: 'manual',
+      placement: 'bottom',
+      container: 'body' // Prevent container clipping
+    });
 
-// initialize OncoTree popovers
-$('.oncotree-list [data-toggle="popover"]').popover({
-  'html': true,
-  'animation': false,
-  'trigger': 'manual',
-  'placement': 'bottom',
-}).on("mouseenter", function () {
-  var _this = this;
-  $(this).popover("show");
-  $(".popover").on("mouseleave", function () {
-    $(_this).popover('hide');
+    $(this).on('mouseenter', function () {
+      popover.show();
+
+      // Make popover hoverable
+      setTimeout(function () {
+        $('.popover').on('mouseleave', function () {
+          popover.hide();
+        });
+      }, 10);
+    }).on('mouseleave', function () {
+      setTimeout(function () {
+        if (!$('.popover:hover').length) {
+          popover.hide();
+        }
+      }, 200);
+    });
   });
-}).on("mouseleave", function () {
-  var _this = this;
-  setTimeout(function () {
-    if (!$(".popover:hover").length) {
-      $(_this).popover("hide");
-    }
-  }, 200);
-});
+}
+
+// Initialize for both Bootstrap 4 and 5 attributes
+initCoreFacilityPopovers('.core_facilities-list [data-toggle="popover"]');
+initCoreFacilityPopovers('.core_facilities-list [data-bs-toggle="popover"]');
+
+// Initialize OncoTree popovers for Bootstrap 5
+function initOncoTreePopovers(selector) {
+  $(selector).each(function () {
+    var popover = new bootstrap.Popover(this, {
+      html: true,
+      animation: false,
+      trigger: 'manual',
+      placement: 'bottom',
+      container: 'body' // Prevent container clipping
+    });
+
+    $(this).on('mouseenter', function () {
+      popover.show();
+
+      // Make popover hoverable
+      setTimeout(function () {
+        $('.popover').on('mouseleave', function () {
+          popover.hide();
+        });
+      }, 10);
+    }).on('mouseleave', function () {
+      setTimeout(function () {
+        if (!$('.popover:hover').length) {
+          popover.hide();
+        }
+      }, 200);
+    });
+  });
+}
+
+// Initialize for both Bootstrap 4 and 5 attributes
+initOncoTreePopovers('.oncotree-list [data-toggle="popover"]');
+initOncoTreePopovers('.oncotree-list [data-bs-toggle="popover"]');
 
 
 // Facet expansion functionality - moved to app.js document.ready block

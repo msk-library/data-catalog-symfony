@@ -770,12 +770,28 @@ h3.footer-col-heading {
 .popover {
   max-width: 400px;
   font-size: 1em;
+  z-index: 1060; // Ensure popovers appear above other elements
 }
 
 .popover-header {
   font-weight: bold;
   font-size: 1em;
   background-color: $msk-light-blue;
+}
+
+// Ensure popover containers don't clip content
+.dataset-authors-section,
+.publishers-list,
+.core_facilities-list,
+.oncotree-list {
+  overflow: visible;
+}
+
+// Ensure parent containers allow popovers to show
+.row,
+.col-12,
+.col-md-6 {
+  overflow: visible;
 }
 
 
