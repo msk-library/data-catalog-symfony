@@ -87,7 +87,7 @@ $(function () {
 
   // Initialize local expert popovers for Bootstrap 5
   function initLocalExpertPopovers(selector) {
-    $(selector).each(function() {
+    $(selector).each(function () {
       var popover = new bootstrap.Popover(this, {
         html: true,
         animation: false,
@@ -95,11 +95,11 @@ $(function () {
         placement: 'bottom', // Changed from 'right' to 'bottom'
         container: 'body'
       });
-      
+
       $(this).on('mouseenter', function () {
         popover.show();
-        
-        setTimeout(function() {
+
+        setTimeout(function () {
           $('.popover').on('mouseleave', function () {
             popover.hide();
           });
@@ -113,6 +113,6 @@ $(function () {
       });
     });
   }
-  
+
   initLocalExpertPopovers('.local-expert-popover-link');
 })

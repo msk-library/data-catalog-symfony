@@ -22,6 +22,8 @@ $search-facet-color: #296896;
 $search-facet-link-color: #000000;
 $msk-foundation-teal: #78e2da;
 $msk-light-blue: #c3e2ff;
+//$msk-light-blue: #037d98;
+
 
 
 $msk-site-navigation__item-border-color: transparent;
@@ -68,6 +70,10 @@ a {
 .facet-name a {
   font-weight: 325;
   font-size: 1.6rem;
+}
+
+.facet-name a:hover {
+  text-decoration: underline;
 }
 
 .page-title {
