@@ -474,3 +474,25 @@ h3 a:hover,
 .navbar-toggler {
   border-color: #064785 !important;
 }
+
+// Fix navigation responsive behavior
+#navigation,
+#library-navigation {
+
+  // Ensure navigation doesn't have fixed widths at smaller screens
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+    width: 100% !important;
+
+    li {
+      width: 100%;
+      text-align: left;
+
+      a {
+        padding: 0.75rem 1rem;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
