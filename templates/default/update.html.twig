@@ -18,18 +18,18 @@
 {{ encore_entry_script_tags('select2') }}
 {{ encore_entry_script_tags('add_form') }}
 <script>
-console.log('UPDATE PAGE SCRIPT LOADED!!!');
-alert('UPDATE PAGE LOADED - Check form action');
+// console.log('UPDATE PAGE SCRIPT LOADED!!!');
+// alert('UPDATE PAGE LOADED - Check form action');
 
 // Check if the form exists and log its attributes
-var updateForm = document.getElementById('dataset-update-form');
-if (updateForm) {
-    console.log('FORM FOUND:', updateForm.action);
-    alert('Form action: ' + updateForm.action);
-} else {
-    console.log('FORM NOT FOUND!');
-    alert('Form not found!');
-}
+// var updateForm = document.getElementById('dataset-update-form');
+// if (updateForm) {
+//     console.log('FORM FOUND:', updateForm.action);
+//     alert('Form action: ' + updateForm.action);
+// } else {
+//     console.log('FORM NOT FOUND!');
+//     alert('Form not found!');
+// }
 </script>
 {% endblock %}
 
@@ -53,9 +53,9 @@ col-sm-3
 <div class="col-7" >
 <div class="page-header">
 <h1>Update a {{ displayName }}</h1>
-<div style="background: yellow; padding: 10px; margin: 10px 0;">
+{# <div style="background: yellow; padding: 10px; margin: 10px 0;">
   <strong>DEBUG:</strong> Template: update.html.twig | Entity: {{ entityName }} | Slug: {{ slug }}
-</div>
+</div> #}
 </div>
   {{ form_start(form, {
     'attr': {'id': 'dataset-update-form'},
