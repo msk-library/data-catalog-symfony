@@ -13,6 +13,7 @@ use App\Entity\Dataset;
 use App\Service\SolrIndexer;
 use App\Utils\Slugger;
 use Throwable;
+use OpenApi\Attributes as OA;
 
 
 /**
@@ -61,6 +62,48 @@ class APIController extends AbstractController
    * @return Response A Response instance 
    */
   #[Route(path: '/api/Dataset/{uid}.{_format}', name: 'json_output_datasets', defaults: ['uid' => 'all', '_format' => 'json'], methods: ['GET'])]
+  #[OA\Get(
+    path: '/api/Dataset/{uid}',
+    tags: ['Datasets'],
+    summary: 'Get dataset(s)',
+    description: 'Retrieve published, non-archived dataset(s) in JSON format. Use "all" as the uid to retrieve all datasets or specify a dataset UID for a single dataset.',
+    parameters: [
+      new OA\Parameter(
+        name: 'uid',
+        in: 'path',
+        description: 'Dataset UID or "all" for all datasets',
+        required: true,
+        schema: new OA\Schema(type: 'string', default: 'all')
+      ),
+      new OA\Parameter(
+        name: 'output_format',
+        in: 'query',
+        description: 'Output format: default (entity format), solr (Solr format), or complete (full dataset with relationships)',
+        required: false,
+        schema: new OA\Schema(type: 'string', enum: ['default', 'solr', 'complete'], default: 'default')
+      )
+    ],
+    responses: [
+      new OA\Response(
+        response: 200,
+        description: 'Successful response with dataset(s)',
+        content: new OA\JsonContent(
+          type: 'array',
+          items: new OA\Items(
+            type: 'object',
+            properties: [
+              new OA\Property(property: 'dataset_uid', type: 'string'),
+              new OA\Property(property: 'title', type: 'string'),
+              new OA\Property(property: 'summary', type: 'string'),
+              new OA\Property(property: 'published', type: 'boolean'),
+              new OA\Property(property: 'archived', type: 'boolean')
+            ]
+          )
+        )
+      ),
+      new OA\Response(response: 404, description: 'Dataset not found')
+    ]
+  )]
   public function APIDatasetGetAction($uid, $_format, Request $request) {
 
     $em = $this->getDoctrine()->getManager();
@@ -127,6 +170,38 @@ class APIController extends AbstractController
    * @return Response A Response instance
    */
   #[Route(path: '/api/Dataset', methods: ['POST'])]
+  #[OA\Post(
+    path: '/api/Dataset',
+    tags: ['Datasets'],
+    summary: 'Create a new dataset',
+    description: 'Ingest a new dataset via API. Requires ROLE_API_SUBMITTER permission. New datasets start as unpublished and must be reviewed by administrators before appearing in the catalog.',
+    requestBody: new OA\RequestBody(
+      required: true,
+      content: new OA\JsonContent(
+        type: 'object',
+        properties: [
+          new OA\Property(property: 'title', type: 'string', description: 'Dataset title'),
+          new OA\Property(property: 'summary', type: 'string', description: 'Brief description of the dataset'),
+          new OA\Property(property: 'dataset_uid', type: 'string', description: 'Unique dataset identifier (auto-generated if not provided)')
+        ],
+        required: ['title', 'summary']
+      )
+    ),
+    responses: [
+      new OA\Response(
+        response: 201,
+        description: 'Dataset successfully created',
+        content: new OA\JsonContent(
+          properties: [
+            new OA\Property(property: 'message', type: 'string', example: 'Dataset Successfully Added')
+          ]
+        )
+      ),
+      new OA\Response(response: 401, description: 'Unauthorized - user does not have ROLE_API_SUBMITTER'),
+      new OA\Response(response: 422, description: 'Validation error - invalid dataset data')
+    ],
+    security: [['api_submitter' => []]]
+  )]
   public function APIDatasetPostAction(Request $request) {
     $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
     $dataset = new Dataset();
@@ -184,6 +259,35 @@ class APIController extends AbstractController
    * @return Response A Response instance
    */
   #[Route(path: '/api/{entityName}', methods: ['POST'])]
+  #[OA\Post(
+    path: '/api/{entityName}',
+    tags: ['Entities'],
+    summary: 'Create a new entity',
+    description: 'Ingest a new entity (Author, LocalExpert, CorrespondingAuthor, Publication, CoreFacility, OncoTreeCancerType, etc.) via API. Requires ROLE_API_SUBMITTER permission. Users cannot be added via API.',
+    parameters: [
+      new OA\Parameter(
+        name: 'entityName',
+        in: 'path',
+        description: 'Entity type name',
+        required: true,
+        schema: new OA\Schema(type: 'string', example: 'Author')
+      )
+    ],
+    requestBody: new OA\RequestBody(
+      required: true,
+      description: 'Entity data fields depending on entityName type',
+      content: new OA\JsonContent(
+        type: 'object'
+      )
+    ),
+    responses: [
+      new OA\Response(response: 201, description: 'Entity successfully created'),
+      new OA\Response(response: 401, description: 'Unauthorized - user does not have ROLE_API_SUBMITTER'),
+      new OA\Response(response: 403, description: 'Forbidden - Users cannot be added via API'),
+      new OA\Response(response: 422, description: 'Validation error')
+    ],
+    security: [['api_submitter' => []]]
+  )]
   public function APIEntityPostAction($entityName, Request $request) {
     $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -243,7 +347,53 @@ class APIController extends AbstractController
    *
    * @return Response A Response instance 
    */
-  #[Route(path: '/api/{entityName}/{slug}.{_format}', name: 'json_output_related', defaults: ['slug' => 'all', '_format' => 'json'], methods: ['GET'])]
+  #[Route(
+    path: '/api/{entityName}/{slug}.{_format}',
+    name: 'json_output_related',
+    defaults: ['slug' => 'all', '_format' => 'json'],
+    requirements: ['entityName' => '(?!documentation(?=/|$))[A-Za-z][A-Za-z0-9_]*'],
+    methods: ['GET']
+  )]
+  #[OA\Get(
+    path: '/api/{entityName}/{slug}',
+    tags: ['Entities'],
+    summary: 'Get entity or entities',
+    description: 'Retrieve entity data by slug or retrieve all entities if slug is "all". For Publications, the slug is the SynapseID. Users cannot be fetched via API.',
+    parameters: [
+      new OA\Parameter(
+        name: 'entityName',
+        in: 'path',
+        description: 'Entity type name (Author, Publication, CoreFacility, OncoTreeCancerType, etc.)',
+        required: true,
+        schema: new OA\Schema(type: 'string')
+      ),
+      new OA\Parameter(
+        name: 'slug',
+        in: 'path',
+        description: 'Entity slug or "all" for all entities (SynapseID for Publications)',
+        required: true,
+        schema: new OA\Schema(type: 'string', default: 'all')
+      ),
+      new OA\Parameter(
+        name: 'output_format',
+        in: 'query',
+        description: 'Output format (json)',
+        required: false,
+        schema: new OA\Schema(type: 'string', default: 'json')
+      )
+    ],
+    responses: [
+      new OA\Response(
+        response: 200,
+        description: 'Successful response with entity data',
+        content: new OA\JsonContent(
+          type: 'array',
+          items: new OA\Items(type: 'object')
+        )
+      ),
+      new OA\Response(response: 403, description: 'Forbidden - Users cannot be fetched via API')
+    ]
+  )]
   public function APIEntityGetAction($entityName, $slug, $_format, Request $request) {
     if ($entityName == 'User') {
       return new Response('Users cannot be fetched via API', 403);
