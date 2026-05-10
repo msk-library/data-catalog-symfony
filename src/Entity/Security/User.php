@@ -302,7 +302,7 @@ class User implements UserInterface, EquatableInterface
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->user_id = $id;
 
         return $this;
     }
