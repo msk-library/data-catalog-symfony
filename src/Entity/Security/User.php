@@ -28,7 +28,7 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
  */
 #[ORM\Table(name: 'datacatalog_users')]
 #[ORM\Entity(repositoryClass: \App\Entity\Security\UserRepository::class)]
-class User implements UserInterface, EquatableInterface, \Serializable
+class User implements UserInterface, EquatableInterface
 {
   #[ORM\Column(type: 'integer', name: 'user_id')]
   #[ORM\Id]
@@ -311,22 +311,37 @@ class User implements UserInterface, EquatableInterface, \Serializable
 
 
     /**
-     * @see \Serializable::serialize()
+     * Serialize user data for session storage.
+     *
+     * @return array
      */
-    public function serialize()
+    public function __serialize(): array
     {
-      /*
-       * Don't serialize Roles
-       */
-        return \serialize([$this->user_id, $this->username, $this->slug, $this->password, $this->roles, $this->firstName, $this->lastName]);
+        return [
+            'user_id' => $this->user_id,
+            'username' => $this->username,
+            'slug' => $this->slug,
+            'password' => $this->password,
+            'roles' => $this->roles,
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+        ];
     }
 
     /**
-     * @see \Serializable::unserialize()
+     * Unserialize user data from session storage.
+     *
+     * @param array $data
      */
-    public function unserialize($serialized)
+    public function __unserialize(array $data): void
     {
-        [$this->user_id, $this->username, $this->slug, $this->password, $this->firstName, $this->lastName, $this->roles] = \unserialize($serialized);
+        $this->user_id = $data['user_id'];
+        $this->username = $data['username'];
+        $this->slug = $data['slug'];
+        $this->password = $data['password'];
+        $this->roles = $data['roles'];
+        $this->firstName = $data['firstName'];
+        $this->lastName = $data['lastName'];
     }
 
 }
