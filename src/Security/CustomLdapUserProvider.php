@@ -17,7 +17,7 @@ class CustomLdapUserProvider extends BaseLdapUserProvider implements ContainerAw
     /**
      * {@inheritdoc}
      */
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof LdapUser) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
@@ -29,23 +29,23 @@ class CustomLdapUserProvider extends BaseLdapUserProvider implements ContainerAw
     /**
      * {@inheritdoc}
      */
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
-	return LdapUser::class === $class || is_subclass_of($class, LdapUser::class);
+        return LdapUser::class === $class || is_subclass_of($class, LdapUser::class);
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function loadUser($username, Entry $entry)
+    protected function loadUser($username, Entry $entry): UserInterface
     {
 
         $user = parent::loadUser($username, $entry);
-        
+
         // Fetch the user's actual roles from our database
-        $userRepository = $this->container->get('doctrine.orm.entity_manager')->getRepository(\App\Entity\Security\User::class);        
+        $userRepository = $this->container->get('doctrine.orm.entity_manager')->getRepository(\App\Entity\Security\User::class);
         $databaseRoles = $userRepository->getDatabaseRoles($username);
-        
+
         return new LdapUser($entry, $username, $user->getPassword(), $databaseRoles);
     }
 
@@ -53,7 +53,8 @@ class CustomLdapUserProvider extends BaseLdapUserProvider implements ContainerAw
     /**
      * @param ContainerInterface|null $container
      */
-    public function setContainer(?ContainerInterface $container = null): void {
+    public function setContainer(?ContainerInterface $container = null): void
+    {
         $this->container = $container;
     }
 
@@ -65,5 +66,4 @@ class CustomLdapUserProvider extends BaseLdapUserProvider implements ContainerAw
     {
         return $this->container;
     }
-
 }
