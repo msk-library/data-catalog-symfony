@@ -45,9 +45,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class GeneralController extends AbstractController
 {
-  public function __construct(private readonly Security $security, private readonly ParameterBagInterface $params)
-  {
-  }
+  public function __construct(private readonly Security $security, private readonly ParameterBagInterface $params) {}
 
 
 
