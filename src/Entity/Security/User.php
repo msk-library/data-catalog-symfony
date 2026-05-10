@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity\Security;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -30,64 +31,64 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 #[ORM\Entity(repositoryClass: \App\Entity\Security\UserRepository::class)]
 class User implements UserInterface, EquatableInterface
 {
-  #[ORM\Column(type: 'integer', name: 'user_id')]
-  #[ORM\Id]
-  #[ORM\GeneratedValue]
-  protected $user_id;
+    #[ORM\Column(type: 'integer', name: 'user_id')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    protected $user_id;
 
-  #[ORM\Column(type: 'string', length: 25, unique: true)]
-  protected $username;
-
-
-  #[ORM\Column(type: 'string', length: 25, unique: true, nullable: true)]
-  protected $slug;
+    #[ORM\Column(type: 'string', length: 25, unique: true)]
+    protected $username;
 
 
-  #[ORM\Column(type: 'string', length: 64, nullable: true)]
-  protected $password;
+    #[ORM\Column(type: 'string', length: 25, unique: true, nullable: true)]
+    protected $slug;
 
 
-  #[ORM\Column(type: 'string', length: 50)]
-  protected $firstName;
+    #[ORM\Column(type: 'string', length: 64, nullable: true)]
+    protected $password;
 
 
-  #[ORM\Column(type: 'string', length: 50)]
-  protected $lastName;
+    #[ORM\Column(type: 'string', length: 50)]
+    protected $firstName;
 
 
-  #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
-  protected $apiKey;
+    #[ORM\Column(type: 'string', length: 50)]
+    protected $lastName;
 
 
-  #[ORM\Column(type: 'json')]
-  protected $roles = [];
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
+    protected $apiKey;
 
 
-  public function getRoles() {
-    $roles = $this->roles;
-    $roles[] = 'ROLE_USER';
+    #[ORM\Column(type: 'json')]
+    protected $roles = [];
 
-    return array_unique($roles);
-  }
 
-  public function setRoles(array $roles) {
-    $this->roles = $roles;
-
-    return $this;
-  }
-
-    public function __construct()
+    public function getRoles()
     {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
 
+        return array_unique($roles);
     }
-    
-  /**
-   * Get name for display
-   *
-   * @return string
-   */
-    public function getDisplayName() {
-      return $this->username;
+
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function __construct() {}
+
+    /**
+     * Get name for display
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->username;
     }
 
 
@@ -119,7 +120,7 @@ class User implements UserInterface, EquatableInterface
      */
     public function getFirstName()
     {
-      return $this->firstName;
+        return $this->firstName;
     }
 
     /**
@@ -133,11 +134,19 @@ class User implements UserInterface, EquatableInterface
     }
 
     /**
+     * Get user identifier (required by UserInterface)
+     *
+     * @return string
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
+
+    /**
      * Erase credentials
      */
-    public function eraseCredentials()
-    {
-    }
+    public function eraseCredentials() {}
 
     /** 
      * Required by interface
@@ -343,5 +352,4 @@ class User implements UserInterface, EquatableInterface
         $this->firstName = $data['firstName'];
         $this->lastName = $data['lastName'];
     }
-
 }
