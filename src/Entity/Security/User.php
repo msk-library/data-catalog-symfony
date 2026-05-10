@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * A user account
@@ -29,7 +30,7 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
  */
 #[ORM\Table(name: 'datacatalog_users')]
 #[ORM\Entity(repositoryClass: \App\Entity\Security\UserRepository::class)]
-class User implements UserInterface, EquatableInterface
+class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Column(type: 'integer', name: 'user_id')]
     #[ORM\Id]
@@ -95,9 +96,9 @@ class User implements UserInterface, EquatableInterface
     /**
      * Get password (not used)
      *
-     * @return string The password
+     * @return string|null The password
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
