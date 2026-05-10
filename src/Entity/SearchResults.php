@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use App\Utils\Slugger;
@@ -23,9 +24,12 @@ use App\Utils\Slugger;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class SearchResults {
+class SearchResults
+{
 
   public $facets;
+
+  public $dateFacets;
 
   public $numResults;
 
@@ -46,12 +50,12 @@ class SearchResults {
    *
    * @param string $solrResponse A JSON response from Solr
    */
-  public function __construct($solrResponse) {
+  public function __construct($solrResponse)
+  {
     $this->solrResponse = json_decode($solrResponse, null, 512, JSON_THROW_ON_ERROR);
     if (isset($this->solrResponse->facet_counts->facet_fields)) {
       $this->facets = (array) $this->solrResponse->facet_counts->facet_fields;
-    } 
-    else {
+    } else {
       throw new \RuntimeException('Solr server is reachable, but returns unexpected response. Check the full URL that is being requested');
     }
     $this->dateFacets   = (array) $this->solrResponse->facet_counts->facet_ranges->dataset_years->counts;
@@ -64,7 +68,6 @@ class SearchResults {
     }
 
     $this->facets = $this->translateFacets($this->facets);
-
   }
 
 
@@ -76,13 +79,14 @@ class SearchResults {
    *
    * @return array $translatedFacets A sane array of facet data for Twig
    */
-  protected function translateFacets($rawFacets) {
+  protected function translateFacets($rawFacets)
+  {
     $translatedFacets = [];
     $rawFacets = (array) $rawFacets;
-    foreach ($rawFacets as $key=>$value) {
+    foreach ($rawFacets as $key => $value) {
       $newFacetName = array_search($key, $this->facetMappings);
       foreach ($value as $facetItem) {
-        $translatedFacets[$newFacetName][] = ['facetItem' => $facetItem[0], 'facetCount'=> $facetItem[1]];
+        $translatedFacets[$newFacetName][] = ['facetItem' => $facetItem[0], 'facetCount' => $facetItem[1]];
       }
     }
     /*
@@ -97,9 +101,7 @@ class SearchResults {
     $translatedFacets['Timeframe'][2]['facetItem'] = $second . ' - ' . ($third-1);
     $translatedFacets['Timeframe'][3]['facetItem'] = $third . ' - ' . ($fourth-1);
     $translatedFacets['Timeframe'][4]['facetItem'] = $fourth . ' - Present';
-    */ 
+    */
     return $translatedFacets;
   }
-
-
 }
