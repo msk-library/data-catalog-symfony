@@ -13,6 +13,27 @@
           <h1>Solr Index</h1>
         </div>
         <p>Trigger a full reindex of all datasets. Progress and errors will be shown below while indexing runs.</p>
+        <p class="fw-bold">Note: Do not navigate away from this page while the reindex is running.</p>
+        <p>Status definitions:</p>
+        <code>
+          <ul>
+            <li>
+              <strong>Total</strong>: Total number of datasets to process.
+            </li>
+            <li>
+              <strong>Processed</strong>: Number of datasets processed so far.
+            </li>
+            <li>
+              <strong>Indexed</strong>: Number of datasets successfully indexed in Solr.
+            </li>
+            <li>
+              <strong>Removed</strong>: Number of datasets removed from Solr because they are unpublished/archived.
+            </li>
+            <li>
+              <strong>Removed stale</strong>: Number of orphaned Solr documents removed that have no corresponding dataset in the database.
+            </li>
+          </ul>
+        </code>
 
         <div class="spacer25"></div>
 
