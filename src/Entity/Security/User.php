@@ -63,8 +63,7 @@ class User implements UserInterface, EquatableInterface
     #[ORM\Column(type: 'json')]
     protected $roles = [];
 
-
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = $this->roles;
         $roles[] = 'ROLE_USER';
