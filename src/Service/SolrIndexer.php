@@ -58,6 +58,32 @@ class SolrIndexer
     ]);
   }
 
+  /**
+   * @return int[]
+   */
+  public function fetchIndexedDatasetIds(): array
+  {
+    $response = $this->httpClient->request('GET', $this->getSolrSelectUrl(), [
+      'query' => [
+        'q' => '*:*',
+        'fl' => 'id',
+        'rows' => 100000,
+        'wt' => 'json',
+      ],
+    ]);
+
+    $payload = $response->toArray(false);
+    $docs = $payload['response']['docs'] ?? [];
+    $ids = [];
+    foreach ($docs as $doc) {
+      if (isset($doc['id'])) {
+        $ids[] = (int) $doc['id'];
+      }
+    }
+
+    return $ids;
+  }
+
   private function collectAffectedDatasets(object $entity): array
   {
     $byUid = [];
@@ -140,5 +166,10 @@ class SolrIndexer
   private function getSolrUpdateUrl(): string
   {
     return $this->getSolrCoreBaseUrl() . '/update?commit=true';
+  }
+
+  private function getSolrSelectUrl(): string
+  {
+    return $this->getSolrCoreBaseUrl() . '/select';
   }
 }

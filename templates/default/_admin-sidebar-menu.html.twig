@@ -26,6 +26,9 @@
         <li class="nav-item {% if app.request.get('_route') == 'admin_users' or 'update/User' in app.request.requestUri %}{% endif %}" role="presentation">
           <a class="nav-link fw-normal" href="{{ path('admin_users') }}">Manage Website Users</a>
         </li>
+        <li class="nav-item {% if app.request.get('_route') == 'admin_solr_index' %}{% endif %}" role="presentation">
+          <a class="nav-link fw-normal" href="{{ path('admin_solr_index') }}">Reindex All Datasets</a>
+        </li>
         <div class="spacer25"></div>
         <li class="nav-item {% if 'update/ArchivedDatasets' in app.request.requestUri %}{% endif %}" role="presentation">
           <a class="nav-link fw-normal" href="{{ path('update_entity', { entityName: 'ArchivedDatasets' }) }}">View Archived Datasets</a>
