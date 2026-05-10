@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
@@ -26,20 +27,22 @@ use App\Entity\AccessRestriction;
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class AccessRestrictionToStringTransformer implements DataTransformerInterface {
-  
+class AccessRestrictionToStringTransformer implements DataTransformerInterface
+{
+
   /**
    * @var ObjectManager
    */
   private $om;
 
-  
+
   /**
    * @param ObjectManager $om
    */
-  public function __construct(ObjectManager $om) {
+  public function __construct(ObjectManager $om)
+  {
     $this->om = $om;
-  }  
+  }
 
 
   /**
@@ -48,7 +51,8 @@ class AccessRestrictionToStringTransformer implements DataTransformerInterface {
    * @param AccessRestriction|null $accessRestriction
    * @return string
    */
-  public function transform($accessRestriction) {
+  public function transform($accessRestriction)
+  {
     if (null === $accessRestriction) {
       return "";
     }
@@ -68,14 +72,15 @@ class AccessRestrictionToStringTransformer implements DataTransformerInterface {
    * @return AccessRestriction|null
    * @throws TransformationFailedException if object (restriction) is not found
    */
-  public function reverseTransform($restriction) {
+  public function reverseTransform($restriction)
+  {
     if (!$restriction) {
       return null;
     }
 
     $issue = $this->om
       ->getRepository('App:AccessRestriction')
-      ->findOneBy(['restriction'=>$restriction]);
+      ->findOneBy(['restriction' => $restriction]);
 
     if (null === $restriction) {
       throw new TransformationFailedException(sprintf(
@@ -86,5 +91,4 @@ class AccessRestrictionToStringTransformer implements DataTransformerInterface {
 
     return $restriction;
   }
-
 }

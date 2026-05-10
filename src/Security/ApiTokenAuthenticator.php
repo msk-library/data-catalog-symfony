@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,7 @@ use App\Entity\Security\User;
 
 class ApiTokenAuthenticator extends AbstractAuthenticator
 {
-    public function __construct(private readonly EntityManagerInterface $em)
-    {
-    }
+    public function __construct(private readonly EntityManagerInterface $em) {}
 
     /**
      * Called on every request to decide if this authenticator should be

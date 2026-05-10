@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -8,7 +9,8 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use App\Entity\Security\User;
 use App\Repository\UserRepository;
 
-class ApiUserProvider implements UserProviderInterface {
+class ApiUserProvider implements UserProviderInterface
+{
 
     protected $user;
     private $userRepository;
@@ -21,7 +23,8 @@ class ApiUserProvider implements UserProviderInterface {
     /**
      * @deprecated This method is deprecated and should not be used.
      */
-    function loadUserByUsername($apiKey) {
+    function loadUserByUsername($apiKey)
+    {
         throw new \BadMethodCallException('loadUserByUsername is deprecated. Use loadUserByIdentifier instead.');
     }
 
@@ -50,7 +53,8 @@ class ApiUserProvider implements UserProviderInterface {
      *
      * @return UserInterface
      */
-    function refreshUser(UserInterface $user) {
+    function refreshUser(UserInterface $user)
+    {
         return $user;
     }
 
@@ -59,7 +63,8 @@ class ApiUserProvider implements UserProviderInterface {
      *
      * @return Boolean
      */
-    function supportsClass($class) {
+    function supportsClass($class)
+    {
         return $class === \App\Entity\Security\User::class;
     }
 }
