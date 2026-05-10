@@ -389,7 +389,7 @@ var trackOutboundLink = function(url, label) {
        {% endif %}
        
        {% if (dataset.relatedDatasets.count > 0) %}
-         {{ render(controller('App\\Controller\\RelatedDatasetController:relatedDatasetAction',{'relatedDatasets':dataset.relatedDatasets, 'format':'html'})) }}
+         {{ render(controller('App\\Controller\\RelatedDatasetController::relatedDatasetAction',{'relatedDatasets':dataset.relatedDatasets, 'format':'html'})) }}
        {% endif %}
        
     <dt>Data Catalog Record Updated</dt>

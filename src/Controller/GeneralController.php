@@ -45,10 +45,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class GeneralController extends AbstractController
 {
-  public function __construct(private readonly Security $security, ParameterBagInterface $params)
-  {
-    $this->params = $params;
-  }
+  public function __construct(private readonly Security $security, private readonly ParameterBagInterface $params) {}
 
 
 
@@ -224,7 +221,7 @@ class GeneralController extends AbstractController
   #[Route(path: '/dataset/{uid}', name: 'view_dataset')]
   public function viewAction($uid, EntityManagerInterface $em, Request $request)
   {
-    $dataset = $em->getRepository(Dataset::Class)
+    $dataset = $em->getRepository(Dataset::class)
       ->findOneBy(['dataset_uid' => $uid]);
 
     // dataset not found
@@ -265,8 +262,8 @@ class GeneralController extends AbstractController
           } else {
 
             $tak_ttl = "PT72H";
-            if ($this->container->hasParameter('tak_ttl')) {
-              $tak_ttl = $this->container->getParameter('tak_ttl');
+            if ($this->params->has('tak_ttl')) {
+              $tak_ttl = $this->params->get('tak_ttl');
             }
             if (new \DateTime() < $tak->getFirstAccess()->modify($tak_ttl)) {
               $view_access = true;
