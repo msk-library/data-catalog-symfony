@@ -46,6 +46,16 @@ class User implements UserInterface
     }
 
     /**
+     * Returns the identifier for this user (e.g. username or email address).
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
+    }
+
+    /**
      * @see UserInterface
      */
     public function getRoles(): array
