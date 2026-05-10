@@ -10,7 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\DatasetViaApiType;
 use App\Entity\Dataset;
+use App\Service\SolrIndexer;
 use App\Utils\Slugger;
+use Throwable;
 
 
 /**
@@ -42,7 +44,10 @@ class APIController extends AbstractController
    */
   public $personEntities = ['Author', 'LocalExpert', 'CorrespondingAuthor'];
 
-  public function __construct(private readonly Security $security)
+  public function __construct(
+    private readonly Security $security,
+    private readonly SolrIndexer $solrIndexer
+  )
   {
   }
 
@@ -149,6 +154,12 @@ class APIController extends AbstractController
           $em->persist($authorship);
         }
         $em->flush();
+
+        try {
+          $this->solrIndexer->reindexDataset($dataset);
+        } catch (Throwable $e) {
+          // Keep API write successful even if Solr is temporarily unavailable.
+        }
 
         return new Response('Dataset Successfully Added', 201);
       } else {
