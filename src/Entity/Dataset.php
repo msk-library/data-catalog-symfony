@@ -1671,7 +1671,7 @@ class Dataset implements JsonSerializable {
      *
      * @return array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): mixed {
       $formats = $awards = $projects = $restrictions = $stds = $genders = $sexes = $ages = [];
       $equipment = $software = $subject_of_study = $others = [];
       $locs = $rel = $areas = $area_details = $domains = $publications = $keywords = $publishers = $core_facilities = $onco_trees = [];
