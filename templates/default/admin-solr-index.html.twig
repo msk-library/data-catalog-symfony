@@ -1,0 +1,343 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}
+  <title>Solr Index</title>
+{% endblock %}
+
+{% block content %}
+  <div class="container mb-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-start">
+      {% include 'default/_admin-sidebar-menu.html.twig' %}
+      <div class="col-12 col-md-9">
+        <div class="page-header">
+          <h1>Solr Index</h1>
+        </div>
+        <p>Trigger a full reindex of all datasets. Progress and errors will be shown below while indexing runs.</p>
+        <p class="fw-bold">Note: Do not navigate away from this page while the reindex is running.</p>
+        <code>
+          <ul>
+            <li>
+              <strong>Total</strong>: Total number of datasets to process.
+            </li>
+            <li>
+              <strong>Processed</strong>: Number of datasets processed so far.
+            </li>
+            <li>
+              <strong>Indexed</strong>: Number of datasets successfully indexed in Solr.
+            </li>
+            <li>
+              <strong>Removed</strong>: Number of datasets removed from Solr because they are unpublished/archived.
+            </li>
+            <li>
+              <strong>Removed stale</strong>: Number of orphaned Solr documents removed that have no corresponding dataset in the database.
+            </li>
+          </ul>
+        </code>
+
+        <div class="spacer25"></div>
+
+        <form id="solr-reindex-form" class="mb-3">
+          <input type="hidden" name="_token" value="{{ csrf_token('admin-solr-index') }}" />
+          <button id="start-reindex-btn" type="submit" class="btn btn-primary">Start Full Reindex</button>
+        </form>
+
+        <div id="solr-status-card" class="card d-none">
+          <div class="card-body">
+            <h5 class="card-title">Indexing Status</h5>
+            <p id="solr-status-text" class="mb-2">Waiting...</p>
+
+            <div class="progress mb-3" role="progressbar" aria-label="Reindex progress">
+              <div id="solr-progress-bar" class="progress-bar" style="width: 0%">0%</div>
+            </div>
+
+            <div class="row g-2 mb-3">
+              <div class="col-6 col-md-3">
+                <strong>Total:</strong> <span id="solr-total">0</span>
+              </div>
+              <div class="col-6 col-md-3">
+                <strong>Processed:</strong> <span id="solr-processed">0</span>
+              </div>
+              <div class="col-6 col-md-3">
+                <strong>Indexed:</strong> <span id="solr-indexed">0</span>
+              </div>
+              <div class="col-6 col-md-3">
+                <strong>Removed:</strong> <span id="solr-removed">0</span>
+              </div>
+              <div class="col-6 col-md-3">
+                <strong>Removed stale:</strong> <span id="solr-removed-stale">0</span>
+              </div>
+            </div>
+
+            <div>
+              <h6>Errors</h6>
+              <ul id="solr-errors" class="mb-0"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div id="solr-log-card" class="card mt-3 d-none">
+          <div class="card-body">
+            <h5 class="card-title">Latest Job Log</h5>
+            <p class="mb-2">
+              <strong>Job:</strong> <span id="solr-log-job-id">None</span>
+            </p>
+            <div class="mb-2 d-flex align-items-center gap-2">
+              <button id="copy-solr-log-btn" type="button" class="btn btn-outline-secondary btn-sm">Copy Log</button>
+              <span id="copy-solr-log-status" class="small text-muted"></span>
+            </div>
+            <pre id="solr-job-log" class="mb-0" style="max-height: 320px; overflow: auto; white-space: pre-wrap;">No log output yet.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+  <script>
+    ;(function () {
+      var form = document.getElementById('solr-reindex-form')
+      var startBtn = document.getElementById('start-reindex-btn')
+      var statusCard = document.getElementById('solr-status-card')
+      var statusText = document.getElementById('solr-status-text')
+      var progressBar = document.getElementById('solr-progress-bar')
+      var totalEl = document.getElementById('solr-total')
+      var processedEl = document.getElementById('solr-processed')
+      var indexedEl = document.getElementById('solr-indexed')
+      var removedEl = document.getElementById('solr-removed')
+      var removedStaleEl = document.getElementById('solr-removed-stale')
+      var errorsEl = document.getElementById('solr-errors')
+      var logCard = document.getElementById('solr-log-card')
+      var logJobIdEl = document.getElementById('solr-log-job-id')
+      var logContentEl = document.getElementById('solr-job-log')
+      var copyLogBtn = document.getElementById('copy-solr-log-btn')
+      var copyLogStatusEl = document.getElementById('copy-solr-log-status')
+    
+      var latestJobId = "{{ latestJobId|default('') }}"
+      var latestStatusUrl = "{{ latestStatusUrl|default('') }}"
+      var logUrlTemplate = '{{ logUrlTemplate }}'
+      var currentJobId = ''
+    
+      var pollTimer = null
+    
+      function setCopyStatus(message) {
+        copyLogStatusEl.textContent = message || ''
+      }
+    
+      function copyTextToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text)
+        }
+    
+        return new Promise(function (resolve, reject) {
+          var textarea = document.createElement('textarea')
+          textarea.value = text
+          textarea.style.position = 'fixed'
+          textarea.style.left = '-9999px'
+          document.body.appendChild(textarea)
+          textarea.focus()
+          textarea.select()
+    
+          try {
+            var copied = document.execCommand('copy')
+            document.body.removeChild(textarea)
+            if (copied) {
+              resolve()
+            } else {
+              reject(new Error('Copy command failed.'))
+            }
+          } catch (error) {
+            document.body.removeChild(textarea)
+            reject(error)
+          }
+        })
+      }
+    
+      function setProgress(total, processed) {
+        var percent = total > 0 ? Math.round((processed / total) * 100) : 0
+        if (processed > 0 && total === 0) {
+          percent = 100
+        }
+        progressBar.style.width = percent + '%'
+        progressBar.textContent = percent + '%'
+      }
+    
+      function renderErrors(errors) {
+        errorsEl.innerHTML = ''
+        if (!errors || !errors.length) {
+          var li = document.createElement('li')
+          li.textContent = 'No errors'
+          errorsEl.appendChild(li)
+          return
+        }
+    
+        errors.forEach(function (err) {
+          var li = document.createElement('li')
+          var uid = err.datasetUid !== null && err.datasetUid !== undefined ? 'Dataset ' + err.datasetUid + ': ' : ''
+          li.textContent = uid + err.title + ' - ' + err.message
+          errorsEl.appendChild(li)
+        })
+      }
+    
+      function renderStatus(status) {
+        statusCard.classList.remove('d-none')
+        statusText.textContent = status.message || status.state || 'Running'
+    
+        var total = Number(status.total || 0)
+        var processed = Number(status.processed || 0)
+        totalEl.textContent = String(total)
+        processedEl.textContent = String(processed)
+        indexedEl.textContent = String(status.indexed || 0)
+        removedEl.textContent = String(status.removed || 0)
+        removedStaleEl.textContent = String(status.removedStale || 0)
+        setProgress(total, processed)
+        renderErrors(status.errors || [])
+    
+        if (status.state === 'completed' || status.state === 'failed') {
+          startBtn.disabled = false
+          if (pollTimer) {
+            clearInterval(pollTimer)
+            pollTimer = null
+          }
+        }
+      }
+    
+      function getLogUrl(jobId) {
+        return logUrlTemplate.replace('JOB_ID', encodeURIComponent(jobId))
+      }
+    
+      function setCurrentJob(jobId) {
+        currentJobId = jobId || ''
+        if (!currentJobId) {
+          return
+        }
+    
+        logCard.classList.remove('d-none')
+        logJobIdEl.textContent = currentJobId
+      }
+    
+      function pollLog(jobId) {
+        if (!jobId) {
+          return
+        }
+    
+        fetch(getLogUrl(jobId), {
+          cache: 'no-store',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+          .then(function (response) {
+            if (!response.ok) {
+              return
+            }
+            return response.json()
+          })
+          .then(function (payload) {
+            if (!payload) {
+              return
+            }
+            var text = payload.logTail || 'No log output yet.'
+            logContentEl.textContent = text
+          })
+      }
+    
+      function pollStatus(statusUrl, jobId) {
+        if (jobId) {
+          setCurrentJob(jobId)
+        }
+    
+        fetch(statusUrl, {
+          cache: 'no-store',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error('Unable to fetch status (' + response.status + ')')
+            }
+            return response.json()
+          })
+          .then(function (status) {
+            renderStatus(status)
+            pollLog(currentJobId)
+          })
+          .catch(function (error) {
+            statusCard.classList.remove('d-none')
+            statusText.textContent = error.message
+          })
+      }
+    
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        startBtn.disabled = true
+        statusCard.classList.remove('d-none')
+        statusText.textContent = 'Starting reindex job...'
+        setProgress(0, 0)
+        renderErrors([])
+    
+        var formData = new FormData(form)
+    
+        fetch("{{ path('admin_solr_index_start') }}", {
+          method: 'POST',
+          cache: 'no-store',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+          .then(function (response) {
+            return response.json().then(function (data) {
+              return { ok: response.ok, status: response.status, data: data }
+            })
+          })
+          .then(function (result) {
+            if (!result.ok) {
+              if (result.data && result.data.statusUrl) {
+                statusText.textContent = result.data.error || 'Monitoring existing job...'
+                setCurrentJob(result.data.jobId || '')
+                pollStatus(result.data.statusUrl, currentJobId)
+                pollTimer = setInterval(function () {
+                  pollStatus(result.data.statusUrl, currentJobId)
+                }, 1500)
+                return
+              }
+              throw new Error(result.data.error || 'Failed to start job (' + result.status + ')')
+            }
+    
+            setCurrentJob(result.data.jobId || '')
+            pollStatus(result.data.statusUrl, currentJobId)
+            pollTimer = setInterval(function () {
+              pollStatus(result.data.statusUrl, currentJobId)
+            }, 1500)
+          })
+          .catch(function (error) {
+            statusText.textContent = error.message
+            startBtn.disabled = false
+          })
+      })
+    
+      if (latestJobId && latestStatusUrl) {
+        setCurrentJob(latestJobId)
+        pollStatus(latestStatusUrl, latestJobId)
+      }
+    
+      copyLogBtn.addEventListener('click', function () {
+        var text = logContentEl.textContent || ''
+        if (!text.trim()) {
+          setCopyStatus('No log text to copy.')
+          return
+        }
+    
+        copyTextToClipboard(text)
+          .then(function () {
+            setCopyStatus('Copied log to clipboard.')
+          })
+          .catch(function () {
+            setCopyStatus('Unable to copy log.')
+          })
+      })
+    })()
+  </script>
+{% endblock %}
