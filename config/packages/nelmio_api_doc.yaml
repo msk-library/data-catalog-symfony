@@ -1,8 +1,8 @@
 nelmio_api_doc:
   documentation:
     info:
-      title: Data Catalog API
-      description: 'REST API for the Data Catalog. Provides endpoints for dataset and related entities like authors, subjects, etc. API key authentication is required for POST endpoints under /api.'
+      title: MSK Data Catalog API
+      description: 'REST API for the MSK Data Catalog. Provides endpoints for dataset and related entities like authors, subjects, etc. API key authentication is required for POST endpoints under /api.'
       version: '1.0.0'
       contact:
         name: MSK Library
