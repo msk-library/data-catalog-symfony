@@ -4,93 +4,66 @@ namespace App\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Security\User;
 
-class ApiTokenAuthenticator extends AbstractGuardAuthenticator
+class ApiTokenAuthenticator extends AbstractAuthenticator
 {
-
     public function __construct(private readonly EntityManagerInterface $em)
     {
     }
+
     /**
      * Called on every request to decide if this authenticator should be
      * used for the request. Returning false will cause this authenticator
      * to be skipped.
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return $request->headers->has('X-AUTH-TOKEN');
     }
+
     /**
-     * Called on every request. Return whatever credentials you want to
-     * be passed to getUser(). Returning null will cause this authenticator
-     * to be skipped.
+     * Authenticate the user based on the X-AUTH-TOKEN header
      */
-    public function getCredentials(Request $request)
+    public function authenticate(Request $request): Passport
     {
-        if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
-            // No token?
-            $token = null;
-        }
-
-        // What you return here will be passed to getUser() as $credentials
-        return ['token' => $token];
-    }
-
-    public function getUser($credentials, UserProviderInterface $userProvider)
-    {
-        $apiKey = $credentials['token'];
+        $apiKey = $request->headers->get('X-AUTH-TOKEN');
 
         if (null === $apiKey) {
-            return;
+            throw new CustomUserMessageAuthenticationException('No API token provided');
         }
 
-        // if a User object, checkCredentials() is called
-        return $userProvider->loadUserByUsername($apiKey);
+        // Load user by API key
+        $user = $this->em->getRepository(User::class)
+            ->findOneBy(['apiKey' => $apiKey]);
+
+        if ($user === null) {
+            throw new CustomUserMessageAuthenticationException('Invalid API token');
+        }
+
+        return new SelfValidatingPassport(
+            new UserBadge($apiKey, fn() => $user)
+        );
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
-    {
-        // check credentials - e.g. make sure the password is valid
-        // no credential check is needed in this case
-
-        // return true to cause authentication success
-        return true;
-    }
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // on success, let the request continue
         return null;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        $data = ['message' => strtr($exception->getMessageKey(), $exception->getMessageData())];
+        $data = ['message' => $exception->getMessageKey()];
 
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);
-    }
-
-    /**
-     * Called when authentication is needed, but it's not sent
-     */
-    public function start(Request $request, AuthenticationException $authException = null)
-    {
-        $data = [
-            // you might translate this message
-            'message' => 'Authentication Required',
-        ];
-
-        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
-    }
-
-    public function supportsRememberMe()
-    {
-        return false;
     }
 }
