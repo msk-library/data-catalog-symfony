@@ -2,7 +2,7 @@ nelmio_api_doc:
   documentation:
     info:
       title: Data Catalog API
-      description: 'REST API for the Data Catalog application. Provides endpoints for dataset management, entity data access, and Solr search indexing administration.'
+      description: 'REST API for the Data Catalog. Provides endpoints for dataset and related entities like authors, subjects, etc. API key authentication is required for POST endpoints under /api.'
       version: '1.0.0'
       contact:
         name: MSK Library
