@@ -9,7 +9,7 @@ if (false !== $appDebug && '0' !== (string) $appDebug && 'false' !== strtolower(
     error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 }
 
-require dirname(__DIR__).'/config/bootstrap.php';
+require dirname(__DIR__) . '/config/bootstrap.php';
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
