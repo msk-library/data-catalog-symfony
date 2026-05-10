@@ -14,7 +14,6 @@ use App\Form\DatasetType;
 use App\Utils\Slugger;
 use Symfony\Component\Process\Process;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use OpenApi\Attributes as OA;
 
 
 /**
@@ -89,20 +88,6 @@ class AdminController extends AbstractController
   }
 
   #[Route(path: '/admin/solr-index', name: 'admin_solr_index', methods: ['GET'])]
-  #[OA\Get(
-    path: '/admin/solr-index',
-    tags: ['Solr Administration'],
-    summary: 'View Solr index admin page',
-    description: 'Display the Solr indexing admin dashboard with controls for starting a full reindex and monitoring progress.',
-    responses: [
-      new OA\Response(
-        response: 200,
-        description: 'Admin dashboard HTML page'
-      ),
-      new OA\Response(response: 403, description: 'Forbidden - Admin access required')
-    ],
-    security: [['admin_role' => []]]
-  )]
   public function solrIndexAction(): Response
   {
     $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -119,27 +104,6 @@ class AdminController extends AbstractController
   }
 
   #[Route(path: '/admin/solr-index/start', name: 'admin_solr_index_start', methods: ['POST'])]
-  #[OA\Post(
-    path: '/admin/solr-index/start',
-    tags: ['Solr Administration'],
-    summary: 'Start full Solr reindex',
-    description: 'Trigger a full reindex of all datasets and related entities into Solr. This is a background job that processes datasets incrementally. Returns the job ID for status tracking.',
-    responses: [
-      new OA\Response(
-        response: 200,
-        description: 'Reindex job started successfully',
-        content: new OA\JsonContent(
-          properties: [
-            new OA\Property(property: 'jobId', type: 'string', description: 'Unique job identifier'),
-            new OA\Property(property: 'statusUrl', type: 'string', description: 'Relative URL to check job status')
-          ]
-        )
-      ),
-      new OA\Response(response: 403, description: 'Forbidden - Admin access required'),
-      new OA\Response(response: 409, description: 'Conflict - A reindex job is already running')
-    ],
-    security: [['admin_role' => []]]
-  )]
   public function startSolrIndexAction(Request $request): JsonResponse
   {
     $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -261,45 +225,6 @@ class AdminController extends AbstractController
   }
 
   #[Route(path: '/admin/solr-index/status/{jobId}', name: 'admin_solr_index_status', methods: ['GET'])]
-  #[OA\Get(
-    path: '/admin/solr-index/status/{jobId}',
-    tags: ['Solr Administration'],
-    summary: 'Get reindex job status',
-    description: 'Retrieve the current status and progress of a Solr reindex job. Returns counters for total, processed, indexed, and removed documents.',
-    parameters: [
-      new OA\Parameter(
-        name: 'jobId',
-        in: 'path',
-        description: 'Job ID returned from reindex start endpoint',
-        required: true,
-        schema: new OA\Schema(type: 'string')
-      )
-    ],
-    responses: [
-      new OA\Response(
-        response: 200,
-        description: 'Job status',
-        content: new OA\JsonContent(
-          properties: [
-            new OA\Property(property: 'jobId', type: 'string'),
-            new OA\Property(property: 'state', type: 'string', enum: ['starting', 'running', 'completed', 'failed']),
-            new OA\Property(property: 'total', type: 'integer', description: 'Total datasets to process'),
-            new OA\Property(property: 'processed', type: 'integer', description: 'Datasets processed so far'),
-            new OA\Property(property: 'indexed', type: 'integer', description: 'Datasets successfully indexed'),
-            new OA\Property(property: 'removed', type: 'integer', description: 'Datasets removed from Solr'),
-            new OA\Property(property: 'removedStale', type: 'integer', description: 'Stale documents removed from Solr'),
-            new OA\Property(property: 'pid', type: 'integer', description: 'Process ID of background worker'),
-            new OA\Property(property: 'errors', type: 'array', items: new OA\Items(type: 'string')),
-            new OA\Property(property: 'message', type: 'string'),
-            new OA\Property(property: 'startedAt', type: 'string', format: 'date-time'),
-            new OA\Property(property: 'finishedAt', type: 'string', format: 'date-time')
-          ]
-        )
-      ),
-      new OA\Response(response: 404, description: 'Job not found')
-    ],
-    security: [['admin_role' => []]]
-  )]
   public function solrIndexStatusAction(string $jobId): JsonResponse
   {
     $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -347,35 +272,6 @@ class AdminController extends AbstractController
   }
 
   #[Route(path: '/admin/solr-index/log/{jobId}', name: 'admin_solr_index_log', methods: ['GET'])]
-  #[OA\Get(
-    path: '/admin/solr-index/log/{jobId}',
-    tags: ['Solr Administration'],
-    summary: 'Get reindex job log',
-    description: 'Retrieve the last 200 lines of the reindex job log output for debugging and monitoring.',
-    parameters: [
-      new OA\Parameter(
-        name: 'jobId',
-        in: 'path',
-        description: 'Job ID returned from reindex start endpoint',
-        required: true,
-        schema: new OA\Schema(type: 'string')
-      )
-    ],
-    responses: [
-      new OA\Response(
-        response: 200,
-        description: 'Last lines of job log',
-        content: new OA\JsonContent(
-          properties: [
-            new OA\Property(property: 'jobId', type: 'string'),
-            new OA\Property(property: 'log', type: 'string', description: 'Last 200 lines of log output')
-          ]
-        )
-      ),
-      new OA\Response(response: 404, description: 'Job not found')
-    ],
-    security: [['admin_role' => []]]
-  )]
   public function solrIndexLogAction(string $jobId): JsonResponse
   {
     $this->denyAccessUnlessGranted('ROLE_ADMIN');
