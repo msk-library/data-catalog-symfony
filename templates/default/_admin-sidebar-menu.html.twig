@@ -6,7 +6,7 @@
         <li class="nav-item {% if app.request.get('_route') == 'approval_queue' %}{% endif %}" role="presentation">
           <a class="nav-link fw-normal" href="{{ path('approval_queue') }}">
             View Unpublished Datasets
-            {{ render(controller('App\\Controller\\QueueController:queueLengthAction')) }}
+            {{ render(controller('App\\Controller\\QueueController::queueLengthAction')) }}
           </a>
         </li>
 

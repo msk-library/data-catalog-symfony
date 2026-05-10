@@ -209,7 +209,7 @@
         <dd><a target="_blank" href="{{ dataset.pubmedSearch }}">View articles which use this dataset</a></dd>
        
        {% if (dataset.relatedDatasets.count > 0) %}
-         {{ render(controller('App\\Controller\\RelatedDatasetController:relatedDatasetAction',{'relatedDatasets':dataset.relatedDatasets})) }}
+         {{ render(controller('App\\Controller\\RelatedDatasetController::relatedDatasetAction',{'relatedDatasets':dataset.relatedDatasets})) }}
        {% endif %}
      </dl>
     </div>
