@@ -8,6 +8,11 @@ use Symfony\Component\ErrorHandler\Debug;
 
 set_time_limit(0);
 
+$appDebug = $_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? getenv('APP_DEBUG');
+if (false !== $appDebug && '0' !== (string) $appDebug && 'false' !== strtolower((string) $appDebug)) {
+    error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+}
+
 require dirname(__DIR__).'/vendor/autoload.php';
 
 if (!class_exists(Application::class)) {
