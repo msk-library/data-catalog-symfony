@@ -38,6 +38,9 @@ use OpenApi\Attributes as OA;
  */
 class APIController extends AbstractController
 {
+  private const ENTITY_ALIASES = [
+    'OncoTreeCancerType' => 'OncoTree',
+  ];
 
   /**
    *  We have several pseudo-entities that all relate back to the Person
@@ -49,6 +52,18 @@ class APIController extends AbstractController
     private readonly Security $security,
     private readonly SolrIndexer $solrIndexer
   ) {}
+
+  private function resolveEntityClass(string $entityName): ?string
+  {
+    if (in_array($entityName, $this->personEntities, true)) {
+      return \App\Entity\Person::class;
+    }
+
+    $resolvedEntityName = self::ENTITY_ALIASES[$entityName] ?? $entityName;
+    $entityClass = 'App\\Entity\\' . $resolvedEntityName;
+
+    return class_exists($entityClass) ? $entityClass : null;
+  }
 
   /**
    * Produce the JSON output
@@ -261,7 +276,7 @@ class APIController extends AbstractController
     path: '/api/{entityName}',
     tags: ['Entities'],
     summary: 'Create a new entity',
-    description: 'Ingest a new entity (Author, LocalExpert, CorrespondingAuthor, Publication, CoreFacility, OncoTreeCancerType, etc.) via API. Requires ROLE_API_SUBMITTER permission. Users cannot be added via API.',
+    description: 'Ingest a new entity (Author, LocalExpert, CorrespondingAuthor, Publication, CoreFacility, OncoTree, etc.) via API. Requires ROLE_API_SUBMITTER permission. Users cannot be added via API. The legacy alias OncoTreeCancerType is accepted for reads.',
     parameters: [
       new OA\Parameter(
         name: 'entityName',
@@ -359,12 +374,12 @@ class APIController extends AbstractController
     path: '/api/{entityName}/{slug}',
     tags: ['Entities'],
     summary: 'Get entity or entities',
-    description: 'Retrieve entity data by slug or retrieve all entities if slug is "all". For Publications, the slug is the SynapseID. Users cannot be fetched via API.',
+    description: 'Retrieve entity data by slug or retrieve all entities if slug is "all". For Publications, the slug is the SynapseID. Users cannot be fetched via API. Use OncoTree as the canonical entity name; OncoTreeCancerType is supported as a legacy alias.',
     parameters: [
       new OA\Parameter(
         name: 'entityName',
         in: 'path',
-        description: 'Entity type name (Author, Publication, CoreFacility, OncoTreeCancerType, etc.)',
+        description: 'Entity type name (Author, Publication, CoreFacility, OncoTree, etc.)',
         required: true,
         schema: new OA\Schema(type: 'string')
       ),
@@ -403,10 +418,9 @@ class APIController extends AbstractController
 
     $em = $this->getDoctrine()->getManager();
     $qb = $em->createQueryBuilder();
-    if (in_array($entityName, $this->personEntities)) {
-      $entity = \App\Entity\Person::class;
-    } else {
-      $entity = 'App\Entity\\' . $entityName;
+    $entity = $this->resolveEntityClass((string) $entityName);
+    if ($entity === null) {
+      return new Response('Unknown entity type: ' . $entityName, 404);
     }
 
     if ($slug == "all") {
