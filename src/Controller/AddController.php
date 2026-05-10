@@ -11,8 +11,10 @@ use App\Entity\Dataset;
 use App\Repository\DatasetRepository;
 use App\Form\DatasetAsAdminType;
 use App\Form\DatasetAsUserType;
+use App\Service\SolrIndexer;
 use App\Utils\Slugger;
 use Doctrine\ORM\EntityManagerInterface;
+use Throwable;
 
 /*
  * A controller to handle the addition of new datasets and other entities
@@ -36,8 +38,11 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class AddController extends AbstractController {
 
-  public function __construct(private readonly Security $security, EntityManagerInterface $em) {
-    $this->em = $em;
+  public function __construct(
+    private readonly Security $security,
+    private readonly SolrIndexer $solrIndexer,
+    private readonly EntityManagerInterface $em
+  ) {
   }
 
   /**
@@ -57,7 +62,7 @@ class AddController extends AbstractController {
   public function addAction(Request $request) {
     $dataset = new Dataset();
     $userIsAdmin = $this->security->isGranted('ROLE_ADMIN');
-    $datasetUid = $this->em->getRepository(Dataset::Class)
+    $datasetUid = $this->em->getRepository(Dataset::class)
                      ->getNewDatasetId();
     $dataset->setDatasetUid($datasetUid);
 
@@ -110,6 +115,7 @@ class AddController extends AbstractController {
         $this->em->persist($authorship);
       }
       $this->em->flush();
+      $this->attemptDatasetReindex($dataset);
      
       return $this->render('default/add_success.html.twig', ['adminPage'=>true, 'entityName'=>'Dataset', 'displayName'=>'Dataset', 'addedEntityName'=>$addedEntityName, 'userIsAdmin'=>$userIsAdmin, 'uid'=>$datasetUid]);
     } else {
@@ -183,6 +189,7 @@ class AddController extends AbstractController {
       
       $this->em->persist($entity);
       $this->em->flush();
+      $this->attemptRelatedEntityReindex($entity);
       
       //
       // Added, 6/28/2017, Joel Marchewka
@@ -195,6 +202,24 @@ class AddController extends AbstractController {
     return $this->render('default/'.$addTemplate, ['form' => $form->createView(), 'userIsAdmin'=>$userIsAdmin, 'displayName' => $entityTypeDisplayName, 'adminPage'=>true, 'entityName' => $entityName]);
       
   } 
+
+  private function attemptDatasetReindex(Dataset $dataset): void
+  {
+    try {
+      $this->solrIndexer->reindexDataset($dataset);
+    } catch (Throwable $e) {
+      $this->addFlash('warning', 'Saved successfully, but Solr reindex failed for this dataset.');
+    }
+  }
+
+  private function attemptRelatedEntityReindex(object $entity): void
+  {
+    try {
+      $this->solrIndexer->reindexDatasetsForEntity($entity);
+    } catch (Throwable $e) {
+      $this->addFlash('warning', 'Saved successfully, but Solr reindex failed for one or more related datasets.');
+    }
+  }
 
 
 }
