@@ -5,7 +5,7 @@ nelmio_api_doc:
       description: 'REST API for the Data Catalog application. Provides endpoints for dataset management, entity data access, and Solr search indexing administration.'
       version: '1.0.0'
       contact:
-        name: NYU Health Sciences Library
+        name: MSK Library
     components:
       securitySchemes:
         api_submitter:

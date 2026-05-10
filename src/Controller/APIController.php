@@ -48,9 +48,7 @@ class APIController extends AbstractController
   public function __construct(
     private readonly Security $security,
     private readonly SolrIndexer $solrIndexer
-  )
-  {
-  }
+  ) {}
 
   /**
    * Produce the JSON output
@@ -104,25 +102,26 @@ class APIController extends AbstractController
       new OA\Response(response: 404, description: 'Dataset not found')
     ]
   )]
-  public function APIDatasetGetAction($uid, $_format, Request $request) {
+  public function APIDatasetGetAction($uid, $_format, Request $request)
+  {
 
     $em = $this->getDoctrine()->getManager();
     $qb = $em->createQueryBuilder();
 
     if ($uid == "all") {
       $datasets = $qb->select('d')
-                     ->from('App:Dataset', 'd')
-                     ->where('d.archived = 0 OR d.archived IS NULL')
-                     ->andWhere('d.published = 1')
-                     ->getQuery()->getResult();
+        ->from('App:Dataset', 'd')
+        ->where('d.archived = 0 OR d.archived IS NULL')
+        ->andWhere('d.published = 1')
+        ->getQuery()->getResult();
     } else {
       $datasets = $qb->select('d')
-                     ->from('App:Dataset', 'd')
-                     ->where('d.dataset_uid = :uid')
-                     ->andWhere('d.published = 1')
-                     ->andWhere('d.archived = 0 OR d.archived IS NULL')
-                     ->setParameter('uid', $uid)
-                     ->getQuery()->getResult();
+        ->from('App:Dataset', 'd')
+        ->where('d.dataset_uid = :uid')
+        ->andWhere('d.published = 1')
+        ->andWhere('d.archived = 0 OR d.archived IS NULL')
+        ->setParameter('uid', $uid)
+        ->getQuery()->getResult();
     }
 
     $output_format = $request->get('output_format', 'default');
@@ -149,7 +148,7 @@ class APIController extends AbstractController
         // default will use the entity's jsonSerialize() method
         $content = $datasets;
     }
-    
+
     if ($_format == "json") {
       $response = new Response();
       $response->setContent(json_encode($content, JSON_THROW_ON_ERROR));
@@ -157,8 +156,6 @@ class APIController extends AbstractController
 
       return $response;
     }
-
-
   }
 
 
@@ -202,18 +199,19 @@ class APIController extends AbstractController
     ],
     security: [['api_submitter' => []]]
   )]
-  public function APIDatasetPostAction(Request $request) {
+  public function APIDatasetPostAction(Request $request)
+  {
     $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
     $dataset = new Dataset();
     $em = $this->getDoctrine()->getManager();
     $userCanSubmit = $this->security->isGranted('ROLE_API_SUBMITTER');
 
     $datasetUid = $em->getRepository('App:Dataset')
-                     ->getNewDatasetId();
+      ->getNewDatasetId();
     $dataset->setDatasetUid($datasetUid);
 
     if ($userCanSubmit) {
-      $form = $this->createForm(new DatasetViaApiType($userCanSubmit, $datasetUid), $dataset, ['csrf_protection'=>false]);
+      $form = $this->createForm(new DatasetViaApiType($userCanSubmit, $datasetUid), $dataset, ['csrf_protection' => false]);
       $form->submit($submittedData);
       if ($form->isSubmitted() && $form->isValid()) {
         $dataset = $form->getData();
@@ -238,14 +236,14 @@ class APIController extends AbstractController
 
         return new Response('Dataset Successfully Added', 201);
       } else {
-          $errors = $form->getErrorsAsString();
-          $response = new Response(json_encode($errors, JSON_THROW_ON_ERROR), 422);
-          $response->headers->set('Content-Type', 'application/json');
+        $errors = $form->getErrorsAsString();
+        $response = new Response(json_encode($errors, JSON_THROW_ON_ERROR), 422);
+        $response->headers->set('Content-Type', 'application/json');
 
-          return $response;
+        return $response;
       }
     } else {
-        return new Response('Unauthorized', 401);
+      return new Response('Unauthorized', 401);
     }
   }
 
@@ -288,7 +286,8 @@ class APIController extends AbstractController
     ],
     security: [['api_submitter' => []]]
   )]
-  public function APIEntityPostAction($entityName, Request $request) {
+  public function APIEntityPostAction($entityName, Request $request)
+  {
     $submittedData = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
     if ($entityName == 'User') {
@@ -298,7 +297,7 @@ class APIController extends AbstractController
     }
 
     $userCanSubmit = $this->security->isGranted('ROLE_API_SUBMITTER');
-    
+
     //prefix with namespaces so it can be called dynamically
     if (in_array($entityName, $this->personEntities)) {
       $newEntity = \App\Entity\Person::class;
@@ -309,9 +308,11 @@ class APIController extends AbstractController
 
     $em = $this->getDoctrine()->getManager();
     if ($userCanSubmit) {
-      $form = $this->createForm(new $newEntityFormType(), 
-                                new $newEntity(),
-                                ['csrf_protection'=>false]);
+      $form = $this->createForm(
+        new $newEntityFormType(),
+        new $newEntity(),
+        ['csrf_protection' => false]
+      );
       $form->submit($submittedData);
       if ($form->isSubmitted() && $form->isValid()) {
         $entity = $form->getData();
@@ -320,7 +321,7 @@ class APIController extends AbstractController
         $addedEntityName = $entity->getDisplayName();
         $slug = Slugger::slugify($addedEntityName);
         $entity->setSlug($slug);
-        
+
         $em->persist($entity);
         $em->flush();
 
@@ -334,7 +335,7 @@ class APIController extends AbstractController
       }
     } else {
       return new Response('Unauthorized', 401);
-    } 
+    }
   }
 
 
@@ -394,7 +395,8 @@ class APIController extends AbstractController
       new OA\Response(response: 403, description: 'Forbidden - Users cannot be fetched via API')
     ]
   )]
-  public function APIEntityGetAction($entityName, $slug, $_format, Request $request) {
+  public function APIEntityGetAction($entityName, $slug, $_format, Request $request)
+  {
     if ($entityName == 'User') {
       return new Response('Users cannot be fetched via API', 403);
     }
@@ -409,20 +411,20 @@ class APIController extends AbstractController
 
     if ($slug == "all") {
       $entities = $qb->select('e')
-                     ->from($entity, 'e')
-                     ->getQuery()->getResult();
+        ->from($entity, 'e')
+        ->getQuery()->getResult();
     } else if ($entityName == 'Publication') {
       $entities = $qb->select('e')
-                    ->from($entity, 'e')
-                    ->where('e.synapseid = :synapseid')
-                    ->setParameter('synapseid', $slug)
-                    ->getQuery()->getResult();
+        ->from($entity, 'e')
+        ->where('e.synapseid = :synapseid')
+        ->setParameter('synapseid', $slug)
+        ->getQuery()->getResult();
     } else {
       $entities = $qb->select('e')
-                     ->from($entity, 'e')
-                     ->where('e.slug = :slug')
-                     ->setParameter('slug', $slug)
-                     ->getQuery()->getResult();
+        ->from($entity, 'e')
+        ->where('e.slug = :slug')
+        ->setParameter('slug', $slug)
+        ->getQuery()->getResult();
     }
     for ($i = 0; $i < (is_countable($entities) ? count($entities) : 0); $i++) {
       $entities[$i] = $entities[$i]->getAllProperties();
@@ -435,8 +437,5 @@ class APIController extends AbstractController
 
       return $response;
     }
-
-
   }
-
 }
