@@ -51,9 +51,9 @@ class CustomLdapUserProvider extends BaseLdapUserProvider implements ContainerAw
 
 
     /**
-     * @param ContainerInterface|NULL $container
+     * @param ContainerInterface|null $container
      */
-    public function setContainer(ContainerInterface $container = null) {
+    public function setContainer(?ContainerInterface $container = null): void {
         $this->container = $container;
     }
 
