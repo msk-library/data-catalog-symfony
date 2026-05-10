@@ -328,6 +328,10 @@ h3 a:hover,
   text-decoration: none;
 }
 
+#header a:hover {
+  text-decoration: underline;
+}
+
 #navigation a.active {
   font-weight: 550;
 }
