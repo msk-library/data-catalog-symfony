@@ -1,6 +1,5 @@
 {% macro JSONLD_output(dataset) %}
-{% apply spaceless %}
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "Dataset",
@@ -118,5 +117,4 @@
 }
 
 </script>
-{% endapply %}
 {% endmacro %}

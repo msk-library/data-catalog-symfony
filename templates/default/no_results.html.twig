@@ -12,14 +12,14 @@
 <div id="search-stats-header" class="offset-2 clearfix">
 <div class="" id="facet-breadcrumbs">
  {% if currentSearch.keyword %}
-   <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm">
+   <button class="keyword-breadcrumb btn btn-outline-secondary btn-sm rounded-pill">
      Keyword: "{{ currentSearch.keyword }}"
    </button>
    {% endif %} 
  {% for facet in currentSearch.facets %}
    {% set facetSplit = facet|split(':') %}
     
-   <button data-machine-name="{{ facet }}" class="facetBreadcrumb btn btn-outline-secondary btn-sm">
+   <button data-machine-name="{{ facet }}" class="facetBreadcrumb btn btn-outline-secondary btn-sm rounded-pill">
     {{ results.facetMappings[facetSplit[0]] }}:{{ facetSplit[1] }} 
    </button>
  {% endfor %}

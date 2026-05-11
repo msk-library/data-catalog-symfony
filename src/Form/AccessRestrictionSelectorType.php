@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Form\DataTransformer\AccessRestrictionToStringTransformer;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -61,7 +62,7 @@ class AccessRestrictionSelectorType extends AbstractType
         $resolver->setDefaults(['invalid_message' => 'The selected access restriction does not exist']);
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'text';
     }

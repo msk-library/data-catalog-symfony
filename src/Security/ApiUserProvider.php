@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -6,28 +7,44 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 use App\Entity\Security\User;
+use App\Repository\UserRepository;
 
-class ApiUserProvider implements UserProviderInterface {
+class ApiUserProvider implements UserProviderInterface
+{
 
     protected $user;
-    public function __construct (UserInterface $user) {
-        $this->user = $user;
-        var_dump("using API provider");
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
     }
 
     /**
-     * @throws UsernameNotFoundException if the user is not found
-     * @param string $username The username
+     * @deprecated This method is deprecated and should not be used.
+     */
+    function loadUserByUsername($apiKey)
+    {
+        throw new \BadMethodCallException('loadUserByUsername is deprecated. Use loadUserByIdentifier instead.');
+    }
+
+    /**
+     * Loads the user for the given user identifier (e.g., username or email).
+     *
+     * @param string $identifier The user identifier
      *
      * @return UserInterface
+     *
+     * @throws UsernameNotFoundException if the user is not found
      */
-    function loadUserByUsername($apiKey) {
-        var_dump("using API provider");
-        $user = User::find(['apiKey'=>$apiKey]);
-        if(empty($user)){
-            throw new UsernameNotFoundException('Could not find user. Sorry!');
+    public function loadUserByIdentifier(string $identifier): UserInterface
+    {
+        $user = $this->userRepository->findOneBy(['apiKey' => $identifier]);
+
+        if (empty($user)) {
+            throw new UsernameNotFoundException('Could not find user with identifier: ' . $identifier);
         }
-        $this->user = $user;
+
         return $user;
     }
 
@@ -36,7 +53,8 @@ class ApiUserProvider implements UserProviderInterface {
      *
      * @return UserInterface
      */
-    function refreshUser(UserInterface $user) {
+    function refreshUser(UserInterface $user)
+    {
         return $user;
     }
 
@@ -45,7 +63,8 @@ class ApiUserProvider implements UserProviderInterface {
      *
      * @return Boolean
      */
-    function supportsClass($class) {
+    function supportsClass($class)
+    {
         return $class === \App\Entity\Security\User::class;
     }
 }

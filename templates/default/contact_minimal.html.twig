@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+  <h1>Minimal Form Test</h1>
+  <p>Testing if forms work...</p>
+  <form method="POST" action="/contact-us">
+    <input type="text" name="test" value="test" />
+    <button type="submit">Submit</button>
+  </form>
+  <p>End of test</p>
+{% endblock %}

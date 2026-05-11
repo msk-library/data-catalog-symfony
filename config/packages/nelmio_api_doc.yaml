@@ -1,0 +1,29 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: MSK Data Catalog API
+      description: 'REST API for the MSK Data Catalog. Provides endpoints for dataset and related entities like authors, subjects, etc. API key authentication is required for POST endpoints under /api.'
+      version: '1.0.0'
+      contact:
+        name: MSK Library
+    components:
+      securitySchemes:
+        api_submitter:
+          type: apiKey
+          in: header
+          name: X-AUTH-TOKEN
+          description: API key required for POST endpoints under /api.
+        admin_role:
+          type: apiKey
+          in: cookie
+          name: PHPSESSID
+          description: Authenticated admin browser session cookie for /admin endpoints.
+    servers:
+      - url: /
+        description: Current server
+  areas:
+    default:
+      path_patterns:
+        - ^/api
+      with_attribute: false
+

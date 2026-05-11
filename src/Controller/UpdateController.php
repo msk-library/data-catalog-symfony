@@ -11,7 +11,9 @@ use App\Entity\Dataset;
 use App\Form\DatasetAsUserType;
 use App\Form\DatasetAsAdminType;
 use App\Form\UserType;
+use App\Service\SolrIndexer;
 use App\Utils\Slugger;
+use Throwable;
 
 
 /**
@@ -36,7 +38,10 @@ use App\Utils\Slugger;
  */
 class UpdateController extends AbstractController {
 
-  public function __construct(private readonly Security $security)
+  public function __construct(
+    private readonly Security $security,
+    private readonly SolrIndexer $solrIndexer
+  )
   {
   }
 
@@ -89,6 +94,7 @@ class UpdateController extends AbstractController {
       }
       $thisEntity->setDateUpdated(new \DateTime("now"));
       $em->flush();
+      $this->attemptDatasetReindex($thisEntity);
       return $this->render('default/update_success.html.twig', ['adminPage'       => true, 'displayName'     => 'Dataset', 'entityName'      => 'Dataset', 'addedEntityName' => $addedEntityName, 'uid'             => $uid, 'newSlug'         => $newSlug]);
     } else {
       $formToRender = $userIsAdmin ? 'default/update_dataset_admin.html.twig' : 'default/update_dataset_user.html.twig';
@@ -192,10 +198,29 @@ class UpdateController extends AbstractController {
         $thisEntity->setDateUpdated(new \DateTime("now"));
       }
       $em->flush();
+      $this->attemptRelatedEntityReindex($thisEntity);
       return $this->render('default/update_success.html.twig', ['adminPage'=>true, 'displayName'=>$entityTypeDisplayName, 'entityName' =>$entityName, 'addedEntityName' => $addedEntityName, 'newSlug'    => $newSlug]);
 
     } else {
       return $this->render('default/update.html.twig', ['form'    => $form->createView(), 'displayName'=>$entityTypeDisplayName, 'adminPage'=>true, 'userIsAdmin'=>$userIsAdmin, 'slug'       =>$slug, 'entityName' =>$entityName]);
+    }
+  }
+
+  private function attemptDatasetReindex(Dataset $dataset): void
+  {
+    try {
+      $this->solrIndexer->reindexDataset($dataset);
+    } catch (Throwable $e) {
+      $this->addFlash('warning', 'Saved successfully, but Solr reindex failed for this dataset.');
+    }
+  }
+
+  private function attemptRelatedEntityReindex(object $entity): void
+  {
+    try {
+      $this->solrIndexer->reindexDatasetsForEntity($entity);
+    } catch (Throwable $e) {
+      $this->addFlash('warning', 'Saved successfully, but Solr reindex failed for one or more related datasets.');
     }
   }
 
