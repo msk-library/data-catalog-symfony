@@ -500,3 +500,47 @@ h3 a:hover,
     }
   }
 }
+
+.site-alerts-wrapper {
+  background-color: #ffbe02;
+  padding: 1.25em 0;
+  color: #272524;
+}
+
+.btn-primary {
+  background-color: #0073e0 !important;
+  background-image: none;
+  border-color: none;
+  text-shadow: none;
+}
+
+.btn-primary:hover {
+  background-color: #002569 !important;
+}
+
+.alert-dismissible .btn-close {
+  color: #272524;
+  opacity: 1;
+  top: 20%;
+  right: 10%;
+}
+
+@media (max-width: 576px) {
+  #msk-survey-alert.alert-dismissible {
+    position: relative;
+    padding-top: 2.75rem;
+    padding-right: 1rem;
+  }
+
+  #msk-survey-alert.alert-dismissible .btn-close {
+    position: absolute;
+    top: .65rem;
+    right: .65rem;
+    z-index: 2;
+    padding: .65rem;
+    background-color: rgba(255, 255, 255, .85);
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(39, 37, 36, .25);
+    opacity: 1;
+  }
+}

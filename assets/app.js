@@ -73,3 +73,48 @@ $(document).ready(function () {
     }
   });
 });
+
+
+const MSK_SURVEY_ALERT_ID = 'msk-survey-alert';
+const MSK_SURVEY_ALERT_STORAGE_KEY = 'mskSurveyAlertDismissedUntil';
+const MSK_SURVEY_ALERT_HIDE_DURATION_MS = 7 * 24 * 60 * 60 * 1000;
+
+function initMskSurveyAlert() {
+  const alertElement = document.getElementById(MSK_SURVEY_ALERT_ID);
+  if (!alertElement) {
+    return;
+  }
+
+  let dismissedUntil = 0;
+  try {
+    dismissedUntil = Number(localStorage.getItem(MSK_SURVEY_ALERT_STORAGE_KEY)) || 0;
+  } catch (error) {
+    dismissedUntil = 0;
+  }
+
+  if (dismissedUntil > Date.now()) {
+    alertElement.classList.add('d-none');
+    return;
+  }
+
+  alertElement.classList.remove('d-none');
+  alertElement.classList.add('show');
+
+  if (alertElement.dataset.dismissHandlerAttached === 'true') {
+    return;
+  }
+
+  alertElement.addEventListener('closed.bs.alert', function () {
+    try {
+      const hideUntil = Date.now() + MSK_SURVEY_ALERT_HIDE_DURATION_MS;
+      localStorage.setItem(MSK_SURVEY_ALERT_STORAGE_KEY, String(hideUntil));
+    } catch (error) {
+      // localStorage may be unavailable in some privacy contexts.
+    }
+  });
+
+  alertElement.dataset.dismissHandlerAttached = 'true';
+}
+
+document.addEventListener('DOMContentLoaded', initMskSurveyAlert);
+document.addEventListener('turbo:load', initMskSurveyAlert);
